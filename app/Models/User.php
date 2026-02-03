@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+  use Notifiable;
+  protected $table = 'users';
+  protected $fillable = [
+    'id',
+    'email',
+    'password',
+    'role',
+    'created_at',
+    'updated_at',
+    'deleted_at',
+    'person_id',
+    'email_verified_at',
+  ];
+}
