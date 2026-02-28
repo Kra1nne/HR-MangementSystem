@@ -85,7 +85,7 @@
                                     <option value="" selected disabled>Select Role</option>
                                     <option value="Admin">Admin</option>
                                     <option value="Employee">Employee</option>
-                                    <option value="User">User</option>
+                                    <option value="Hr">Hr</option>
                                 </select>
                                 <label for="exampleFormControlSelect1">Role</label>
                             </div>
@@ -173,7 +173,7 @@
                                     <option value="" selected disabled>Select Role</option>
                                     <option value="Admin">Admin</option>
                                     <option value="Employee">Employee</option>
-                                    <option value="User">User</option>
+                                    <option value="Hr">Hr</option>
                                 </select>
                                 <label for="exampleFormControlSelect1">Role</label>
                             </div>
@@ -203,6 +203,7 @@
                     'lastname' => $user->lastname,
                     'email' => $user->email,
                     'role' => $user->role,
+                    'status_request' => $user->status_request,
                 ];
             })
             ->values()

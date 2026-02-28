@@ -3,7 +3,7 @@
 
         <!-- Logo -->
         <span class="app-brand-logo demo me-1 ">
-            @include('_partials.macros', ['height' => 60])
+            @include('_partials.macros', ['height' => 50])
         </span>
 
         <!-- Mobile toggle -->
@@ -48,9 +48,6 @@
             <div class="d-flex align-items-center my-2 my-lg-0 gap-2">
                 <a href="{{ route('login') }}" class="btn btn-primary rounded-pill px-5">
                     Login
-                </a>
-                <a href="{{ route('auth-register') }}" class="btn btn-outline-primary rounded-pill px-5">
-                    Register
                 </a>
             </div>
 

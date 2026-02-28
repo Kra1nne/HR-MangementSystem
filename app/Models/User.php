@@ -21,5 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail
     'deleted_at',
     'person_id',
     'email_verified_at',
+    'status_request',
+    'otp',
+    'otp_validity'
   ];
 }

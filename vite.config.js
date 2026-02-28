@@ -46,6 +46,7 @@ export default defineConfig({
         'resources/assets/js/homenavbar.js',
         'resources/assets/css/homenavbar.css',
         'resources/assets/css/landingpage.css',
+        'resources/assets/css/auth.css',
         ...pageJsFiles,
         ...vendorJsFiles,
         ...LibsJsFiles,

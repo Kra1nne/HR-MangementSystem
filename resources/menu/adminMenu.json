@@ -7,10 +7,49 @@
       "slug": "dashboard-analytics"
     },
     {
+      "url": "/attendance",
+      "name": "Attendance",
+      "icon": "menu-icon tf-icons ri-list-radio",
+      "slug": "attendance"
+    },
+    {
+      "url": "/onboarding",
+      "name": "Obboarding",
+      "icon": "menu-icon tf-icons ri-rocket-line",
+      "slug": "onboarding"
+    },
+    {
+      "url": "/employee",
+      "name": "Employee",
+      "icon": "menu-icon tf-icons ri-team-line",
+      "slug": "employee"
+    },
+    {
+      "url": "/payroll",
+      "name": "Payroll",
+      "icon": "menu-icon tf-icons ri-money-dollar-box-line",
+      "slug": "payroll"
+    },
+    {
+      "url": "/leave",
+      "name": "Leave",
+      "icon": "menu-icon tf-icons ri-user-received-2-line",
+      "slug": "leave"
+    },
+    {
+      "menuHeader": "Management"
+    },
+    {
       "url": "/user",
       "name": "Users",
       "icon": "menu-icon tf-icons ri-user-shared-2-line",
       "slug": "user-accounts"
+    },
+    {
+      "url": "/logs",
+      "name": "Activity Logs",
+      "icon": "menu-icon tf-icons ri-hourglass-line",
+      "slug": "activity-logs"
     }
   ]
 }

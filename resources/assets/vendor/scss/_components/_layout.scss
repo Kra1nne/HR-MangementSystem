@@ -431,17 +431,17 @@ html:not(.layout-footer-fixed) .content-wrapper {
 // *******************************************************************************
 
 // Navbar (fixed)
-.layout-navbar-fixed body:not(.modal-open),
-.layout-menu-fixed body:not(.modal-open),
-.layout-menu-fixed-offcanvas body:not(.modal-open) {
-  .layout-navbar-full .layout-navbar {
-    z-index: $zindex-menu-fixed;
-  }
+// .layout-navbar-fixed body:not(.modal-open),
+// .layout-menu-fixed body:not(.modal-open),
+// .layout-menu-fixed-offcanvas body:not(.modal-open) {
+//   .layout-navbar-full .layout-navbar {
+//     z-index: $zindex-menu-fixed;
+//   }
 
-  .layout-content-navbar .layout-navbar {
-    z-index: $zindex-menu-fixed - 5;
-  }
-}
+//   .layout-content-navbar .layout-navbar {
+//     z-index: $zindex-menu-fixed - 5;
+//   }
+// }
 
 // Footer (fixed)
 .layout-footer-fixed .content-footer {
@@ -484,16 +484,16 @@ html:not(.layout-footer-fixed) .content-wrapper {
 
   // Fixed
   // Navbar full layout
-  .layout-menu-fixed body:not(.modal-open) .layout-navbar-full .layout-menu,
-  .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-navbar-full .layout-menu {
-    z-index: $zindex-menu-fixed - 5;
-  }
-  // Content Navbar layout
-  .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
-  .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
-  .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-menu {
-    z-index: $zindex-menu-fixed;
-  }
+  // .layout-menu-fixed body:not(.modal-open) .layout-navbar-full .layout-menu,
+  // .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-navbar-full .layout-menu {
+  //   z-index: $zindex-menu-fixed - 5;
+  // }
+  // // Content Navbar layout
+  // .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
+  // .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
+  // .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-menu {
+  //   z-index: $zindex-menu-fixed;
+  // }
 }
 
 // * Transitions and animations

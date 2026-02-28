@@ -1,51 +1,75 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Forgot Password Basic - Pages')
+@section('title', 'Login')
 
 @section('page-style')
-@vite([
-  'resources/assets/vendor/scss/pages/page-auth.scss'
-])
+    @vite(['resources/assets/css/auth.css'])
 @endsection
 
 @section('content')
-<div class="position-relative">
-  <div class="authentication-wrapper authentication-basic container-p-y">
-    <div class="authentication-inner py-6 mx-4">
+    <div class="container-fluid p-0 vh-100">
+        <div class="row g-0 h-100">
 
-      <!-- Logo -->
-      <div class="card p-7">
-        <!-- Forgot Password -->
-        <div class="app-brand justify-content-center mt-5">
-          <a href="{{url('/')}}" class="app-brand-link gap-3">
-            <span class="app-brand-logo demo">@include('_partials.macros',["height"=>20])</span>
-            <span class="app-brand-text demo text-heading fw-semibold">{{ config('variables.templateName') }}</span>
-          </a>
-        </div>
-        <!-- /Logo -->
-        <div class="card-body mt-1">
-          <h4 class="mb-1">Forgot Password? 🔒</h4>
-          <p class="mb-5">Enter your email and we'll send you instructions to reset your password</p>
-          <form id="formAuthentication" class="mb-5" action="{{url('/')}}" method="GET">
-            <div class="form-floating form-floating-outline mb-5">
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
-              <label>Email</label>
+            {{-- ── LEFT: Login Form ── --}}
+            <div class="col-md-6 d-flex flex-column column bg-white px-4 px-lg-5 py-4 h-100">
+
+                <div class="d-flex flex-grow-1 justify-content-center align-items-center py-4">
+                    <div class="my-auto w-100" style="max-width: 380px;">
+                        <h1 class="fw-bold fs-3 mb-1">Forget password.</h1>
+                        <p class="text-muted mb-4" style="font-size:14px;">
+                            Go back to
+                            <a href="{{ url('login') }}" class="text-primary text-decoration-none fw-medium">Sign in</a>
+                        </p>
+                        <p class="text-muted mb-4" style="font-size:14px;">
+                            Don't have an account?
+                            <a href="{{ url('register') }}" class="text-primary text-decoration-none fw-medium">Sign up</a>
+                        </p>
+
+                        <form id="formAuthentication">
+                            @csrf
+
+                            {{-- Email --}}
+                            <div class="form-floating form-floating-outline mb-5">
+                                <input type="text" class="form-control" id="email" name="email_username"
+                                    placeholder="Enter your email">
+                                <label for="email">Email</label>
+                            </div>
+                            {{-- Submit --}}
+                            <div class="d-grid mb-4">
+                                <button class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                                    type="submit" id="loginBtn">
+                                    Reset Password
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2.5">
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+
+                        {{-- Divider --}}
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-primary d-grid w-100 mb-5">Send Reset Link</button>
-          </form>
-          <div class="text-center">
-            <a href="{{url('/')}}" class="d-flex align-items-center justify-content-center">
-              <i class="ri-arrow-left-s-line ri-20px me-1_5"></i>
-              Back to login
-            </a>
-          </div>
+
+            {{-- ── RIGHT: Decorative Panel ── --}}
+            <div class="col-md-6 chess-panel d-flex align-items-end p-5">
+
+                {{-- Checkerboard --}}
+                <div class="chess-grid">
+                    @php
+                        $pattern = [[0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0]];
+                    @endphp
+                    @foreach ($pattern as $row)
+                        @foreach ($row as $cell)
+                            <div class="chess-cell {{ $cell ? 'light' : '' }}"></div>
+                        @endforeach
+                    @endforeach
+                </div>
+
+                <div class="chess-overlay"></div>
+            </div>
         </div>
-      </div>
-      <!-- /Forgot Password -->
-      <img src="{{asset('assets/img/illustrations/tree-3.png')}}" alt="auth-tree" class="authentication-image-object-left d-none d-lg-block">
-      <img src="{{asset('assets/img/illustrations/auth-basic-mask-light.png')}}" class="authentication-image d-none d-lg-block" height="172" alt="triangle-bg">
-      <img src="{{asset('assets/img/illustrations/tree.png')}}" alt="auth-tree" class="authentication-image-object-right d-none d-lg-block">
     </div>
-  </div>
-</div>
 @endsection

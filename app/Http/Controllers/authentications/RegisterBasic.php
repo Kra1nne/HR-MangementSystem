@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterBasic extends Controller
 {
@@ -28,7 +27,7 @@ class RegisterBasic extends Controller
     $user = [
       'email' => $request->email,
       'password' => bcrypt($request->password),
-      'role' => 'User',
+      'status_request' => "Request",
       'created_at' => now(),
       'person_id' => $personData->id
     ];
@@ -46,7 +45,7 @@ class RegisterBasic extends Controller
     $logData = Log::insert($log);
 
     if($logData){
-      return response()->json(['Error' => 0, 'Message' => 'Successfully created a Account', 'Redirect' => route('login')]);
+      return response()->json(['Error' => 0, 'Message' => 'Successfully created a Account. Please wait for account confirmation.', 'Redirect' => route('login')]);
     }
   }
 }
