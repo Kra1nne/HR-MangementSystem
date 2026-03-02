@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\Account\UserController;
+use App\Http\Controllers\attendance\AttendanceController;
 use App\Http\Controllers\pages\MiscTooManyRequest;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
@@ -11,6 +12,11 @@ use App\Http\Controllers\homepage\HomePagesController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\employee\EmployeeController;
+use App\Http\Controllers\leave\LeaveController;
+use App\Http\Controllers\logs\LogsController;
+use App\Http\Controllers\onboarding\OnboardingController;
+use App\Http\Controllers\payroll\PayrollController;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
@@ -27,13 +33,20 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
   Route::get('/forgot-password', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
 });
 
-Route::middleware(['auth', 'role:Admin,Employee', 'throttle:web'])->group(function () {
+Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(function () {
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
 
-  Route::get('/user', [UserController::class, 'index'])->name('user-accounts');
-  Route::post('/user/add', [UserController::class, 'store'])->name('user-add');
-  Route::post('/user/update', [UserController::class, 'update'])->name('user-update');
-  Route::post('/user/delete', [UserController::class, 'delete'])->name('user-delete');
+  Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
+
+  Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+
+  Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
+
+  Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll');
+
+  Route::get('/leave', [LeaveController::class, 'index'])->name('leave');
+
+  Route::get('/logs', [LogsController::class, 'index'])->name('logs');
 
   Route::middleware(['role:Admin'])->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user-accounts');

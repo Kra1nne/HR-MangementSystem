@@ -5,6 +5,24 @@
       "name": "Dashboards",
       "icon": "menu-icon tf-icons ri-home-smile-line",
       "slug": "dashboard-analytics"
+    },
+    {
+      "url": "/attendance",
+      "name": "Attendance",
+      "icon": "menu-icon tf-icons ri-list-radio",
+      "slug": "attendance"
+    },
+    {
+      "url": "/payroll",
+      "name": "Payroll",
+      "icon": "menu-icon tf-icons ri-money-dollar-box-line",
+      "slug": "payroll"
+    },
+    {
+      "url": "/leave",
+      "name": "Leave",
+      "icon": "menu-icon tf-icons ri-user-received-2-line",
+      "slug": "leave"
     }
   ]
 }

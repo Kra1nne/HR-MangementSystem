@@ -25,4 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail
     'otp',
     'otp_validity'
   ];
+
+  public function person()
+  {
+    return $this->belongsTo(Person::class, 'person_id');
+  }
 }
