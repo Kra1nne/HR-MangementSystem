@@ -1,5 +1,5 @@
 @php
-use Illuminate\Support\Facades\Vite;
+    use Illuminate\Support\Facades\Vite;
 @endphp
 <!-- laravel style -->
 @vite(['resources/assets/vendor/js/helpers.js'])
@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Vite;
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>

@@ -1,0 +1,109 @@
+/* Timeline wrapper */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Vertical center line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 7px; /* half of dot width */
+  width: 2px;
+  height: 100%;
+  background: #d9d9df;
+}
+
+/* Timeline item */
+.timeline-item {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Timeline dot */
+.timeline-point {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid #f4f5f7;
+  z-index: 2;
+}
+
+/* Dot colors */
+.timeline-point-primary {
+  background: #17a2a3;
+}
+.timeline-point-success {
+  background: #5bd10f;
+}
+.timeline-point-info {
+  background: #62696c;
+}
+
+/* Remove card style */
+.timeline-event {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+/* Header layout */
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Title */
+.timeline-header h6 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #4b4b5a;
+  margin: 0;
+}
+
+/* Time text */
+.timeline-header small {
+  color: #9c9cab !important;
+  font-size: 14px;
+}
+
+/* Description text */
+.timeline-event p {
+  color: #6c6c7a;
+  font-size: 16px;
+  margin-top: 6px;
+}
+
+/* File badge */
+.badge.bg-lighter {
+  background: #e6e7eb;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.badge.bg-lighter span {
+  font-size: 15px;
+  color: #5a5a66;
+}
+
+/* Avatar adjustments */
+.avatar img {
+  width: 38px;
+  height: 38px;
+}
+
+/* +3 circle */
+.avatar-initial {
+  background: #e0e0e6;
+  color: #555;
+  font-weight: 500;
+}

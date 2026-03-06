@@ -7,16 +7,39 @@
       "slug": "dashboard-analytics"
     },
     {
-      "url": "/attendance",
-      "name": "Attendance",
-      "icon": "menu-icon tf-icons ri-list-radio",
-      "slug": "attendance"
+      "url": "/recruitment/job",
+      "name": "Recruitment",
+      "icon": "menu-icon tf-icons ri-shake-hands-line",
+      "slug": "recruitment-index"
     },
     {
-      "url": "/onboarding",
+      "name": "Attendance",
+      "icon": "menu-icon tf-icons ri-list-radio",
+      "slug": "attendance",
+      "submenu": [
+        {
+          "url": "/attendance/dashboard",
+          "name": "Dashboard",
+          "slug": "attendance-index"
+        },
+        {
+          "url": "/attendance/user",
+          "name": "My Attendance",
+          "slug": "attendance-user"
+        }
+      ]
+    },
+    {
+      "url": "/onboarding/list",
       "name": "Onboarding",
       "icon": "menu-icon tf-icons ri-rocket-line",
-      "slug": "onboarding"
+      "slug": "onboarding-index"
+    },
+    {
+      "url": "/department/list",
+      "name": "Department",
+      "icon": "menu-icon tf-icons ri-building-line",
+      "slug": "department-list"
     },
     {
       "url": "/employee",

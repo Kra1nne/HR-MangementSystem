@@ -1,16 +1,16 @@
 @php
-$containerFooter = !empty($containerNav) ? $containerNav : 'container-fluid';
+    $containerFooter = !empty($containerNav) ? $containerNav : 'container-fluid';
 @endphp
 
 <!-- Footer -->
 <footer class="content-footer footer bg-footer-theme">
-  <div class="{{ $containerFooter }}">
-    <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-      <div class="text-body">
-        © Blue Oasis, 2025
-      </div>
+    <div class="{{ $containerFooter }}">
+        <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+            <div class="text-body">
+                ©{{ config('variables.templateName') }} {{ date_format(now(), 'Y') }}
+            </div>
 
+        </div>
     </div>
-  </div>
 </footer>
 <!--/ Footer -->

@@ -23,10 +23,6 @@
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center py-4">
                     <div class="my-auto w-100" style="max-width: 380px;">
                         <h1 class="fw-bold fs-3 mb-1">Welcome back.</h1>
-                        <p class="text-muted mb-4" style="font-size:14px;">
-                            Don't have an account?
-                            <a href="{{ url('register') }}" class="text-primary text-decoration-none fw-medium">Sign up</a>
-                        </p>
 
                         <form id="formAuthentication">
                             @csrf

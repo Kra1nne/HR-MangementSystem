@@ -20,10 +20,6 @@
                             Go back to
                             <a href="{{ url('login') }}" class="text-primary text-decoration-none fw-medium">Sign in</a>
                         </p>
-                        <p class="text-muted mb-4" style="font-size:14px;">
-                            Don't have an account?
-                            <a href="{{ url('register') }}" class="text-primary text-decoration-none fw-medium">Sign up</a>
-                        </p>
 
                         <form id="formAuthentication">
                             @csrf

@@ -23,6 +23,12 @@
       "name": "Leave",
       "icon": "menu-icon tf-icons ri-user-received-2-line",
       "slug": "leave"
+    },
+    {
+      "url": "/department",
+      "name": "Department",
+      "icon": "menu-icon tf-icons ri-building-line",
+      "slug": "leave"
     }
   ]
 }

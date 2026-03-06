@@ -10,13 +10,14 @@ use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\homepage\HomePagesController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
-use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\department\DepartmentController;
 use App\Http\Controllers\employee\EmployeeController;
 use App\Http\Controllers\leave\LeaveController;
 use App\Http\Controllers\logs\LogsController;
 use App\Http\Controllers\onboarding\OnboardingController;
 use App\Http\Controllers\payroll\PayrollController;
+use App\Http\Controllers\recruitment\RecruitmentController;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
@@ -24,9 +25,6 @@ Route::get('/services', [HomePagesController::class, 'services'])->name('service
 Route::get('/contact', [HomePagesController::class, 'contact'])->name('contact-page');
 
 Route::middleware(['guest', 'throttle:web'])->group(function () {
-  Route::get('/register', [RegisterBasic::class, 'index'])->name('auth-register');
-  Route::post('/register/add', [RegisterBasic::class, 'store'])->name('auth-register-add');
-
   Route::get('/login', [LoginBasic::class, 'index'])->name('login');
   Route::post('/login/process', [LoginBasic::class, 'login'])->name('login-process')->middleware(['throttle:login']);
 
@@ -36,9 +34,16 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
 Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(function () {
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
 
-  Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance');
+  Route::get('/recruitment/job', [RecruitmentController::class, 'index'])->name('recruitment-index');
+  Route::get('/recruitment/description', [RecruitmentController::class, 'details'])->name('recruitment-description');
+  Route::get('/recruitment/candidates', [RecruitmentController::class, 'recruitmentcandidates'])->name('recruitment-candidates');
 
-  Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding');
+  Route::get('/attendance/dashboard', [AttendanceController::class, 'index'])->name('attendance-index');
+  Route::get('/attendance/user', [AttendanceController::class, 'userAttendance'])->name('attendance-user');
+
+  Route::get('/department/list', [DepartmentController::class, 'index'])->name('department-list');
+
+  Route::get('/onboarding/list', [OnboardingController::class, 'index'])->name('onboarding-index');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
 

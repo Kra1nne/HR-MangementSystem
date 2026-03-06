@@ -42,6 +42,7 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/assets/css/demo.css',
+        'resources/assets/css/offcanvas.css',
         'resources/js/app.js',
         'resources/assets/js/homenavbar.js',
         'resources/assets/css/homenavbar.css',
