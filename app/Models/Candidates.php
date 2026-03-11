@@ -18,5 +18,8 @@ class Candidates extends Model
         'interview',
         'interview_status',
         'email',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 }

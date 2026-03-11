@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="navbar-nav flex-row align-items-center ms-auto gap-5">
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">
                     <span class="tf-icons ri-add-circle-line ri-16px me-1_5"></span>Add Account
                 </button>
             </div>

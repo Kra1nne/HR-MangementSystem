@@ -42,6 +42,9 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/attendance/user', [AttendanceController::class, 'userAttendance'])->name('attendance-user');
 
   Route::get('/department/list', [DepartmentController::class, 'index'])->name('department-list');
+  Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
+
+  Route::get('/department/{id}', [DepartmentController::class, 'details'])->name('department-details');
 
   Route::get('/onboarding/list', [OnboardingController::class, 'index'])->name('onboarding-index');
 

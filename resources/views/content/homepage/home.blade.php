@@ -32,7 +32,9 @@
 
             <div class="row row-cols-2 row-cols-lg-4 mb-5 g-3 mt-2">
                 <div class="col">
-                    <div class="card p-1 h-100">
+                    <div class="card p-1 h-100" style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                         <div class="d-flex align-items-center gap-2 p-2">
                             <div class="bg-light rounded p-3 p-lg-4 bg-light-primary text-primary flex-shrink-0">
                                 <i class="ri-group-line fs-5 fs-lg-3"></i>
@@ -46,7 +48,9 @@
                 </div>
 
                 <div class="col">
-                    <div class="card p-1 h-100">
+                    <div class="card p-1 h-100" style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                         <div class="d-flex align-items-center gap-2 p-2">
                             <div class="bg-light rounded p-3 p-lg-4 bg-light-primary text-primary flex-shrink-0">
                                 <i class="ri-cloud-line fs-5 fs-lg-3"></i>
@@ -60,7 +64,9 @@
                 </div>
 
                 <div class="col">
-                    <div class="card p-1 h-100">
+                    <div class="card p-1 h-100" style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                         <div class="d-flex align-items-center gap-2 p-2">
                             <div class="bg-light rounded p-3 p-lg-4 bg-light-primary text-primary flex-shrink-0">
                                 <i class="ri-user-line fs-5 fs-lg-3"></i>
@@ -74,7 +80,9 @@
                 </div>
 
                 <div class="col">
-                    <div class="card p-1 h-100">
+                    <div class="card p-1 h-100 style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'"">
                         <div class="d-flex align-items-center gap-2 p-2">
                             <div class="bg-light rounded p-3 p-lg-4 bg-light-primary text-primary flex-shrink-0">
                                 <i class="ri-time-line fs-5 fs-lg-3"></i>
@@ -100,7 +108,10 @@
                         workforce management.</p>
                 </div>
                 <div class="row g-4 mt-5">
-                    <div class="col-md-6 col-lg-4">
+                    <a href="javascript::void(0)" style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'"
+                        class="col-md-6 col-lg-4">
                         <div class="card h-100 p-4 text-center">
                             <i class="ri-shield-check-line fs-1 text-primary mb-3 mt-4"></i>
                             <h5 class="fw-bold mb-2">Employee Management</h5>
@@ -114,8 +125,11 @@
                                     alt="">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
+                    </a>
+                    <a href="javascript::void(0)" style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'"
+                        class="col-md-6 col-lg-4">
                         <div class="card h-100 p-4 text-center">
                             <i class="ri-calendar-check-line fs-1 text-primary mb-3 mt-4"></i>
                             <h5 class="fw-bold">Attendance Tracking</h5>
@@ -128,8 +142,11 @@
                                     alt="">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
+                    </a>
+                    <a href="javascript::void(0)" style="cursor: default; transition: all 0.3s ease;"
+                        onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                        onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'"
+                        class="col-md-6 col-lg-4">
                         <div class="card h-100 p-4 text-center">
                             <i class="ri-bar-chart-line fs-1 text-primary mb-3 mt-4"></i>
                             <h5 class="fw-bold">Performance Analytics</h5>
@@ -142,7 +159,7 @@
                                     alt="">
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -203,29 +220,66 @@
         </section>
     </div>
     <div class="bg-white">
-        <div class="container py-5 d-flex align-items-center">
+        <div class="container py-5">
             <div class="row w-100 flex-column-reverse flex-md-row">
+
                 <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
                     <div>
-                        <h3 class="text-center fw-bolder">
+                        <h3 class="text-center fw-bolder mb-4">
                             {{ config('variables.templateName') }}
                         </h3>
-                        <p>
-                            Empathra is a modern, cloud-based HR management system designed to simplify and streamline
-                            workforce operations. From employee onboarding and record management to attendance tracking and
-                            performance analytics, Empathra centralizes HR processes into one easy-to-use platform. With
-                            real-time insights, secure data storage, and 24/7 access, it helps organizations improve
-                            coordination, enhance productivity, and make data-driven decisions. Built with empathy and
-                            powered by data, Empathra puts people at the heart of workforce management.
+                        <p class="text-start">
+                            Empathra is a cloud-based HR management system that simplifies workforce operations.
+                            It centralizes employee records, onboarding, attendance, and performance tracking in one
+                            platform.
+                            With real-time insights and secure access, it helps organizations manage teams more efficiently.
                         </p>
+                        <ul class="list-unstyled small">
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="ri-check-line text-success me-2"></i>
+                                Face recognition attendance
+                            </li>
+
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="ri-check-line text-success me-2"></i>
+                                Employee onboarding
+                            </li>
+
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="ri-check-line text-success me-2"></i>
+                                Attendance tracking
+                            </li>
+
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="ri-check-line text-success me-2"></i>
+                                Performance analytics
+                            </li>
+
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="ri-check-line text-success me-2"></i>
+                                Secure cloud storage
+                            </li>
+
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="ri-check-line text-success me-2"></i>
+                                24/7 platform access
+                            </li>
+                        </ul>
+
+                        <div class="mt-3 d-flex justify-content-center">
+                            <a href="#" class="btn btn-primary btn-sm px-4 rounded-pill">
+                                Learn More
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-                    <div class="w-75">
+                    <div class="w-100">
                         <img src="assets/img/elements/Web.jpg" class="img-fluid" alt="">
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

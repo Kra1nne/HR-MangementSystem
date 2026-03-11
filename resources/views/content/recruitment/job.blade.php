@@ -26,8 +26,6 @@
                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Creat New Job</button>
             </div>
             <div class="row g-4">
-
-                <!-- Card 1 -->
                 <a href="{{ route('recruitment-description') }}" class="col-md-4 pointer">
                     <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
                         <div class="card-body">
@@ -49,8 +47,6 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- Card 2 -->
                 <a href="{{ route('recruitment-description') }}" class="col-md-4">
                     <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
                         <div class="card-body">
@@ -72,8 +68,6 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- Card 3 -->
                 <a href="{{ route('recruitment-description') }}" class="col-md-4">
                     <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
                         <div class="card-body">

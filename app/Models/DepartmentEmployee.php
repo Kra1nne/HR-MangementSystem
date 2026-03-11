@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepartmentEmployee extends Model
 {
-    protected $table = 'employees';
+    protected $table = 'dept_emp';
 
     protected $fillable = [
+        'id_no',
         'emp_no',
+        'dept_no',
         'users_id',
-        'hire_date',
-        'status',
+        'from_date',
+        'to_date',
     ];
 }
