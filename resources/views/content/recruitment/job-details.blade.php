@@ -51,41 +51,27 @@
                         <div class="col-lg-8">
                             <h4 class="fw-bold mb-3 mt-5">About</h4>
                             <p class="text-muted">
-                                We craft digital products for business and user goals. Help find solutions with UI / UX
-                                designs
-                                that are intuitive and in accordance with client business goals. We provide a high-quality
-                                service in UI / UX Design & Development. We craft digital products for businesses in
-                                achieving
-                                user goals by providing intuitive solutions. We have worked with a vast number clients who
-                                have
-                                different backgrounds such as construction, insurance, health, marketing, cryptocurrency,
-                                stocks, games, startup, real estate and many others.
+                                {{ $jobDetails->description }}
                             </p>
 
                             <h4 class="fw-bold mt-5 mb-3">What you’ll do</h4>
                             <p class="text-muted">Areas you could work on:</p>
 
                             <ul class="text-muted">
-                                <li>Work as a User Interface Designer for our B2B SaaS product along with stakeholders</li>
-                                <li>Translate client briefs into a clear, user-friendly interface design and interactions.
-                                    Develop both low and high-fidelity mockups.</li>
-                                <li>Testing out design assumptions and usability level of your design. Validate your design
-                                    decisions through user feedback, iterate your designs based on this feedback, and
-                                    meticulously document the process.</li>
-                                <li>Work closely with a team of project managers, client stakeholders, researchers, and
-                                    content designers.</li>
-                                <li>Conduct user research and evaluate user feedback</li>
+                                @foreach (explode("\n", $jobDetails->job_objective) as $objective)
+                                    @if (trim($objective) != '')
+                                        <li>{{ trim($objective) }}</li>
+                                    @endif
+                                @endforeach
                             </ul>
 
                             <h4 class="fw-bold mt-5 mb-3">Requirements:</h4>
                             <ul class="text-muted">
-                                <li>A mid level product designer with min. 3 years of experience.</li>
-                                <li>A designer with a strong UX and UI portfolio that demonstrates problem-solving skills,
-                                    design methods, and craftsmanship.</li>
-                                <li>An organized designer that always documents their works, Figma files, and research
-                                    reports.</li>
-                                <li>Comfortable with fast-paced work environments, context switching, and excited to drive
-                                    the projects forwards.</li>
+                                @foreach (explode("\n", $jobDetails->job_requirements) as $requirements)
+                                    @if (trim($requirements) != '')
+                                        <li>{{ trim($requirements) }}</li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
 
@@ -95,28 +81,34 @@
 
                                 <div>
                                     <small class="text-muted">Active until</small>
-                                    <h6 class="fw-bold mt-1">Jan 31, 2024</h6>
+                                    <h6 class="fw-bold mt-1">{{ date_format($jobDetails->created_at, 'M. d Y') }}</h6>
                                 </div>
 
                                 <hr>
 
                                 <div>
-                                    <small class="text-muted">Department Type</small>
-                                    <h6 class="fw-bold mt-1">Design</h6>
+                                    <small class="text-muted">Work Arrangement</small>
+                                    <h6 class="fw-bold mt-1">{{ $jobDetails->work_arrangement }}</h6>
                                 </div>
 
                                 <hr>
 
                                 <div>
                                     <small class="text-muted">Job Type</small>
-                                    <h6 class="fw-bold mt-1">Fulltime</h6>
+                                    <h6 class="fw-bold mt-1">{{ $jobDetails->job_type }}</h6>
                                 </div>
 
                                 <hr>
 
                                 <div>
                                     <small class="text-muted">Location</small>
-                                    <h6 class="fw-bold mt-1">Onsite Indonesia, Jakarta</h6>
+                                    <h6 class="fw-bold mt-1">{{ $jobDetails->location }}</h6>
+                                </div>
+                                <hr>
+
+                                <div>
+                                    <small class="text-muted">Salary Range</small>
+                                    <h6 class="fw-bold mt-1">{{ $jobDetails->salary_range }}</h6>
                                 </div>
 
                             </div>
@@ -132,14 +124,27 @@
 
                         <h3 class="fw-bold mb-0">Candidates</h3>
 
-                        <div class="d-flex flex-column flex-sm-row gap-2 w-lg-25 w-md-25 w-sm-full">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search name or email here...">
-                            </div>
-                            <a href="javascript::void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#Modal">
-                                <i class="ri ri-add-line"></i> Add
-                            </a>
+                        <div></div>
+                    </div>
+                    <div
+                        class="d-flex flex-column flex-lg-row 
+            justify-content-between align-items-start align-items-lg-center mb-3 gap-2">
+                        <div>
+                            <form action="{{ route('recruitment-description', $encrypted_id) }}" method="GET"
+                                class="nav-item d-flex align-items-center gap-1">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    <span class="input-group-text" id="basic-addon-search31">
+                                        <i class="icon-base ri ri-search-line icon-20px"></i>
+                                    </span>
+                                    <input type="text" name="search" class="form-control" placeholder="Search..."
+                                        aria-label="Search..." aria-describedby="basic-addon-search31" />
+                                </div>
+                                <button class="btn btn-primary">Search</button>
+                            </form>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+                                <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Add</button>
                         </div>
                     </div>
                     <div class="boder border-0 border-top"></div>
@@ -147,46 +152,67 @@
                     <div class="row g-3 mt-4">
 
                         <!-- CARD -->
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="card shadow-sm rounded-4">
-                                <div class="card-body position-relative">
-                                    <a href="javascript:void(0);" data-bs-toggle="dropdown"
-                                        class="btn btn-secondary rounded-circle p-1 
-                      position-absolute top-0 end-0 m-2">
-                                        <i class="ri-more-2-line"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end p-0">
-                                        <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="offcanvas"
-                                            data-bs-target="#Details" aria-controls="offcanvasEnd">
-                                            Details
-                                        </li>
-                                        <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal"
-                                            data-bs-target="#ModalApplicants">
-                                            Message
-                                        </li>
-                                    </ul>
+                        @foreach ($candidates as $candidate)
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="card shadow-sm rounded-4">
+                                    <div class="card-body position-relative">
 
-                                    <div class="d-flex align-items-center gap-3 mb-3">
-                                        <img src="https://i.pravatar.cc/100?img=1" class="rounded-circle" width="50"
-                                            height="50">
-                                        <div>
-                                            <h6 class="mb-0 fw-semibold">Sonia Hoppe</h6>
-                                            <small class="text-muted">haco-sonia92@gmail.com</small>
+                                        <a href="javascript:void(0);" data-bs-toggle="dropdown"
+                                            class="btn btn-secondary rounded-circle p-1 position-absolute top-0 end-0 m-2">
+                                            <i class="ri-more-2-line"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-end p-0">
+                                            <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="offcanvas"
+                                                data-bs-target="#Details">
+                                                Details
+                                            </li>
+
+                                            <li class="dropdown-item" style="cursor: pointer" data-bs-toggle="modal"
+                                                data-bs-target="#ModalApplicants">
+                                                Message
+                                            </li>
+                                        </ul>
+
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+
+                                            <img src="https://i.pravatar.cc/100?img={{ $candidate->person->id }}"
+                                                class="rounded-circle" width="50" height="50">
+
+                                            <div>
+                                                <h6 class="mb-0 fw-semibold">
+                                                    {{ $candidate->person->firstname }} {{ $candidate->person->lastname }}
+                                                </h6>
+
+                                                <small class="text-muted">
+                                                    {{ $candidate->email }}
+                                                </small>
+                                            </div>
+
                                         </div>
-                                    </div>
 
-                                    <hr>
+                                        <hr>
 
-                                    <div class="d-flex justify-content-between align-items-center small text-muted">
-                                        <span class="badge bg-primary-subtle text-primary">In Progress</span>
-                                        <div class="d-flex gap-3">
+                                        <div class="d-flex justify-content-between align-items-center small text-muted">
+
+                                            <span class="badge bg-primary-subtle text-primary">
+                                                {{ $candidate->status }}
+                                            </span>
+
+                                            <div class="d-flex gap-3">
+                                                {{-- extra buttons if needed --}}
+                                            </div>
 
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
+
+                    </div>
+                    <div class="pt-5 d-flex justify-content-end">
+                        {{ $candidates->onEachSide(2)->links() }}
                     </div>
                 </div>
 
@@ -198,47 +224,49 @@
                     <div class="modal-header bg-primary pb-4">
                         <h5 class="modal-title text-white" id="modalCenterTitle">New Candidates</h5>
                     </div>
-                    <div class="modal-body">
+                    <form id="dataCandidate" class="modal-body">
+                        @csrf
                         <div class="row">
+                            <input type="hidden" name="job_id" value="{{ $jobDetails->id }}">
                             <div class="col-12 col-md-4">
                                 <label for="firstname" class="form-label">Firstname</label>
-                                <input id="firstname" class="form-control form-control-sm" type="text"
-                                    placeholder="Enter the firstname" />
+                                <input id="firstname" name="firstname" class="form-control form-control-sm"
+                                    type="text" placeholder="Enter the firstname" />
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="lastname" class="form-label">Lastname</label>
-                                <input id="lastname" class="form-control form-control-sm" type="text"
-                                    placeholder="Enter the lastname" />
+                                <input id="lastname" name="lastname" class="form-control form-control-sm"
+                                    type="text" placeholder="Enter the lastname" />
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="middlename" class="form-label">Middlename</label>
-                                <input id="middlename" class="form-control form-control-sm" type="text"
-                                    placeholder="Enter the middlename" />
+                                <input id="middlename" name="middlename" class="form-control form-control-sm"
+                                    type="text" placeholder="Enter the middlename" />
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-12 col-md-4">
                                 <label for="email" class="form-label">Email</label>
-                                <input id="email" class="form-control form-control-sm" type="text"
+                                <input id="email" name="email" class="form-control form-control-sm" type="text"
                                     placeholder="Enter the email" />
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="birthdate" class="form-label">Birthdate</label>
-                                <input id="birthdate" class="form-control form-control-sm" type="date"
-                                    placeholder="Enter the birthdate" />
+                                <input id="birthdate" name="birthdate" class="form-control form-control-sm"
+                                    type="date" placeholder="Enter the birthdate" />
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="sex" class="form-label">Sex</label>
                                 <select name="sex" id="sex" class="form-select form-select-sm">
-                                    <Option>Male</Option>
-                                    <Option>Female</Option>
+                                    <Option value="Male">Male</Option>
+                                    <Option value="Female">Female</Option>
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" id="btnSaveCandidate">Save</button>
                     </div>
                 </div>
             </div>

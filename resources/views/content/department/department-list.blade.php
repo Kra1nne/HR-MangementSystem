@@ -26,7 +26,7 @@
 
                 <!-- Card 1 -->
                 @foreach ($departments as $item)
-                    <a href="{{ $item->dept_no }}" class="col-md-6 col-lg-4 col-sm-12 pointer">
+                    <a href="{{ route('department-details', $item->dept_no) }}" class="col-md-6 col-lg-4 col-sm-12 pointer">
                         <div class="card h-100 shadow-sm border-0 rounded-4 position-relative">
                             <div class="card-body">
                                 <div class="d-flex align-items-center gap-3 mb-3">

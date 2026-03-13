@@ -35,7 +35,10 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
 
   Route::get('/recruitment/job', [RecruitmentController::class, 'index'])->name('recruitment-index');
-  Route::get('/recruitment/description', [RecruitmentController::class, 'details'])->name('recruitment-description');
+  Route::post('/recruitment/addJob', [RecruitmentController::class, 'addJob'])->name('recruitment-addJob');
+  Route::get('/recruitment/{id}', [RecruitmentController::class, 'details'])->name('recruitment-description');
+  
+  Route::post('/recruitment/addCandidate', [RecruitmentController::class, 'addCanditate'])->name('recruitment-addCandidate');
   Route::get('/recruitment/candidates', [RecruitmentController::class, 'recruitmentcandidates'])->name('recruitment-candidates');
 
   Route::get('/attendance/dashboard', [AttendanceController::class, 'index'])->name('attendance-index');

@@ -22,4 +22,10 @@ class Candidates extends Model
         'updated_at',
         'deleted_at',
     ];
+    public function job(){
+        return $this->hasOne(Job::class, 'job_id', 'id');
+    }
+    public function person(){
+        return $this->belongsTo(Person::class, 'person_id', 'id');
+    }
 }

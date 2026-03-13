@@ -1,3 +1,4 @@
+// delete
 $(function () {
   $('body').on('click', '#applicantDelete', function () {
     Swal.fire({
@@ -20,6 +21,7 @@ $(function () {
   });
 });
 
+// modal manipulation
 $(function () {
   $('body').on('click', '.modalButtonAdd', function () {
     var titleData = $(this).data('title');
@@ -32,6 +34,7 @@ $(function () {
   });
 });
 
+//tabs
 $(function () {
   var activeTab = localStorage.getItem('activeTab');
 
@@ -49,5 +52,79 @@ $(function () {
 
   $('.nav-link').on('shown.bs.tab', function (e) {
     localStorage.setItem('activeTab', $(e.target).data('bs-target'));
+  });
+});
+
+// add Job
+$(function () {
+  $('body').on('click', '#btnSave', function () {
+    $.ajax({
+      method: 'POST',
+      url: '/recruitment/addJob',
+      cache: false,
+      data: $('#dataJob').serialize(),
+      beforeSend: function () {
+        $('#Modal').modal('hide');
+        $('.preloader').show();
+      },
+      success: function (data) {
+        $('.preloader').hide();
+        if (data.error == 1) {
+          Swal.fire('Error!', data.Message, 'error');
+        } else if (data.Error == 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Saved!',
+            text: data.Message,
+            showConfirmButton: true,
+            confirmButtonText: 'OK'
+          }).then(result => {
+            location.reload();
+          });
+        }
+      },
+      error: function (data) {
+        $('.preloader').hide();
+        Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+      }
+    });
+  });
+});
+
+// add Candidate
+$(function () {
+  $('body').on('click', '#btnSaveCandidate', function () {
+    $.ajax({
+      method: 'POST',
+      url: '/recruitment/addCandidate',
+      cache: false,
+      data: $('#dataCandidate').serialize(),
+      beforeSend: function () {
+        $('#Modal').modal('hide');
+        $('.preloader').show();
+      },
+      success: function (data) {
+        $('.preloader').hide();
+        if (data.error == 1) {
+          Swal.fire('Error!', data.Message, 'error');
+        } else if (data.Error == 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Saved!',
+            text: data.Message,
+            showConfirmButton: true,
+            confirmButtonText: 'OK'
+          }).then(result => {
+            location.reload();
+          });
+        }
+      },
+      error: function (data) {
+        $('.preloader').hide();
+        Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+      }
+    });
   });
 });

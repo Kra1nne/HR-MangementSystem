@@ -19,4 +19,8 @@ class Person extends Model
       'updated_at',
       'deleted_at'
     ];
+
+    public function candidate(){
+      return $this->hasOne(Candidates::class, 'person_id', 'id');
+    }
 }
