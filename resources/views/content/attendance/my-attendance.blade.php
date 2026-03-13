@@ -2,6 +2,9 @@
 
 @section('title', 'My Attendance')
 
+@section('page-script')
+    @vite('resources/assets/js/attendance.js')
+@endsection
 @section('content')
     <main class="container">
         <nav aria-label="breadcrumb">
@@ -97,13 +100,9 @@
                 </div>
 
                 <div class="d-flex gap-2">
-                    <button class="btn btn-success">
-                        <i class="ri-login-circle-line"></i> Time In
-                    </button>
-
-                    <button class="btn btn-danger">
-                        <i class="ri-logout-circle-line"></i> Time Out
-                    </button>
+                    <a href="{{ route('attendance-check') }}" class="btn btn-success">
+                        <i class="ri-login-circle-line"></i> Time In/Out
+                    </a>
                     <button class="btn btn-primary" title="Export Attendance">Export</button>
                 </div>
             </div>
@@ -144,43 +143,4 @@
             </div>
         </section>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'dayGridMonth,dayGridWeek,dayGridDay' // user can switch between the two
-                }
-            });
-            calendar.render();
-        });
-
-        function formatDate(date) {
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-            ];
-
-            const month = months[date.getMonth()];
-            const day = String(date.getDate()).padStart(2, '0');
-            const year = date.getFullYear();
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            const seconds = String(date.getSeconds()).padStart(2, '0');
-
-            return `${month} ${day}, ${year} ${hours}:${minutes}:${seconds}`;
-        }
-
-        function updateTime() {
-            $('#liveTime').text(formatDate(new Date()));
-        }
-
-        // Run when document is ready
-        $(document).ready(function() {
-            updateTime(); // run immediately
-            setInterval(updateTime, 1000); // update every second
-        });
-    </script>
 @endsection

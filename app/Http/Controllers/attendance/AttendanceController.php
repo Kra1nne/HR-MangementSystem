@@ -13,4 +13,7 @@ class AttendanceController extends Controller
     public function userAttendance(){
         return view('content.attendance.my-attendance');
     }
+    public function faceRecognation(){
+        return view('content.attendance.attendance-check');
+    }
 }

@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <p class="text-muted small mb-3">
-                                    {{ $item->details }}
+                                    {{ Str::words($item->details, 15, '...') }}
                                 </p>
                             </div>
                         </div>
