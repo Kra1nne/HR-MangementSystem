@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\recruitment;
 
 use App\Http\Controllers\Controller;
-use App\Models\Candidates;
+use App\Models\Candidate;
 use App\Models\Departments;
 use App\Models\Job;
 use App\Models\Log;
@@ -42,7 +42,7 @@ class RecruitmentController extends Controller
             ->first();
         $search = $request->search;
 
-        $candidates = Candidates::with('person')
+        $candidates = Candidate::with('person')
         ->when($search, function ($query) use ($search) {
             $query->whereHas('person', function ($q) use ($search) {
                 $q->where('firstname', 'like', "%{$search}%")
@@ -117,7 +117,7 @@ class RecruitmentController extends Controller
             'created_at' => now(),
         ];
 
-        $candidate = Candidates::insert($dataCandidate);
+        $candidate = Candidate::insert($dataCandidate);
         $log = Log::insert($log);
 
         if($log && $candidate){

@@ -10,4 +10,7 @@ class EmployeeController extends Controller
     public function index(){
         return view('content.employee.employee');
     }
+    public function registerFace(){
+        return view('content.employee.face-registration');
+    }
 }

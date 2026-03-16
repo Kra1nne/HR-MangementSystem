@@ -53,6 +53,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/onboarding/list', [OnboardingController::class, 'index'])->name('onboarding-index');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
+  Route::get('/employee/face-registration', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
 
   Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll');
 

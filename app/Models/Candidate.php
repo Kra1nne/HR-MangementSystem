@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Candidates extends Model
+class Candidate extends Model
 {
     protected $table = 'candidates';
 
@@ -27,5 +27,15 @@ class Candidates extends Model
     }
     public function person(){
         return $this->belongsTo(Person::class, 'person_id', 'id');
+    }
+
+    public function GetstatusBadge() : string
+    {
+        return match($this->status) {
+            'Completed'   => 'badge bg-success text-white',
+            'In Progress' => 'badge bg-primary text-white',
+            'Rejected'    => 'badge bg-danger text-white',
+             default      => 'badge bg-warning text-white',
+        };
     }
 }

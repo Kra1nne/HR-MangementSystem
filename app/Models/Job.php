@@ -29,6 +29,6 @@ class Job extends Model
     ];
 
     public function candidates(){
-        return $this->hasMany(Candidates::class, 'job_id', 'id');
+        return $this->hasMany(Candidate::class, 'job_id', 'id');
     }
 }

@@ -195,7 +195,7 @@
 
                                         <div class="d-flex justify-content-between align-items-center small text-muted">
 
-                                            <span class="badge bg-primary-subtle text-primary">
+                                            <span class="{{ $candidate->GetstatusBadge() }}">
                                                 {{ $candidate->status }}
                                             </span>
 
