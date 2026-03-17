@@ -6,24 +6,16 @@
 @endsection
 @section('content')
     <main>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="javascript:void(0);">Employee</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{{ route('employee') }}">Employee List</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="javascript:void(0);">Registration</a>
-                </li>
-            </ol>
-        </nav>
+        <div class="px-4">
+            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm rounded-3">
+                Back
+            </a>
+        </div>
         <section class="container">
             <div class="mx-auto text-center">
                 <div class="mt-4 d-flex justify-content-center">
-                    <video id="video" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;"
-                        autoplay muted>
+                    <video id="video" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;" autoplay
+                        muted>
                     </video>
                 </div>
 

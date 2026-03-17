@@ -7,10 +7,19 @@
       "slug": "dashboard-analytics"
     },
     {
-      "url": "/recruitment/job",
-      "name": "Recruitment",
-      "icon": "menu-icon tf-icons ri-shake-hands-line",
-      "slug": "recruitment-index"
+      "menuHeader": "Management"
+    },
+    {
+      "url": "/department/list",
+      "name": "Department",
+      "icon": "menu-icon tf-icons ri-building-line",
+      "slug": "department-list"
+    },
+    {
+      "url": "/employee",
+      "name": "Employee",
+      "icon": "menu-icon tf-icons ri-team-line",
+      "slug": "employee"
     },
     {
       "name": "Attendance",
@@ -30,24 +39,6 @@
       ]
     },
     {
-      "url": "/onboarding/list",
-      "name": "Onboarding",
-      "icon": "menu-icon tf-icons ri-rocket-line",
-      "slug": "onboarding-index"
-    },
-    {
-      "url": "/department/list",
-      "name": "Department",
-      "icon": "menu-icon tf-icons ri-building-line",
-      "slug": "department-list"
-    },
-    {
-      "url": "/employee",
-      "name": "Employee",
-      "icon": "menu-icon tf-icons ri-team-line",
-      "slug": "employee"
-    },
-    {
       "url": "/payroll",
       "name": "Payroll",
       "icon": "menu-icon tf-icons ri-money-dollar-box-line",
@@ -60,11 +51,8 @@
       "slug": "leave"
     },
     {
-      "menuHeader": "Management"
-    },
-    {
       "url": "/user",
-      "name": "Users",
+      "name": "Accounts",
       "icon": "menu-icon tf-icons ri-user-shared-2-line",
       "slug": "user-accounts"
     },
@@ -73,6 +61,9 @@
       "name": "Activity Logs",
       "icon": "menu-icon tf-icons ri-hourglass-line",
       "slug": "logs"
+    },
+    {
+      "menuHeader": "System Reports"
     }
   ]
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\leave\LeaveController;
 use App\Http\Controllers\logs\LogsController;
 use App\Http\Controllers\onboarding\OnboardingController;
 use App\Http\Controllers\payroll\PayrollController;
+use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\recruitment\RecruitmentController;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
@@ -33,6 +34,8 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
 
 Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(function () {
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
+
+  Route::get('/profile', [ProfileController::class, 'index'])->name('profile-index');
 
   Route::get('/recruitment/job', [RecruitmentController::class, 'index'])->name('recruitment-index');
   Route::post('/recruitment/addJob', [RecruitmentController::class, 'addJob'])->name('recruitment-addJob');
