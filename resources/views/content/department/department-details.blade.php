@@ -10,7 +10,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="javascript:void(0);">Department</a>
+                    <a href="{{ route('dashboard-analytics') }}">Dasboard</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="{{ route('department-list') }}">Department List</a>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <section class="card">
+                    <section>
                         <div class="d-flex align-items-center justify-content-between">
                             <!-- Search -->
                             <div class="input-group input-group-merge w-50">

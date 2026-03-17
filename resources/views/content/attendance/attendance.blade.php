@@ -7,10 +7,10 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="javascript:void(0);">Attendance</a>
+                    <a href="{{ route('dashboard-analytics') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <a href="javascript:void(0);">Dashboard</a>
+                    <a href="javascript:void(0);">Attendance Dashboard</a>
                 </li>
             </ol>
         </nav>
