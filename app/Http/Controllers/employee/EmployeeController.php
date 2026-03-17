@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
     public function index(){
-        return view('content.employee.employee');
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Employee'],
+        ];
+        return view('content.employee.employee', compact('breadcrumbs'));
     }
     public function registerFace(){
         return view('content.employee.face-registration');

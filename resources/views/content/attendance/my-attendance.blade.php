@@ -6,17 +6,7 @@
     @vite('resources/assets/js/attendance.js')
 @endsection
 @section('content')
-    <main class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard-analytics') }}">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="javascript:void(0);">My Attendance</a>
-                </li>
-            </ol>
-        </nav>
+    <main class="container mt-5">
         <section class="row g-4">
 
             <!-- Total Hours Worked -->

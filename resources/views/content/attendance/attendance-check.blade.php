@@ -7,19 +7,6 @@
 @endsection
 @section('content')
     <main class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard-analytics') }}">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{{ route('attendance-user') }}">My Attendance</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="javascript:void(0);">Face Recognation</a>
-                </li>
-            </ol>
-        </nav>
         <div class="mt-5 text-center top-0">
             <div class="d-flex justify-content-start mb-2"><a href="{{ route('attendance-user') }}"
                     class="btn btn-primary btn-sm">Back</a>

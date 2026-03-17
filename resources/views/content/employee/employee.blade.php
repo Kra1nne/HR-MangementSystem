@@ -6,16 +6,6 @@
 @endsection
 @section('content')
     <main>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard-analytics') }}">Employee</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="javascript:void(0);">Employee List</a>
-                </li>
-            </ol>
-        </nav>
         <div>
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">

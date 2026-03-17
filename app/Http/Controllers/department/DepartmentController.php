@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Crypt;
 class DepartmentController extends Controller
 {
     public function index(){
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Department List', 'link'],
+        ];
+
         $departments = Departments::whereNull('deleted_at')
             ->orderBy('created_at', 'desc')
             ->get()
@@ -20,15 +25,20 @@ class DepartmentController extends Controller
                 return $department;
             });
 
-        return view('content.department.department-list', compact('departments'));
+        return view('content.department.department-list', compact('departments', 'breadcrumbs'));
     }
     public function details($id){
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Department List', 'link' => route('department-list')],
+            ['name' => 'Department Details'],
+        ];
         $departmentDetails = Departments::whereNull('deleted_at')
             ->where('dept_no', Crypt::decryptString($id))
             ->orderBy('created_at', 'desc')
             ->first();
         
-        return view('content.department.department-details', compact('departmentDetails'));
+        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs'));
     }
     public function addDepartment(Request $request){
         $data = [

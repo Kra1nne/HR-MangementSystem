@@ -6,20 +6,7 @@
     @vite('resources/assets/js/department-details.js')
 @endsection
 @section('content')
-    <main>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{{ route('dashboard-analytics') }}">Dasboard</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{{ route('department-list') }}">Department List</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    <a href="javascript:void(0);">Employee List</a>
-                </li>
-            </ol>
-        </nav>
+    <main class="mt-3">
         <div class="card">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
