@@ -7,7 +7,7 @@
       "slug": "dashboard-analytics"
     },
     {
-      "menuHeader": "Management"
+      "menuHeader": "Components"
     },
     {
       "url": "/department/list",
@@ -49,6 +49,9 @@
       "name": "Leave",
       "icon": "menu-icon tf-icons ri-user-received-2-line",
       "slug": "leave"
+    },
+    {
+      "menuHeader": "System Management"
     },
     {
       "url": "/user",

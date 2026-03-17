@@ -131,35 +131,105 @@
         </section>
     </main>
     <div class="modal fade" id="Modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary pb-4">
                     <h5 class="modal-title text-white" id="modalCenterTitle">New Employee</h5>
                 </div>
                 <form id="dataDepartment" class="modal-body">
                     @csrf
-                    <div class="row ">
-                        <div class="col mt-2">
-                            <label for="name" class="form-label">Department Name</label>
-                            <input id="name" name="name" class="form-control form-control-sm" type="text"
-                                placeholder="Enter the department name" />
-                        </div>
+                    <div class="d-flex justify-content-center align-items-center border rounded pt-2">
+                        <label class="form-label fw-bold">Personal Details</label>
                     </div>
-                    <div class="row ">
-                        <div class="col mt-2">
-                            <label for="name" class="form-label">Department Manager</label>
-                            <select name="manager" class="form-select" id="manager">
-                                <option value="" selected disabled>Select Manager</option>
-                                <option value="1">John Doew</option>
-                                <option value="2">Kimmy Dot</option>
+                    <div class="row mt-3">
+                        <!-- Hire Date -->
+
+                        <!-- First Name -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">First Name</label>
+                            <input name="firstname" class="form-control form-control-sm" type="text"
+                                placeholder="Enter first name" />
+                        </div>
+
+                        <!-- Middle Name -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Middle Name</label>
+                            <input name="middlename" class="form-control form-control-sm" type="text"
+                                placeholder="Enter middle name" />
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Last Name</label>
+                            <input name="lastname" class="form-control form-control-sm" type="text"
+                                placeholder="Enter last name" />
+                        </div>
+
+                        <!-- Address -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Address</label>
+                            <input name="address" class="form-control form-control-sm" type="text"
+                                placeholder="Enter address" />
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Phone Number</label>
+                            <input name="phone_number" class="form-control form-control-sm" type="text"
+                                placeholder="Enter phone number" />
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Birth Date</label>
+                            <input name="birth_date" class="form-control form-control-sm" type="date" />
+                        </div>
+
+                        <!-- Sex -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Sex</label>
+                            <select name="sex" class="form-select form-select-sm">
+                                <option value="" selected disabled>Select Sex</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col mt-2">
-                            <label for="details" class="form-label">Details</label>
-                            <textarea class="form-control h-px-100" id="details" name="details"
-                                placeholder="Enter department details here..."></textarea>
+                    <div class="d-flex justify-content-center align-items-center border mt-5 rounded pt-2">
+                        <label class="form-label fw-bold">Recruitment Details</label>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Hire Date</label>
+                            <input name="hire_date" class="form-control form-control-sm" type="date" />
+                        </div>
+
+                        <!-- Salary -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Salary</label>
+                            <input name="salary" class="form-control form-control-sm" type="number"
+                                placeholder="Enter salary" />
+                        </div>
+                        <!-- From Date -->
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Date</label>
+                            <input name="date" class="form-control form-control-sm" type="date" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Position</label>
+                            <input name="position" class="form-control form-control-sm" type="text"
+                                placeholder="Enter Position" />
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4 mt-2">
+                            <label class="form-label">Work Status</label>
+                            <select name="status" class="form-select form-select-sm">
+                                <option value="" selected disabled>Select Status</option>
+                                <option value="contractual">Contractual</option>
+                                <option value="regular">Regular</option>
+                                <option value="probationary">Probationary</option>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
                     </div>
                 </form>
