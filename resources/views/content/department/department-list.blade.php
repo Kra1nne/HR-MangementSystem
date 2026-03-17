@@ -111,21 +111,10 @@
                                 placeholder="Enter the department name" />
                         </div>
                     </div>
-                    <div class="row ">
-                        <div class="col mt-2">
-                            <label for="name" class="form-label">Department Manager</label>
-                            <select name="manager" class="form-select" id="manager">
-                                <option value="" selected disabled>Select Manager</option>
-                                <option value="1">John Doew</option>
-                                <option value="2">Kimmy Dot</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col mt-2">
                             <label for="details" class="form-label">Details</label>
-                            <textarea class="form-control h-px-100" id="details" name="details"
-                                placeholder="Enter department details here..."></textarea>
+                            <textarea class="form-control h-px-100" id="details" name="details" placeholder="Enter department details here..."></textarea>
                         </div>
                     </div>
                 </form>
