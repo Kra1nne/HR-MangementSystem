@@ -37,13 +37,6 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
 
   Route::get('/profile', [ProfileController::class, 'index'])->name('profile-index');
 
-  Route::get('/recruitment/job', [RecruitmentController::class, 'index'])->name('recruitment-index');
-  Route::post('/recruitment/addJob', [RecruitmentController::class, 'addJob'])->name('recruitment-addJob');
-  Route::get('/recruitment/{id}', [RecruitmentController::class, 'details'])->name('recruitment-description');
-  
-  Route::post('/recruitment/addCandidate', [RecruitmentController::class, 'addCanditate'])->name('recruitment-addCandidate');
-  Route::get('/recruitment/candidates', [RecruitmentController::class, 'recruitmentcandidates'])->name('recruitment-candidates');
-
   Route::get('/attendance/dashboard', [AttendanceController::class, 'index'])->name('attendance-index');
   Route::get('/attendance/user', [AttendanceController::class, 'userAttendance'])->name('attendance-user');
   Route::get('/attendance/face-recognation', [AttendanceController::class, 'faceRecognation'])->name('attendance-check');
@@ -52,8 +45,6 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
 
   Route::get('/department/{id}', [DepartmentController::class, 'details'])->name('department-details');
-
-  Route::get('/onboarding/list', [OnboardingController::class, 'index'])->name('onboarding-index');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
   Route::get('/employee/face-registration', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
