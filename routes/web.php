@@ -15,10 +15,8 @@ use App\Http\Controllers\department\DepartmentController;
 use App\Http\Controllers\employee\EmployeeController;
 use App\Http\Controllers\leave\LeaveController;
 use App\Http\Controllers\logs\LogsController;
-use App\Http\Controllers\onboarding\OnboardingController;
 use App\Http\Controllers\payroll\PayrollController;
 use App\Http\Controllers\profile\ProfileController;
-use App\Http\Controllers\recruitment\RecruitmentController;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
@@ -47,6 +45,8 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/department/{id}', [DepartmentController::class, 'details'])->name('department-details');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
+  Route::post('/employee/edit', [EmployeeController::class, 'editEmployee'])->name('employee-edit');
+  Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('employee-add');
   Route::get('/employee/face-registration', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
 
   Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll');
