@@ -86,11 +86,9 @@ function validateFormPassword(fields) {
 $(document).ready(function () {
   $('#AddAcountBtn').on('click', function (event) {
     const fields = [
-      { id: 'firstname', label: 'Firstname' },
-      { id: 'lastname', label: 'Lastname' },
       { id: 'email', label: 'Email' },
       { id: 'role', label: 'Role' },
-      { id: 'terms-conditions', label: 'Terms and Condition' }
+      { id: 'person_id', label: 'Employee' }
     ];
     const passwords = [
       { id: 'password', label: 'Password' },
@@ -143,24 +141,16 @@ $(document).ready(function () {
 $(document).ready(function () {
   $('body').on('click', '.Edit', function () {
     const id = $(this).data('id');
-    const firstname = $(this).data('firstname');
-    const middlename = $(this).data('middlename');
-    const lastname = $(this).data('lastname');
     const email = $(this).data('email');
     const role = $(this).data('role');
 
     $('#Edit_id').val(id);
-    $('#Edit_firstname').val(firstname);
-    $('#Edit_middlename').val(middlename);
-    $('#Edit_lastname').val(lastname);
     $('#Edit_email').val(email);
     $('#Edit_role').val(role);
   });
 
   $('body').on('click', '#SaveEditBtn', function (event) {
     const fields = [
-      { id: 'Edit_firstname', label: 'Firstname' },
-      { id: 'Edit_lastname', label: 'Lastname' },
       { id: 'Edit_email', label: 'Email' },
       { id: 'Edit_role', label: 'Role' }
     ];
@@ -272,7 +262,6 @@ $(document).ready(function () {
     }
 
     users.forEach(user => {
-      console.log(user.status_request);
       const userRow = `
         <tr>
           <td><span>${user.firstname} ${user.lastname}</span></td>
@@ -285,9 +274,6 @@ $(document).ready(function () {
               <div class="dropdown-menu">
                 <a class="dropdown-item Edit" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#EditAccount"
                   data-id="${user.encrypted_id}"
-                  data-firstname="${user.firstname}"
-                  data-middlename="${user.middlename}"
-                  data-lastname="${user.lastname}"
                   data-username="${user.username}"
                   data-email="${user.email}"
                   data-role="${user.role}"

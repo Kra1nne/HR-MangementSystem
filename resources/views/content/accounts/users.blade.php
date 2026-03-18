@@ -8,37 +8,39 @@
 
 
 @section('content')
-    <div class="card">
-        <header class="mb-3 navbar-nav-right d-flex align-items-center px-3 mt-3">
-            <div class="navbar-nav align-items-start">
-                <div class="nav-item d-flex align-items-center">
-                    <i class="ri-search-line ri-22px me-1_5"></i>
-                    <input type="search" id="search" class="form-control border-0 shadow-none ps-1 ps-sm-2 ms-50"
-                        placeholder="Search..." aria-label="Search...">
+    <main class="mt-5">
+        <div class="card">
+            <header class="mb-3 navbar-nav-right d-flex align-items-center px-3 mt-3">
+                <div class="navbar-nav align-items-start">
+                    <div class="nav-item d-flex align-items-center">
+                        <i class="ri-search-line ri-22px me-1_5"></i>
+                        <input type="search" id="search" class="form-control border-0 shadow-none ps-1 ps-sm-2 ms-50"
+                            placeholder="Search..." aria-label="Search...">
+                    </div>
                 </div>
+                <div class="navbar-nav flex-row align-items-center ms-auto gap-5">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">
+                        <span class="tf-icons ri-add-circle-line ri-16px me-1_5"></span>Add Account
+                    </button>
+                </div>
+            </header>
+            <div class="table-responsive text-nowrap overflow-auto" style="max-height: 500px;">
+                <table class="table table-hover">
+                    <thead class="position-sticky top-0 bg-body">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" id="userlist">
+                    </tbody>
+                </table>
             </div>
-            <div class="navbar-nav flex-row align-items-center ms-auto gap-5">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">
-                    <span class="tf-icons ri-add-circle-line ri-16px me-1_5"></span>Add Account
-                </button>
-            </div>
-        </header>
-        <div class="table-responsive text-nowrap overflow-auto" style="max-height: 500px;">
-            <table class="table table-hover">
-                <thead class="position-sticky top-0 bg-body">
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0" id="userlist">
-                </tbody>
-            </table>
         </div>
-    </div>
+    </main>
     {{-- Add Account Modal --}}
     <div class="modal fade" id="AddAccount" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -60,21 +62,6 @@
                         <form id="AddAccountData" class="mb-5">
                             @csrf
                             <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="firstname" name="firstname"
-                                    placeholder="Enter your firstname" autofocus>
-                                <label for="firstname">Firstname</label>
-                            </div>
-                            <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="middlename" name="middlename"
-                                    placeholder="Enter your middlename" autofocus>
-                                <label for="middlename">Middlename</label>
-                            </div>
-                            <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="lastname" name="lastname"
-                                    placeholder="Enter your lastname" autofocus>
-                                <label for="lastname">Lastname</label>
-                            </div>
-                            <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="email" name="email"
                                     placeholder="Enter your email">
                                 <label for="email">Email</label>
@@ -88,6 +75,17 @@
                                     <option value="Hr">Hr</option>
                                 </select>
                                 <label for="exampleFormControlSelect1">Role</label>
+                            </div>
+                            <div class="form-floating form-floating-outline mb-6">
+                                <select class="form-select" id="person_id" name="person_id"
+                                    aria-label="Default select example">
+                                    <option value="" selected disabled>Select Employee</option>
+                                    @foreach ($employees as $item)
+                                        <option value="{{ $item->person_id }}">{{ $item->person->lastname }},
+                                            {{ $item->person->firstname }} {{ $item->person->middlename[0] }}.</option>
+                                    @endforeach
+                                </select>
+                                <label for="exampleFormControlSelect1">Employee</label>
                             </div>
                             <div class="mb-5 form-password-toggle">
                                 <div class="input-group input-group-merge">
@@ -120,8 +118,7 @@
                         </form>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary d-grid w-100 mb-5"
-                            id="AddAcountBtn">Submit</button>
+                        <button type="button" class="btn btn-primary d-grid w-100 mb-5" id="AddAcountBtn">Submit</button>
                     </div>
                 </div>
             </div>
@@ -152,21 +149,6 @@
                                     placeholder="Enter your firstname" autofocus>
                                 <label for="id">Id</label>
                             </div>
-                            <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="Edit_firstname" name="firstname"
-                                    placeholder="Enter your firstname" autofocus>
-                                <label for="firstname">Firsname</label>
-                            </div>
-                            <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="Edit_middlename" name="middlename"
-                                    placeholder="Enter your middlename">
-                                <label for="middlename">Middlename</label>
-                            </div>
-                            <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" id="Edit_lastname" name="lastname"
-                                    placeholder="Enter your username" autofocus>
-                                <label for="lastname">Lastname</label>
-                            </div>
                             <div class="form-floating form-floating-outline mb-6">
                                 <select class="form-select" id="Edit_role" name="role"
                                     aria-label="Default select example">
@@ -196,11 +178,11 @@
         $users = collect($users)
             ->map(function ($user) {
                 return [
-                    'id' => $user->id,
-                    'encrypted_id' => Crypt::encryptString($user->id),
+                    'id' => $user->user_id,
+                    'encrypted_id' => Crypt::encryptString($user->user_id),
                     'firstname' => $user->firstname,
-                    'middlename' => $user->middlename,
                     'lastname' => $user->lastname,
+                    'middlename' => $user->middlename,
                     'email' => $user->email,
                     'role' => $user->role,
                     'status_request' => $user->status_request,
