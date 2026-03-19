@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountMail;
 use App\Models\Employee;
 use App\Models\Log;
 use App\Models\Person;
@@ -10,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -38,8 +40,6 @@ class UserController extends Controller
     }
     public function store(Request $request){
 
-    $otp = Str::upper(Str::random(6));
-
     $user = [
       'email' => $request->email,
       'password' => bcrypt($request->password),
@@ -47,13 +47,25 @@ class UserController extends Controller
       'created_at' => now(),
       'person_id' => $request->person_id,
       'status_request' => "Done",
-      'otp' => $otp,
     ];
+
+    $personDetails = Person::whereNull('deleted_at')
+      ->where('id', $request->person_id)
+      ->first(); 
+      
+    $mailData = [
+        'name' => $personDetails->firstname,
+        'temporaryPassword' => $request->password,
+        'loginUrl' => url('http://127.0.0.1:8000/login'),
+        'email' => $request->email,
+        'supportEmail' => 'hr@yourcompany.com',
+    ];
+    Mail::to($request->email)->send(new AccountMail($mailData));
 
     $userData = User::create($user);
 
     $log = [
-      'user_id' => $userData->id,
+      'user_id' => Auth::id(),
       'action' => 'Add',
       'table_name' => 'Users',
       'description' => 'Added a account',
@@ -61,7 +73,6 @@ class UserController extends Controller
       'created_at' => now(),
     ];
     $logData = Log::insert($log);
-
     if($logData){
       return response()->json(['Error' => 0, 'Message' => 'Successfully added a data']);
     }
