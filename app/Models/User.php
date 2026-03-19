@@ -30,4 +30,14 @@ class User extends Authenticatable implements MustVerifyEmail
   {
     return $this->belongsTo(Person::class, 'person_id');
   }
+
+  public function getStatus(): string
+  {
+    return match($this->status_request) {
+      'Active' => 'bg-label-success',
+      'Done' => 'bg-label-primary',
+      'Deleted' => 'bg-label-warning',
+      default => 'bg-label-secondary'
+    };
+  }
 }

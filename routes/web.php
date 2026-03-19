@@ -1,22 +1,23 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\pages\MiscError;
-use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\Account\UserController;
 use App\Http\Controllers\attendance\AttendanceController;
-use App\Http\Controllers\pages\MiscTooManyRequest;
-use App\Http\Controllers\authentications\LoginBasic;
-use App\Http\Controllers\pages\MiscUnderMaintenance;
-use App\Http\Controllers\homepage\HomePagesController;
-use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\authentications\LoginBasic;
+use App\Http\Controllers\authentications\NewPasswordController;
+use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\department\DepartmentController;
 use App\Http\Controllers\employee\EmployeeController;
+use App\Http\Controllers\homepage\HomePagesController;
 use App\Http\Controllers\leave\LeaveController;
 use App\Http\Controllers\logs\LogsController;
+use App\Http\Controllers\pages\AccountSettingsAccount;
+use App\Http\Controllers\pages\MiscError;
+use App\Http\Controllers\pages\MiscTooManyRequest;
+use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\payroll\PayrollController;
 use App\Http\Controllers\profile\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
@@ -28,7 +29,8 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
   Route::post('/login/process', [LoginBasic::class, 'login'])->name('login-process')->middleware(['throttle:login']);
 
   Route::get('/forgot-password', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
-  Route::get('/new-password/{id}', [LoginBasic::class, 'newPassword'])->name('new-password');
+  Route::get('/new-password/{id}', [NewPasswordController::class, 'index'])->name('new-password');
+  Route::post('/new-password/process', [NewPasswordController::class, 'newAccount'])->name('new-password-process');
 
 });
 

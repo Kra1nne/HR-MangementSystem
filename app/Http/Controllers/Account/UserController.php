@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     public function index(){
-      $employees = Employee::leftJoin('person', 'person.id', '=', 'employees.person_id')
+      $employees = Employee::leftJoin('persons', 'persons.id', '=', 'employees.person_id')
         ->whereNull('employees.deleted_at')
         ->whereNotIn('employees.person_id', function ($query) {
             $query->select('person_id')
@@ -30,10 +30,10 @@ class UserController extends Controller
           ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
           ['name' => 'Accounts'],
       ];
-      $users = User::leftjoin('person', 'person.id', 'users.person_id')
+      $users = User::leftjoin('persons', 'person.id', 'users.person_id')
         ->orderBy('users.id', 'DESC')
         ->whereNull('users.deleted_at')
-        ->select('person.*', 'users.*','users.id as user_id')
+        ->select('persons.*', 'users.*','users.id as user_id')
         ->get();
         
       return view('content.accounts.users', compact('users', 'employees', 'breadcrumbs'));
@@ -131,77 +131,6 @@ class UserController extends Controller
 
     if($logData){
       return response()->json(['Error' => 0, 'Message' => 'Successfully delete a data']);
-    }
-  }
-  public function decline(Request $request){
-    $id = $request->id;
-
-    $data = [
-      'status_request' => 'Decline'
-    ];
-    User::where('id', $id)->update($data);
-
-    $log = [
-      'user_id' =>  $id, 
-      'action' => 'Update',
-      'table_name' => 'Users',
-      'description' => 'Decline account request',
-      'ip_address' => request()->ip(),
-      'created_at' => now(),
-    ];
-
-    $logData = Log::insert($log);
-
-    if($logData){
-      return response()->json(['Error' => 0, 'Message' => 'Successfully decline the request']);
-    }
-  }
-  public function accept(Request $request){
-    $id = $request->id;
-
-    $data = [
-      'status_request' => 'Done'
-    ];
-    User::where('id', $id)->update($data);
-
-    $log = [
-      'user_id' =>  $id, 
-      'action' => 'Update',
-      'table_name' => 'Users',
-      'description' => 'Accepted account request',
-      'ip_address' => request()->ip(),
-      'created_at' => now(),
-    ];
-
-    $logData = Log::insert($log);
-
-    if($logData){
-      return response()->json(['Error' => 0, 'Message' => 'Successfully accepted the request']);
-    }
-  }
-   public function activation(Request $request){
-    $id = $request->id;
-    $password = $request->id;
-
-    $data = [
-      'status_request' => 'Active',
-      'password' => bcrypt($password)
-    ];
-    User::where('id', $id)->update($data);
-
-    $log = [
-      'user_id' =>  $id, 
-      'action' => 'Update',
-      'table_name' => 'Users',
-      'description' => 'Accepted account request',
-      'ip_address' => request()->ip(),
-      'created_at' => now(),
-    ];
-
-    $logData = Log::insert($log);
-
-    if($logData){
-      return response()->json(['Error' => 0, 'Message' => 'Successfully accepted the request']);
     }
   }
 }

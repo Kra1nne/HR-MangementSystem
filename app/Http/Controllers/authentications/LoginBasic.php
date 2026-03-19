@@ -62,7 +62,4 @@ class LoginBasic extends Controller
 
     return redirect()->route('login');
   }
-  public function newPassword(){
-    return view('content.authentications.auth-new-password');
-  }
 }
