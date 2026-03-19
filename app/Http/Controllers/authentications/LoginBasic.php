@@ -2,47 +2,48 @@
 
 namespace App\Http\Controllers\authentications;
 
+use App\Http\Controllers\Controller;
 use App\Models\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LoginBasic extends Controller
 {
-  public function index()
+  public function index() : View
   {
     return view('content.authentications.auth-login-basic');
   }
-  public function login(Request $request){
+  public function login(Request $request) : JsonResponse
+  {
     $account = User::where('email', $request->email_username)->whereNull('deleted_at')->first();
-
     if (!$account || !Hash::check($request->password, $account->password)) {
         $message = $account ? 'Invalid Email or Password.' : 'Account didn\'t exist.';
         return response()->json(['Error' => 1, 'Message' => $message]);
     }
 
+    if($account->status_request == "Done"){
+      return response()->json(['Error' => 0, 'Message' => 'Successfully login', 'Redirect' => route('new-password', $account->id)]);
+    }
+
     $logData = [
-      'user_id' => $account->id,
-      'action' => 'Login',
-      'table_name' => 'Users',
-      'description' => $account->firstname.' '.$account->lastname .' is Successfully login',
-      'ip_address' => request()->ip(),
-      'created_at' => now(),
-    ];
+        'user_id' => $account->id,
+        'action' => 'Login',
+        'table_name' => 'Users',
+        'description' => $account->firstname.' '.$account->lastname .' is Successfully login',
+        'ip_address' => request()->ip(),
+        'created_at' => now(),
+      ];
 
-    $resultLogs = Log::insert($logData);
-    Auth::login($account);
+      Log::insert($logData);
+      Auth::login($account);      
 
-    if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Employee'){
       return response()->json(['Error' => 0, 'Message' => 'Successfully login', 'Redirect' => route('dashboard-analytics')]);
-    }
-    if(Auth::user()->role == 'User'){
-      return response()->json(['Error' => 0, 'Message' => 'Successfully login', 'Redirect' => route('home')]);
-    }
   }
-  public function logoutAccount(Request $request)
+  public function logoutAccount(Request $request) 
   {
     $account = User::where('id', Auth::id())->first();
     $logData = [
@@ -60,5 +61,8 @@ class LoginBasic extends Controller
     $request->session()->regenerateToken();
 
     return redirect()->route('login');
+  }
+  public function newPassword(){
+    return view('content.authentications.auth-new-password');
   }
 }

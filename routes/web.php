@@ -28,11 +28,12 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
   Route::post('/login/process', [LoginBasic::class, 'login'])->name('login-process')->middleware(['throttle:login']);
 
   Route::get('/forgot-password', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
+  Route::get('/new-password/{id}', [LoginBasic::class, 'newPassword'])->name('new-password');
+
 });
 
 Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(function () {
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
-
   Route::get('/profile', [ProfileController::class, 'index'])->name('profile-index');
 
   Route::get('/attendance/dashboard', [AttendanceController::class, 'index'])->name('attendance-index');

@@ -16,11 +16,6 @@
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center py-4">
                     <div class="my-auto w-100" style="max-width: 380px;">
                         <h1 class="fw-bold fs-3 mb-1">New Password.</h1>
-                        <p class="text-muted mb-4" style="font-size:14px;">
-                            Go back to
-                            <a href="{{ url('login') }}" class="text-primary text-decoration-none fw-medium">Sign in</a>
-                        </p>
-
                         <form id="formAuthentication">
                             @csrf
 
@@ -58,7 +53,7 @@
                             <div class="d-grid mb-4">
                                 <button class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
                                     type="submit" id="loginBtn">
-                                    Reset Password
+                                    New Password
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2.5">
                                         <line x1="5" y1="12" x2="19" y2="12" />
