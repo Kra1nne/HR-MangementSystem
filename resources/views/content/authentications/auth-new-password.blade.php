@@ -43,8 +43,8 @@
                             <div class="mb-5 form-password-toggle">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input type="password" id="password-confirmation" class="form-control"
-                                            name="password-confirmation"
+                                        <input type="password" id="password_confirmation" class="form-control"
+                                            name="password_confirmation"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="password" />
                                         <label for="password">Password Confirmation</label>

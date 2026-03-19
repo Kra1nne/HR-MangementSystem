@@ -13,6 +13,13 @@ class NewPasswordController extends Controller
         return view('content.authentications.auth-new-password', compact('data'));
     }
     public function newAccount(Request $request){
+        if(empty($request->password) && empty($request->password_confirmation)){
+            return response()->json(['Error' => 1, 'Message' => 'Fill up a new password']);
+        }
+        if($request->password != $request->password_confirmation){
+            return response()->json(['Error' => 1, 'Message' => 'Fill up a new password']);
+        }
+
         $data = [
             'password' => bcrypt($request->password),
             'updated_at' => now(),
