@@ -227,7 +227,6 @@
         .steps {
             margin: 28px 0 0;
             padding: 0;
-            list-style: none;
         }
 
         .steps li {
@@ -429,7 +428,7 @@
             <p style="font-size:13px; font-weight:600; color:#1e293b; margin-bottom:4px; letter-spacing:0.3px;">
                 GETTING STARTED
             </p>
-            <ul class="steps">
+            <ol class="steps">
                 <li>
                     <span>1. </span>
                     <span>Click <strong>Login to Empthra</strong> above and enter your
@@ -448,7 +447,7 @@
                     <span>4. </span>
                     <span>Complete your employee profile to unlock full HR features.</span>
                 </li>
-            </ul>
+            </ol>
 
             {{-- Security notice --}}
             <div class="security-notice">
@@ -477,25 +476,12 @@
         {{-- ──────────────── FOOTER ──────────────── --}}
         <div class="email-footer">
 
-            <div class="footer-logo">
-                Empt<span>hra</span>
-            </div>
-            <div class="footer-tagline">Human Resource Management System</div>
-
-            <div class="footer-links">
-                <a href="{{ $loginUrl ?? '#' }}">Login Portal</a>
-                <a href="#">Help Center</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-            </div>
-
             <hr class="footer-divider">
 
             <p class="footer-copy">
                 This is an automated message from <strong style="color:rgba(255,255,255,0.45);">Empthra HRMS</strong>.
                 Please do not reply directly to this email.<br>
                 © {{ date('Y') }} Empthra. All rights reserved.<br>
-                <a href="#">Unsubscribe</a> · <a href="#">Update Preferences</a>
             </p>
 
         </div>

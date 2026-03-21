@@ -25,7 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail
     'otp',
     'otp_validity'
   ];
-
+  protected $casts = [
+    'otp_validity' => 'date'
+  ];
   public function person()
   {
     return $this->belongsTo(Person::class, 'person_id');

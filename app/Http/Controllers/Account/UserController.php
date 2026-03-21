@@ -30,7 +30,7 @@ class UserController extends Controller
           ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
           ['name' => 'Accounts'],
       ];
-      $users = User::leftjoin('persons', 'person.id', 'users.person_id')
+      $users = User::leftjoin('persons', 'persons.id', 'users.person_id')
         ->orderBy('users.id', 'DESC')
         ->whereNull('users.deleted_at')
         ->select('persons.*', 'users.*','users.id as user_id')

@@ -5,9 +5,9 @@
 @section('page-style')
     @vite(['resources/assets/css/auth.css'])
 @endsection
-@section('page-script')
+{{-- @section('page-script')
     @vite('resources/assets/js/login.js')
-@endsection
+@endsection --}}
 
 @section('content')
     <div class="container-fluid p-0 vh-100">
@@ -24,19 +24,20 @@
                     <div class="my-auto w-100" style="max-width: 380px;">
                         <h1 class="fw-bold fs-3 mb-1">Welcome back.</h1>
 
-                        <form id="formAuthentication">
+                        <form id="formAuthentication" action="{{ route('login-process') }}" method="POST">
                             @csrf
 
                             {{-- Email --}}
                             <div class="form-floating form-floating-outline mb-5">
                                 <input type="text" class="form-control" id="email" name="email_username"
-                                    placeholder="Enter your email">
+                                    placeholder="Enter your email" value="{{ old('email_username') }}">
                                 <label for="email">Email</label>
                             </div>
                             <div class="mb-5 form-password-toggle">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input type="password" id="password" class="form-control" name="password"
+                                        <input type="password" id="password" value="{{ old('password') }}"
+                                            class="form-control" name="password"
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="password" />
                                         <label for="password">Password</label>
@@ -44,7 +45,13 @@
                                     <span class="input-group-text cursor-pointer"><i
                                             class="ri-eye-off-line ri-20px"></i></span>
                                 </div>
+                                @if ($errors->any())
+                                    <div class="text-danger mt-1 mb-2">
+                                        {{ $errors->first() }}
+                                    </div>
+                                @endif
                             </div>
+
                             {{-- Remember me & Forgot --}}
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check mb-0">

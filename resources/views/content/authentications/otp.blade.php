@@ -1,44 +1,55 @@
 @extends('layouts/blankLayout')
 
-@section('title', 'Login')
+@section('title', 'OTP Page')
 
 @section('page-style')
     @vite(['resources/assets/css/auth.css'])
 @endsection
-
+@section('page-script')
+    @vite('resources/assets/js/otp.js')
+@endsection
 @section('content')
     <div class="container-fluid p-0 vh-100">
         <div class="row g-0 h-100">
 
-            {{-- ── LEFT: Login Form ── --}}
+            {{-- ── LEFT: Form ── --}}
             <div class="col-md-6 d-flex flex-column column bg-white px-4 px-lg-5 py-4 h-100">
 
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center py-4">
                     <div class="my-auto w-100" style="max-width: 380px;">
-                        <h1 class="fw-bold fs-3 mb-1">Forget password.</h1>
-                        <p class="text-muted mb-4" style="font-size:14px;">
-                            Go back to
-                            <a href="{{ url('login') }}" class="text-primary text-decoration-none fw-medium">Sign in</a>
-                        </p>
-                        <form id="formAuthentication" action="{{ route('auth-send-otp') }}" method="post">
-                            @csrf
 
-                            {{-- Email --}}
-                            <div class="form-floating form-floating-outline mb-5">
-                                <input type="text" class="form-control" value="{{ old('email') }}" id="email"
-                                    name="email" placeholder="Enter your email">
-                                <label for="email">Email</label>
+                        <h1 class="fw-bold fs-3 mb-1">OTP.</h1>
+                        <p class="text-black mb-4" style="font-size:14px;">
+                            Didn't recieve code?
+                            <a href="#" id="resendOtp"
+                                class="text-primary text-decoration-none fw-medium disabled-link opacity-25">
+                                Resend OTP (<span id="timer"></span>s)
+                            </a>
+                        </p>
+                        <form id="formAuthentication" method="post" action="{{ route('auth-verify-otp') }}">
+                            @csrf
+                            {{-- OTP INPUT --}}
+                            <input type="hidden" name="id" id="id" value="{{ $id }}">
+                            <div class="mb-4">
+                                <label class="form-label">Enter OTP</label>
+                                <div class="d-flex justify-content-between gap-2" id="otpInputs">
+                                    @for ($i = 0; $i < 6; $i++)
+                                        <input type="text" maxlength="1" class="form-control text-center otp-input"
+                                            style="width: 45px; height: 50px; font-size: 20px;" name="otp[]">
+                                    @endfor
+                                </div>
                                 @if ($errors->any())
-                                    <div class="text-danger mt-2">
+                                    <div class="text-danger my-2">
                                         {{ $errors->first() }}
                                     </div>
                                 @endif
                             </div>
+
                             {{-- Submit --}}
                             <div class="d-grid mb-4">
                                 <button class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                                    type="submit" id="loginBtn">
-                                    Reset Password
+                                    type="submit">
+                                    Verify & Reset
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2.5">
                                         <line x1="5" y1="12" x2="19" y2="12" />
@@ -48,7 +59,6 @@
                             </div>
                         </form>
 
-                        {{-- Divider --}}
                     </div>
                 </div>
             </div>
@@ -56,7 +66,6 @@
             {{-- ── RIGHT: Decorative Panel ── --}}
             <div class="col-md-6 chess-panel d-flex align-items-end p-5">
 
-                {{-- Checkerboard --}}
                 <div class="chess-grid">
                     @php
                         $pattern = [[0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0]];
@@ -72,4 +81,5 @@
             </div>
         </div>
     </div>
+
 @endsection

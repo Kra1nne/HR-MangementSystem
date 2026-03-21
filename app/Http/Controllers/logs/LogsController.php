@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class LogsController extends Controller
 {
     public function index(){
-        return view('content.logs-activity.logs');
+        return view('mail.message-mail');
     }
 }

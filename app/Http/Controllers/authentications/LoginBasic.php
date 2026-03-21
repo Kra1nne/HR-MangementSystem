@@ -7,9 +7,11 @@ use App\Models\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LoginBasic extends Controller
 {
@@ -17,16 +19,22 @@ class LoginBasic extends Controller
   {
     return view('content.authentications.auth-login-basic');
   }
-  public function login(Request $request) : JsonResponse
+  public function login(Request $request) : RedirectResponse
   {
     $account = User::where('email', $request->email_username)->whereNull('deleted_at')->first();
     if (!$account || !Hash::check($request->password, $account->password)) {
-        $message = $account ? 'Invalid Email or Password.' : 'Account didn\'t exist.';
-        return response()->json(['Error' => 1, 'Message' => $message]);
+        $message = $account 
+            ? 'Invalid Email or Password.' 
+            : 'Account didn\'t exist.';
+
+        return back()->withErrors([
+            'login' => $message
+        ])->withInput();
     }
 
-    if($account->status_request == "Done"){
-      return response()->json(['Error' => 0, 'Message' => 'Successfully login', 'Redirect' => route('new-password', $account->id)]);
+    if ($account->status_request == "Done") {
+        return redirect()->route('new-password', Crypt::encryptString($account->id))
+            ->with('success', 'Please set your new password.');
     }
 
     $logData = [
@@ -41,9 +49,9 @@ class LoginBasic extends Controller
       Log::insert($logData);
       Auth::login($account);      
 
-      return response()->json(['Error' => 0, 'Message' => 'Successfully login', 'Redirect' => route('dashboard-analytics')]);
+      return redirect()->route('dashboard-analytics')->with('success', 'Successfully login');
   }
-  public function logoutAccount(Request $request) 
+  public function logoutAccount(Request $request) : RedirectResponse
   {
     $account = User::where('id', Auth::id())->first();
     $logData = [

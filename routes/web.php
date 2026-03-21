@@ -29,6 +29,10 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
   Route::post('/login/process', [LoginBasic::class, 'login'])->name('login-process')->middleware(['throttle:login']);
 
   Route::get('/forgot-password', [ForgotPasswordBasic::class, 'index'])->name('auth-reset-password');
+  Route::get('/forgot-password/otp/{id}', [ForgotPasswordBasic::class, 'viewOTP'])->name('auth-request-otp');
+  Route::post('/forgot-password/process', [ForgotPasswordBasic::class, 'sendOTP'])->name('auth-send-otp');
+  Route::post('/forgot-password/verify', [ForgotPasswordBasic::class, 'verifyOTP'])->name('auth-verify-otp');
+
   Route::get('/new-password/{id}', [NewPasswordController::class, 'index'])->name('new-password');
   Route::post('/new-password/process', [NewPasswordController::class, 'newAccount'])->name('new-password-process');
 
