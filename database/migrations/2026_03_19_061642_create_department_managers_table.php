@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('department_managers', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('emp_no')
+                ->references('emp_no')
+                ->on('employees')
+                ->constrained();
+            $table->foreignId('dept_no')
+                ->references('dept_no')
+                ->on('departments')
+                ->constrained();
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
             $table->timestamps();
         });
     }

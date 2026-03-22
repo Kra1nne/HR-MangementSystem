@@ -23,7 +23,12 @@ class Person extends Model
       'deleted_at'
     ];
 
-    public function employee(){
+    public function employee()
+    {
       return $this->hasOne(Employee::class, 'person_id', 'id');
+    }
+    public function user()
+    {
+      return $this->hasOne(User::class, 'person_id', 'id');
     }
 }

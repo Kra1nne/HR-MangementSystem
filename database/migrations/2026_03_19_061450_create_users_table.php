@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('person_id')
+                ->unique()
+                ->constrained('persons')
+                ->restrictOnDelete();
+            $table->string('email')
+                ->unique();
+            $table->text('password');
+            $table->string('role', 100);
+            $table->string('otp', 6)->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('status_request', 50);
+            $table->timestamp('otp_validity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

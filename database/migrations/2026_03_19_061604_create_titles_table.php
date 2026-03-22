@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('titles', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('emp_no')
+                ->references('emp_no')
+                ->on('employees')
+                ->restrictOnDelete();
+            $table->string('title', 100);
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
+            $table->timestamp('update_at')->nullable();
         });
     }
 

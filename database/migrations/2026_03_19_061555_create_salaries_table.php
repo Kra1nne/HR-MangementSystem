@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('emp_no')
+                ->references('emp_no')
+                ->on('employees')
+                ->restrictOnDelete();
+            $table->double('salary', 10, 2);
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

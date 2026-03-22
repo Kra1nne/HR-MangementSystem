@@ -12,7 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('department_employees', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_no');
+            $table->foreignId('emp_no')
+                ->references('emp_no')
+                ->on('employees')
+                ->restrictOnDelete();
+            $table->foreignId('dept_no')
+                ->references('dept_no')
+                ->on('departments')
+                ->restrictOnDelete();
+            $table->date('from_date');
+            $table->date('to_date')->nullable();
             $table->timestamps();
         });
     }

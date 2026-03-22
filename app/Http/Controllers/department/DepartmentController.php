@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\department;
 
 use App\Http\Controllers\Controller;
-use App\Models\Departments;
+use App\Models\Department;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class DepartmentController extends Controller
             ['name' => 'Department List', 'link'],
         ];
 
-        $departments = Departments::whereNull('deleted_at')
+        $departments = Department::whereNull('deleted_at')
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($department) {
@@ -33,7 +33,7 @@ class DepartmentController extends Controller
             ['name' => 'Department List', 'link' => route('department-list')],
             ['name' => 'Department Details'],
         ];
-        $departmentDetails = Departments::whereNull('deleted_at')
+        $departmentDetails = Department::whereNull('deleted_at')
             ->where('dept_no', Crypt::decryptString($id))
             ->orderBy('created_at', 'desc')
             ->first();
@@ -56,7 +56,7 @@ class DepartmentController extends Controller
             'created_at' => now(),
         ];
         
-        $isCreated = Departments::insert($data);
+        $isCreated = Department::insert($data);
         $logData = Log::insert($log);
 
         if($isCreated && $logData){
