@@ -10,7 +10,6 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // person_id references persons.id (1–5 seeded by PersonSeeder)
         $users = [
             [
                 'person_id'          => 1,

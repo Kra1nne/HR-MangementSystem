@@ -13,7 +13,7 @@ class PersonSeeder extends Seeder
             [
                 'firstname'   => 'Juan',
                 'lastname'    => 'Dela Cruz',
-                'middlname'   => 'Santos',
+                'middlename'   => 'Santos',
                 'address'     => '123 Rizal St, Cebu City',
                 'phone_number'=> '09171234567',
                 'birth_date'  => '1990-05-14',
@@ -25,7 +25,7 @@ class PersonSeeder extends Seeder
             [
                 'firstname'   => 'Maria',
                 'lastname'    => 'Reyes',
-                'middlname'   => 'Garcia',
+                'middlename'   => 'Garcia',
                 'address'     => '456 Mabini Ave, Cebu City',
                 'phone_number'=> '09189876543',
                 'birth_date'  => '1993-08-22',
@@ -37,7 +37,7 @@ class PersonSeeder extends Seeder
             [
                 'firstname'   => 'Carlos',
                 'lastname'    => 'Mendoza',
-                'middlname'   => 'Lopez',
+                'middlename'   => 'Lopez',
                 'address'     => '789 Osmena Blvd, Mandaue City',
                 'phone_number'=> '09204567890',
                 'birth_date'  => '1988-11-03',
@@ -49,7 +49,7 @@ class PersonSeeder extends Seeder
             [
                 'firstname'   => 'Ana',
                 'lastname'    => 'Torres',
-                'middlname'   => 'Villanueva',
+                'middlename'   => 'Villanueva',
                 'address'     => '321 Colon St, Cebu City',
                 'phone_number'=> '09351122334',
                 'birth_date'  => '1995-02-17',
@@ -61,7 +61,7 @@ class PersonSeeder extends Seeder
             [
                 'firstname'   => 'Roberto',
                 'lastname'    => 'Navarro',
-                'middlname'   => 'Castillo',
+                'middlename'   => 'Castillo',
                 'address'     => '654 Gen. Maxilom Ave, Cebu City',
                 'phone_number'=> '09162233445',
                 'birth_date'  => '1985-07-30',

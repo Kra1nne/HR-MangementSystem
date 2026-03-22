@@ -40,7 +40,7 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
 
 Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(function () {
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
-  Route::get('/profile', [ProfileController::class, 'index'])->name('profile-index');
+  Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile-index');
 
   Route::get('/attendance/dashboard', [AttendanceController::class, 'index'])->name('attendance-index');
   Route::get('/attendance/user', [AttendanceController::class, 'userAttendance'])->name('attendance-user');

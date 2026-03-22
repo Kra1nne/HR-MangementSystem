@@ -121,7 +121,7 @@
                                 </td>
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
-                                    <a class="text-success" href="#" data-bs-target="#ModalMessage"
+                                    <a class="text-success" href="javascript::void(0)" data-bs-target="#ModalMessage"
                                         data-bs-toggle="modal"><i
                                             class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
 
