@@ -11,8 +11,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,7 +42,7 @@ class UserController extends Controller
 
     $user = [
       'email' => $request->email,
-      'password' => bcrypt($request->password),
+      'password' => Hash::make($request->password),
       'role' => $request->role,
       'created_at' => now(),
       'person_id' => $request->person_id,
