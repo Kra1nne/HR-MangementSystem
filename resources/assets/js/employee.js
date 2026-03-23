@@ -41,6 +41,34 @@ function validateForm(fields) {
 
   return valid;
 }
+$(function () {
+  $('#selectAll').on('change', function () {
+    const isChecked = $(this).is(':checked');
+    $('.employee-row:visible .employee-checkbox').prop('checked', isChecked).trigger('change'); // ensure UI updates
+    updateCount();
+  });
+
+  $(document).on('change', '.employee-checkbox', function () {
+    const $isChecked = $(this).is(':checked');
+    updateCount();
+  });
+
+  function updateCount() {
+    const $visibleCheckboxes = $('.employee-row:visible .employee-checkbox');
+    const $checkedVisible = $visibleCheckboxes.filter(':checked');
+
+    const total = $('.employee-checkbox:checked').length;
+    $('#selectedCount').text(total + ' selected');
+
+    const selectAll = $('#selectAll')[0];
+
+    if ($checkedVisible.length === 0) {
+      selectAll.checked = false;
+    } else if ($checkedVisible.length === $visibleCheckboxes.length) {
+      selectAll.checked = true;
+    }
+  }
+});
 
 $(function () {
   $('body').on('click', '#employeeDelete', function () {

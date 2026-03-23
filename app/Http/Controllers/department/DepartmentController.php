@@ -57,8 +57,7 @@ class DepartmentController extends Controller
         $departmentEmployee = $data->where('employees.deleted_at')
             ->paginate(10);
         
-        $employees = Employee::with('person')
-            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+        $employees = Employee::with('person', 'latestTitle')
             ->whereNotIn('employees.emp_no', function ($query) {
                 $query->select('emp_no')
                     ->from('department_employees')
@@ -66,7 +65,7 @@ class DepartmentController extends Controller
             })
             ->orderBy('hire_date', 'Desc')
             ->get();
-
+        
         return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee'));
     }
     public function addDepartment(Request $request)

@@ -94,7 +94,7 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 40px;">
-                                <input class="form-check-input m-0" type="checkbox">
+                                <input class="form-check-input m-0" type="checkbox" id="selectAll">
                             </th>
                             <th>Employee ID</th>
                             <th>Name</th>
@@ -109,8 +109,9 @@
                     <tbody class="table-border-bottom-0">
                         @forelse ($employees as $item)
                             <tr>
-                                <th class="text-center p-1" style="width: 40px;">
-                                    <input class="form-check-input m-0" type="checkbox">
+                                <th class="text-center p-1 employee-row" style="width: 40px;">
+                                    <input class="form-check-input m-0 employee-checkbox" type="checkbox" name="employee[]"
+                                        value="{{ $item->dept_no }}">
                                 </th>
                                 <td>
                                     <span>{{ $item->emp_id }}</span>
@@ -163,11 +164,16 @@
                                 <td colspan="9" class="text-center">No Employee Found</td>
                             </tr>
                         @endforelse
-
                     </tbody>
+
                 </table>
-                <div class="m-3 d-flex justify-content-end">
-                    {{ $employees->onEachSide(5)->links() }}
+                <div class="d-flex justify-content-between">
+                    <div class="p-3">
+                        <span id="selectedCount">0 selected</span>
+                    </div>
+                    <div class="m-3">
+                        {{ $employees->onEachSide(5)->links() }}
+                    </div>
                 </div>
             </div>
         </section>

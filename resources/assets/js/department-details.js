@@ -99,16 +99,12 @@ $(function () {
 
   $('#selectAll').on('change', function () {
     const isChecked = $(this).prop('checked');
-
-    $('.employee-row:visible .employee-checkbox').prop('checked', isChecked);
+    $('.employee-row:visible .employee-checkbox').prop('checked', isChecked).trigger('change');
     updateCount();
   });
 
   $(document).on('change', '.employee-checkbox', function () {
-    const $label = $(this).closest('label');
-
-    $label.toggleClass('bg-opacity-10', $(this).is(':checked'));
-
+    $(this).is(':checked');
     updateCount();
   });
 
@@ -120,5 +116,25 @@ $(function () {
     const checkedVisible = $('.employee-row:visible .employee-checkbox:checked').length;
 
     $('#selectAll').prop('checked', visible > 0 && visible === checkedVisible);
+  }
+});
+
+$(function () {
+  $(document).on('change', '#employeeSelectAll', function () {
+    const isChecked = $(this).is(':checked');
+    $('.employee-department-checkbox').prop('checked', isChecked).trigger('change');
+    updateCount();
+  });
+
+  $(document).on('change', '.employee-department-checkbox', function () {
+    $(this).is(':checked');
+    updateCount();
+  });
+
+  function updateCount() {
+    const total = $('.employee-container:visible .employee-department-checkbox:checked').length;
+    const visible = $('.employee-container:visible .employee-department-checkbox').length;
+    $('#selectedCountEmployees').text(total + ' selected');
+    $('#employeeSelectAll').prop('checked', visible > 0 && visible === total);
   }
 });

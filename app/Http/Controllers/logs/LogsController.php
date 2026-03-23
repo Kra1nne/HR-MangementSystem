@@ -18,7 +18,7 @@ class LogsController extends Controller
         $logsData = Log::with('user')
             ->orderBy('id', 'desc')
             ->paginate(10);
-
+            
         return view('content.logs-activity.logs', compact('breadcrumbs', 'logsData'));
     }
 }

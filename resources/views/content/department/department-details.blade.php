@@ -80,7 +80,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 40px;">
-                                            <input class="form-check-input m-0" type="checkbox">
+                                            <input class="form-check-input m-0" type="checkbox" id="employeeSelectAll">
                                         </th>
                                         <th>Employee ID</th>
                                         <th>Name</th>
@@ -93,8 +93,9 @@
                                 <tbody class="table-border-bottom-0">
                                     @forelse ($departmentEmployee as $item)
                                         <tr>
-                                            <th class="text-center p-1" style="width: 40px;">
-                                                <input class="form-check-input m-0" type="checkbox">
+                                            <th class="text-center p-1 employee-container" style="width: 40px;">
+                                                <input class="form-check-input m-0 employee-department-checkbox"
+                                                    type="checkbox" value="{{ $item->id_no }}">
                                             </th>
                                             <td>
                                                 <span>{{ $item->emp_id }}</span>
@@ -128,8 +129,13 @@
 
                                 </tbody>
                             </table>
-                            <div class="m-3 d-flex justify-content-end">
-                                {{ $departmentEmployee->onEachSide(5)->links() }}
+                            <div class="d-flex justify-content-between">
+                                <div class="p-3">
+                                    <span id="selectedCountEmployees">0 selected</span>
+                                </div>
+                                <div class="m-3">
+                                    {{ $departmentEmployee->onEachSide(5)->links() }}
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -227,7 +233,7 @@
                                             {{ $item->person->lastname }}
                                         </div>
                                         <small class="text-muted">
-                                            ID #{{ $item->emp_id }}
+                                            {{ $item->latestTitle->title }}
                                         </small>
                                     </div>
 

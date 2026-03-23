@@ -51,7 +51,7 @@
                                     {{ $item->ip_address }}
                                 </td>
                                 <td>
-                                    {{ date_format($item->created_at, 'm-d-Y H:i:s A') }}
+                                    {{ date_format($item->created_at, 'm-d-Y h:i:s A') }}
                                 </td>
                             </tr>
                         @empty
