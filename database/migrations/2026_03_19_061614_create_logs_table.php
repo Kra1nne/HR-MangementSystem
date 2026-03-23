@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('ip_address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

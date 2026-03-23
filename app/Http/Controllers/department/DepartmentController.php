@@ -87,6 +87,17 @@ class DepartmentController extends Controller
                 'created_at' => now(),
             ]);
         }
+
+         $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Add',
+            'table_name' => 'Departments Employee',
+            'description' => 'Added a employee',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        $logData = Log::insert($log);
+
         return response()->json(['Error' => 0, 'Message' => 'Successfulyy added a Employee']);
     }
 }

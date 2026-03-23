@@ -41,7 +41,7 @@ class LoginBasic extends Controller
         'user_id' => $account->id,
         'action' => 'Login',
         'table_name' => 'Users',
-        'description' => $account->firstname.' '.$account->lastname .' is Successfully login',
+        'description' =>'Successfully login',
         'ip_address' => request()->ip(),
         'created_at' => now(),
       ];
@@ -58,7 +58,7 @@ class LoginBasic extends Controller
       'user_id' => Auth::id(),
       'action' => 'Logout',
       'table_name' => 'Users',
-      'description' => $account->email.' is Successfully logout',
+      'description' =>'Successfully logout',
       'ip_address' => request()->ip(),
       'created_at' => now(),
     ];

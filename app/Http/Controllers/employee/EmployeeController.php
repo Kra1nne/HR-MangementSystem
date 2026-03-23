@@ -4,10 +4,12 @@ namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\Log;
 use App\Models\Person;
 use App\Models\Salary;
 use App\Models\Title;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class EmployeeController extends Controller
@@ -71,6 +73,16 @@ class EmployeeController extends Controller
         ];
         $title = Title::insert($dataTitle);
         $salary = Salary::insert($dataSalary);
+        
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Add',
+            'table_name' => 'Employee',
+            'description' => 'Added a employee',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        $logData = Log::insert($log);
 
         if($employee && $salary && $title){
             return response()->json(['Error' => 0, 'Message' => 'Successfulyy added a new Employee']);
@@ -114,6 +126,16 @@ class EmployeeController extends Controller
         $resultEmployee = Employee::where('emp_no', '=', $employeeData->emp_no)->update($dataEmployee);
         $resultSalary = Salary::where('id', '=', $id_salary)->update($dataSalary);
         $resultTitle = Title::where('id', '=', $id_title)->update($dataTitle);
+
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Edit',
+            'table_name' => 'Employee',
+            'description' => 'Edit a employee',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        $logData = Log::insert($log);
 
         if($resultEmployee && $resultPerson && $resultSalary && $resultTitle){
             return response()->json(['Error' => 0, 'Message' => 'Employee Information Successfully Updated']);
