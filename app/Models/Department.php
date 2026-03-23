@@ -22,7 +22,7 @@ class Department extends Model
     {
         return $this->hasMany(DepartmentManager::class, 'dept_no', 'dept_no');
     }
-    public function department_employess()
+    public function department_employees()
     {
         return $this->hasMany(DepartmentEmployee::class, 'dept_no', 'dept_no');
     }

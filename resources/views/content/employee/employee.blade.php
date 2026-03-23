@@ -6,7 +6,7 @@
 @endsection
 @section('content')
     <main>
-        <div>
+        <div class="mt-2">
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" id="ModalClickAdd" data-bs-toggle="modal" data-bs-target="#Modal">
                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
@@ -64,22 +64,26 @@
             </div>
         </div>
         <section class="card">
-            <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex flex-column flex-md-row align-items-start justify-content-between m-2">
+
                 <!-- Search -->
-                <form action="{{ route('employee') }}" method="get" class="nav-item d-flex align-items-center gap-1">
+                <form action="" method="get" class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
                     <div class="input-group input-group-merge">
-                        <input type="text" name="search" class="form-control border-0" placeholder="Search"
+                        <input type="text" name="search" class="form-control-sm border-1 w-100" placeholder="Search"
                             aria-label="Search..." aria-describedby="basic-addon-search31" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Search</button>
                 </form>
 
-                <div style="display: none !important;" class="d-flex justify-content-center align-items-center px-5">
-                    <a class="text-danger" href="#"><i
-                            class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
-                    <a class="text-success" href="#" data-bs-target="#Modal" data-bs-toggle="modal"><i
-                            class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
+                <div class="d-flex justify-content-center align-items-center px-5">
+                    <a class="text-danger" href="#">
+                        <i class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i>
+                    </a>
+                    <a class="text-success" href="#" data-bs-target="#Modal" data-bs-toggle="modal">
+                        <i class="icon-base ri ri-mail-send-line icon-18px me-1"></i>
+                    </a>
                 </div>
+
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-hover">
@@ -125,8 +129,8 @@
                                         data-bs-toggle="modal"><i
                                             class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
 
-                                    <a class="text-success" id="ModalClickEdit" href="#" data-bs-target="#Modal"
-                                        data-bs-toggle="modal" data-id="{{ $item->emp_no }}"
+                                    <a class="text-success" id="ModalClickEdit" href="javascript::void(0)"
+                                        data-bs-target="#Modal" data-bs-toggle="modal" data-id="{{ $item->emp_no }}"
                                         data-firstname="{{ $item->person->firstname }}"
                                         data-middlename="{{ $item->person->middlename }}"
                                         data-lastname="{{ $item->person->lastname }}"
@@ -143,10 +147,10 @@
                                         data-status="{{ $item->status }}"><i
                                             class="icon-base ri ri-file-edit-line icon-18px me-1"></i></a>
 
-                                    <a class="text-primary" href="{{ route('profile-index') }}"><i
+                                    <a class="text-primary" href="{{ route('profile-index', $item->encrypted_id) }}"><i
                                             class="icon-base ri ri-information-line icon-18px me-1"></i></a>
 
-                                    <a class="text-danger" href="#" id="employeeDelete"><i
+                                    <a class="text-danger" href="javascript::void(0)" id="employeeDelete"><i
                                             class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
                                 </td>
                             </tr>

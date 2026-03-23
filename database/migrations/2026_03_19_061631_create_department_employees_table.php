@@ -22,6 +22,7 @@ return new class extends Migration
                 ->on('departments')
                 ->restrictOnDelete();
             $table->date('from_date');
+            $table->string('status', 100);
             $table->date('to_date')->nullable();
             $table->timestamps();
         });

@@ -8,6 +8,7 @@ use App\Models\Person;
 use App\Models\Salary;
 use App\Models\Title;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class EmployeeController extends Controller
 {
@@ -21,6 +22,11 @@ class EmployeeController extends Controller
 
         $employees = $data->whereNull('deleted_at')
             ->paginate(10);
+
+        $employees->getCollection()->transform(function ($employee) {
+            $employee->encrypted_id = Crypt::encryptString($employee->emp_no);
+            return $employee;
+        });
         
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],

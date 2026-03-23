@@ -7,7 +7,7 @@
 @endsection
 @section('content')
     <main>
-        <section>
+        <section class="mt-2">
             <div class="d-flex justify-content-end mb-3 gap-2">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span> Department</button>

@@ -50,6 +50,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
 
   Route::get('/department/{id}', [DepartmentController::class, 'details'])->name('department-details');
+  Route::post('/department/addEmployee', [DepartmentController::class, 'addEmployee'])->name('department-add-employee');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
   Route::post('/employee/edit', [EmployeeController::class, 'editEmployee'])->name('employee-edit');

@@ -4,10 +4,13 @@ namespace App\Http\Controllers\department;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DepartmentEmployee;
+use App\Models\Employee;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DepartmentController extends Controller
 {
@@ -37,10 +40,17 @@ class DepartmentController extends Controller
             ->where('dept_no', Crypt::decryptString($id))
             ->orderBy('created_at', 'desc')
             ->first();
-        
-        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs'));
+        $departmentEmployee = Employee::with(['person', 'latestSalary', 'latestTitle'])
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->where('department_employees.dept_no', Crypt::decryptString($id))
+            ->get();
+           
+        $employees = Employee::with('person')->orderBy('hire_date', 'Desc')->get();
+
+        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee'));
     }
-    public function addDepartment(Request $request){
+    public function addDepartment(Request $request)
+    {
         $data = [
             'dept_name' => $request->name,
             'details' => $request->details,
@@ -62,5 +72,21 @@ class DepartmentController extends Controller
         if($isCreated && $logData){
             return response()->json(['Error' => 0, 'Message' => 'Successfulyy added a new Department']);
         }
+    }
+    public function addEmployee(Request $request)
+    {
+        if(empty($request->employee)){
+            return response()->json(['Error' => 1, 'Message' => 'Invalid Add Employee']);
+        }
+        foreach($request->employee as $data){
+            DepartmentEmployee::insert( [
+                'emp_no' => (int) $data,
+                'dept_no' => $request->id,
+                'from_date' => now(),
+                'status' => 'active',
+                'created_at' => now(),
+            ]);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfulyy added a Employee']);
     }
 }

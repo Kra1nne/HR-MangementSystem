@@ -38,30 +38,39 @@
                             <div>
                                 <h3 class="lead">{{ $departmentDetails->dept_name }}</h3>
                             </div>
-                            <div>
+                            <div class="gap-2">
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                                     data-bs-target="#Modal">
                                     <span class="icon-base ri ri-filter-2-line icon-16px me-1_5"></span>Filter</button>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#Modal">
+                                    data-bs-target="#ModalAddEmployee">
                                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
                             </div>
                         </div>
                     </div>
                     <section>
-                        <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex flex-column flex-md-row align-items-start justify-content-between m-2">
+
                             <!-- Search -->
-                            <div class="input-group input-group-merge w-50">
-                                <input type="text" class="form-control border-0" placeholder="Search..."
-                                    aria-label="Search..." aria-describedby="basic-addon-search31" />
-                            </div>
+                            <form action="" method="get"
+                                class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
+                                <div class="input-group input-group-merge">
+                                    <input type="text" name="search" class="form-control-sm border-1 w-100"
+                                        placeholder="Search" aria-label="Search..."
+                                        aria-describedby="basic-addon-search31" />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                            </form>
 
                             <div class="d-flex justify-content-center align-items-center px-5">
-                                <a class="text-danger" href="#"><i
-                                        class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
-                                <a class="text-success" href="#" data-bs-target="#Modal" data-bs-toggle="modal"><i
-                                        class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
+                                <a class="text-danger" href="#">
+                                    <i class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i>
+                                </a>
+                                <a class="text-success" href="#" data-bs-target="#Modal" data-bs-toggle="modal">
+                                    <i class="icon-base ri ri-mail-send-line icon-18px me-1"></i>
+                                </a>
                             </div>
+
                         </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table table-hover">
@@ -72,40 +81,47 @@
                                         </th>
                                         <th>Employee ID</th>
                                         <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Salary</th>
                                         <th>Position</th>
                                         <th>Hire Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <th class="text-center p-1" style="width: 40px;">
-                                            <input class="form-check-input m-0" type="checkbox">
-                                        </th>
-                                        <td>
-                                            <span>1002</span>
-                                        </td>
-                                        <td>JohnDoe@gmail.com</td>
-                                        <td>
-                                            Processing
-                                        </td>
-                                        <td>
-                                            Marketing
-                                        </td>
-                                        <td>
-                                            8/20/2026
-                                        </td>
-                                        <td>
-                                            <a class="text-success" href="#" data-bs-target="#Modal"
-                                                data-bs-toggle="modal"><i
-                                                    class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
-                                            <a class="text-primary" href="#"><i
-                                                    class="icon-base ri ri-information-line icon-18px me-1"></i></a>
-                                            <a class="text-danger" href="#" id="employeeDelete"><i
-                                                    class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
-                                        </td>
-                                    </tr>
+                                    @forelse ($departmentEmployee as $item)
+                                        <tr>
+                                            <th class="text-center p-1" style="width: 40px;">
+                                                <input class="form-check-input m-0" type="checkbox">
+                                            </th>
+                                            <td>
+                                                <span>{{ $item->emp_id }}</span>
+                                            </td>
+                                            <td>{{ $item->person->firstname }} {{ $item->person->middlename[0] ?? '' }}
+                                                {{ $item->person->lastname }}</td>
+                                            <td>
+                                                ₱ {{ number_format($item->latestSalary->salary, 2) }}
+                                            </td>
+                                            <td>
+                                                {{ $item->latestTitle->title }}
+                                            </td>
+                                            <td>
+                                                {{ date('F m Y', strtotime($item->hire_date)) }}
+                                            </td>
+                                            <td>
+                                                <a class="text-success" href="javascript::void(0)" data-bs-target="#Modal"
+                                                    data-bs-toggle="modal"><i
+                                                        class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
+                                                <a class="text-primary" href="javascript::void(0)"><i
+                                                        class="icon-base ri ri-information-line icon-18px me-1"></i></a>
+                                                <a class="text-danger" href="javascript::void(0)" id="employeeDelete"><i
+                                                        class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr class="text-center">
+                                            <td colspan="7">No Employees Found</td>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
                             </table>
@@ -148,6 +164,86 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary">Send Message</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalAddEmployee" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
+                {{-- Header --}}
+                <div class="modal-header bg-primary border-0 px-4 py-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                            <h5 class="modal-title text-white fw-bold mb-0">Add New Employee</h5>
+                            <small class="text-white text-opacity-75">Select employees</small>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Search + Select All --}}
+                <div class="px-4 py-3 border-bottom d-flex align-items-center gap-3">
+                    <div class="input-group input-group-sm flex-grow-1">
+                        <span class="input-group-text border-end-0">
+                            <i class="ri re-search-line text-muted"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0 ps-0 text-black"
+                            placeholder="Search employees...">
+                    </div>
+                    <div class="form-check mb-0 text-nowrap">
+                        <input class="form-check-input" type="checkbox" id="selectAll">
+                        <label class="form-check-label small fw-medium text-muted">Select All</label>
+                    </div>
+                </div>
+
+                {{-- Body --}}
+                <form id="employeeFormData">
+                    @csrf
+                    <input type="hidden" id="id" name="id" value="{{ $departmentDetails->dept_no }}">
+                    <div class="modal-body px-4 py-2" style="max-height: 340px; overflow-y: auto;">
+
+                        <div id="noResults" class="text-center text-muted py-4 d-none">
+                            No matching employees found
+                        </div>
+                        @foreach ($employees as $item)
+                            <div class="employee-row">
+                                <label class="d-flex align-items-center gap-3 p-2 rounded-3 w-100 mb-1"
+                                    style="cursor: pointer;"
+                                    data-name="{{ strtolower($item->person->firstname . ' ' . $item->person->lastname) }}">
+
+                                    <input class="form-check-input mt-0 flex-shrink-0 employee-checkbox" type="checkbox"
+                                        name="employee[]" value="{{ $item->emp_no }}">
+
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <div class="fw-medium text-dark lh-sm">
+                                            {{ $item->person->firstname }}
+                                            {{ isset($item->person->middlename[0]) ? $item->person->middlename[0] . '.' : '' }}
+                                            {{ $item->person->lastname }}
+                                        </div>
+                                        <small class="text-muted">
+                                            ID #{{ $item->emp_id }}
+                                        </small>
+                                    </div>
+
+                                    <span class="badge bg-success-subtle text-success rounded-pill">Active</span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </form>
+                <div class="modal-footer border-top px-4 py-3 d-flex justify-content-between">
+                    <small class="text-muted fw-medium" id="selectedCount">0 selected</small>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" id="btnAddEmployee" class="btn btn-primary btn-sm">
+                            Add Employees
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

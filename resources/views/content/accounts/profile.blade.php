@@ -23,27 +23,26 @@
                 </p>
 
                 <h5 class="text-white fw-semibold mb-1" id="employeeName">
-                    Juan dela Cruz
+                    {{ $data->person->firstname }} {{ $data->person->middlename[0] }}. {{ $data->person->lastname }}
                 </h5>
 
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                     <span class="text-white small" id="employeePosition">
-                        Senior Software Engineer
+                        {{ $data->latestTitle->title }}
                     </span>
                     <span class="text-white d-none d-sm-inline">·</span>
                     <span class="text-white small" id="employeeDepartment">
-                        Information Technology
+                        Employee
                     </span>
                 </div>
             </div>
 
             <div class="pb-2 d-flex gap-2 flex-wrap">
-                <span id="employeeStatus"
-                    class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                    Active
+                <span class="badge rounded-pill bg-success text-white border px-3 py-2">
+                    {{ $data->status_request }}
                 </span>
                 <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
-                    EMP-00142
+                    {{ $data->emp_id }}
                 </span>
             </div>
         </div>
@@ -66,42 +65,57 @@
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Full Name</p>
                                 <p class="fw-semibold small mb-0" id="employeeFullName">
-                                    Juan dela Cruz
+                                    {{ $data->person->firstname }} {{ $data->person->middlename[0] }}.
+                                    {{ $data->person->lastname }}
                                 </p>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Email</p>
                                 <p class="fw-semibold small mb-0 text-primary" id="employeeEmail">
-                                    juan.delacruz@company.ph
+                                    {{ $data->email }}
                                 </p>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Contact</p>
                                 <p class="fw-semibold small mb-0" id="employeeContact">
-                                    +63 917 123 4567
+                                    {{ $data->person->phone_number }}
                                 </p>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Date Hired</p>
                                 <p class="fw-semibold small mb-0" id="employeeDateHired">
-                                    March 1, 2021
+                                    {{ date('F d Y', strtotime($data->hire_date)) }}
                                 </p>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Birthday</p>
                                 <p class="fw-semibold small mb-0" id="employeeBirthday">
-                                    July 14, 1993
+                                    {{ date('F d Y', strtotime($data->hire_date)) }}
                                 </p>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Address</p>
                                 <p class="fw-semibold small mb-0" id="employeeAddress">
-                                    Quezon City, Metro Manila
+                                    {{ $data->person->address }}
+                                </p>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <p class="text-muted small mb-1">Sex</p>
+                                <p class="fw-semibold small mb-0" id="employeeAddress">
+                                    {{ $data->person->sex }}
+                                </p>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <p class="text-muted small mb-1">Blood type</p>
+                                <p class="fw-semibold small mb-0" id="employeeAddress">
+                                    {{ $data->person->blood_type }}
                                 </p>
                             </div>
 
@@ -130,14 +144,21 @@
                             <div>
                                 <p class="text-muted small mb-1">Employment Type</p>
                                 <span class="badge bg-info-subtle text-info border border-info-subtle rounded-pill px-3">
-                                    Regular
+                                    {{ $data->status }}
                                 </span>
                             </div>
 
                             <div>
-                                <p class="text-muted small mb-1">Schedule</p>
-                                <p class="fw-semibold small mb-0" id="employeeSchedule">
-                                    Mon–Fri, 8am–5pm
+                                <p class="text-muted small mb-1">Title</p>
+                                <p class="fw-semibold small mb-0" id="employeeTitle">
+                                    {{ $data->latestTitle->title }}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-muted small mb-1">Salary</p>
+                                <p class="fw-semibold small mb-0" id="employeeSalary">
+                                    ₱{{ number_format($data->latestSalary->salary, 2) }}
                                 </p>
                             </div>
 

@@ -19,6 +19,7 @@ return new class extends Migration
                 ->restrictOnDelete();
             $table->string('emp_id', 100);
             $table->date('hire_date');
+            $table->date('to_date')->nullable();
             $table->string('status', 50);
             $table->text('face_descriptor')->nullable();
             $table->timestamps();

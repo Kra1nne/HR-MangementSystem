@@ -68,7 +68,7 @@ $(function () {
       },
       success: function (data) {
         $('.preloader').hide();
-        if (data.error == 1) {
+        if (data.Error == 1) {
           Swal.fire('Error!', data.Message, 'error');
         } else if (data.Error == 0) {
           Swal.fire({

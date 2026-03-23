@@ -12,7 +12,7 @@ class DepartmentEmployee extends Model
         'id_no',
         'emp_no',
         'dept_no',
-        'users_id',
+        'status',
         'from_date',
         'to_date',
     ];

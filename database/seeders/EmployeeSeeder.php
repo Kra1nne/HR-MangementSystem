@@ -9,7 +9,6 @@ class EmployeeSeeder extends Seeder
 {
     public function run(): void
     {
-        // person_id references persons.id (1–5)
         $employees = [
             [
                 'person_id'       => 1,
