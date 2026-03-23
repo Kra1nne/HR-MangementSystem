@@ -67,10 +67,14 @@
             <div class="d-flex flex-column flex-md-row align-items-start justify-content-between m-2">
 
                 <!-- Search -->
-                <form action="" method="get" class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
+                <form action="{{ route('employee') }}" method="get"
+                    class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
                     <div class="input-group input-group-merge">
-                        <input type="text" name="search" class="form-control-sm border-1 w-100" placeholder="Search"
-                            aria-label="Search..." aria-describedby="basic-addon-search31" />
+                        <input type="text" name="search" class="form-control-sm border-0 border-bottom w-100"
+                            placeholder="Search" style="outline: none; box-shadow: none;"
+                            onmouseover="this.style.boxShadow='none'; this.style.outline='none';"
+                            onfocus="this.style.boxShadow='none'; this.style.outline='none';" aria-label="Search..."
+                            aria-describedby="basic-addon-search31" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Search</button>
                 </form>

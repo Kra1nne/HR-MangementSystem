@@ -30,7 +30,7 @@ class DepartmentController extends Controller
 
         return view('content.department.department-list', compact('departments', 'breadcrumbs'));
     }
-    public function details($id){
+    public function details($id, Request $request){
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Department List', 'link' => route('department-list')],
@@ -40,12 +40,32 @@ class DepartmentController extends Controller
             ->where('dept_no', Crypt::decryptString($id))
             ->orderBy('created_at', 'desc')
             ->first();
-        $departmentEmployee = Employee::with(['person', 'latestSalary', 'latestTitle'])
+            
+        if ($departmentDetails) {
+            $departmentDetails->encrypted_id = Crypt::encryptString($departmentDetails->dept_no);
+        }
+
+        $data = Employee::with(['person', 'latestSalary', 'latestTitle'])
             ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
-            ->where('department_employees.dept_no', Crypt::decryptString($id))
+            ->where('department_employees.dept_no', Crypt::decryptString($id));
+
+        if($request->search)
+        {
+            $data->where('employees.emp_id',  'like', '%'.$request->search.'%');
+        }
+
+        $departmentEmployee = $data->where('employees.deleted_at')
+            ->paginate(10);
+        
+        $employees = Employee::with('person')
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->whereNotIn('employees.emp_no', function ($query) {
+                $query->select('emp_no')
+                    ->from('department_employees')
+                    ->whereNull('deleted_at');
+            })
+            ->orderBy('hire_date', 'Desc')
             ->get();
-           
-        $employees = Employee::with('person')->orderBy('hire_date', 'Desc')->get();
 
         return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee'));
     }
