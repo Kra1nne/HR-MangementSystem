@@ -6,61 +6,10 @@
 @endsection
 @section('content')
     <main>
-        <div class="mt-2">
+        <div class="mt-2 mb-4">
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" id="ModalClickAdd" data-bs-toggle="modal" data-bs-target="#Modal">
                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
-            </div>
-            <div class="my-2">
-                <h5 class="d-flex justify-content-end align-items-center">
-                    <!-- Filter button for small screens -->
-                    <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
-                        Filters
-                    </button>
-                </h5>
-
-                <!-- Filters Row -->
-                <div class="card p-3 collapse d-lg-block" id="filterCollapse">
-                    <div class="row g-3">
-                        <!-- Department -->
-                        <div class="col-lg-3 col-md-6">
-                            <label for="department" class="form-label">Department</label>
-                            <select id="department" class="form-select">
-                                <option selected>Choose department...</option>
-                                <option value="1">HR</option>
-                                <option value="2">IT</option>
-                                <option value="3">Marketing</option>
-                                <option value="4">Finance</option>
-                            </select>
-                        </div>
-
-                        <!-- Status -->
-                        <div class="col-lg-3 col-md-6">
-                            <label for="status" class="form-label">Status</label>
-                            <select id="status" class="form-select">
-                                <option selected>Choose status...</option>
-                                <option value="current">Currently Hired</option>
-                                <option value="former">No Longer in Company</option>
-                            </select>
-                        </div>
-
-                        <!-- Job Title -->
-                        <div class="col-lg-3 col-md-6">
-                            <label for="jobTitle" class="form-label">Job Title</label>
-                            <select id="jobTitle" class="form-select">
-                                <option selected>Choose Job Title...</option>
-                                <option value="dev">Dev</option>
-                                <option value="hr">HR</option>
-                            </select>
-                        </div>
-
-                        <!-- Filter Button -->
-                        <div class="col-lg-3 col-md-6 d-flex align-items-end">
-                            <button type="button" class="btn btn-primary w-100 btn-lg">Filter</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <section class="card">
@@ -100,7 +49,6 @@
                             <th>Name</th>
                             <th>Hire Date</th>
                             <th>Position</th>
-                            <th>Department</th>
                             <th>Salary</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -122,9 +70,6 @@
                                     {{ $item->hire_date }}
                                 </td>
                                 <td>{{ $item->latestTitle->title }}</td>
-                                <td>
-
-                                </td>
                                 <td>
                                     ₱ {{ number_format($item->latestSalary->salary, 2) }}
                                 </td>
@@ -148,8 +93,7 @@
                                         data-salary="{{ $item->latestSalary->salary }}"
                                         data-position="{{ $item->latestTitle->title }}"
                                         data-id-salary="{{ $item->latestSalary->id }}"
-                                        data-id-title="{{ $item->latestTitle->id }}"
-                                        data-status="{{ $item->status }}"><i
+                                        data-id-title="{{ $item->latestTitle->id }}" data-status="{{ $item->status }}"><i
                                             class="icon-base ri ri-file-edit-line icon-18px me-1"></i></a>
 
                                     <a class="text-primary" href="{{ route('profile-index', $item->encrypted_id) }}"><i
@@ -161,7 +105,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9" class="text-center">No Employee Found</td>
+                                <td colspan="8 class="text-center">No Employee Found</td>
                             </tr>
                         @endforelse
                     </tbody>

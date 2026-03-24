@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Log;
 use App\Models\Person;
@@ -17,7 +18,7 @@ class EmployeeController extends Controller
     public function index(Request $request){
         
         $data = Employee::with(['person', 'latestSalary', 'latestTitle']);
-
+            
         if($request->search){
             $data->where('emp_id', 'like', '%'.$request->search.'%');
         }
@@ -34,7 +35,7 @@ class EmployeeController extends Controller
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Employee'],
         ];
-        return view('content.employee.employee', compact('breadcrumbs','employees'));
+        return view('content.employee.employee', compact('breadcrumbs','employees', 'titles', 'departments'));
     }
     public function registerFace(){
         return view('content.employee.face-registration');

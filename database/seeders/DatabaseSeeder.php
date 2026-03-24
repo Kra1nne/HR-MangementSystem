@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         DepartmentManagerSeeder::class,
         SalarySeeder::class,
         TitleSeeder::class,
+        EmployeeLogSeeder::class,
     ]);
   }
 }

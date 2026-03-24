@@ -15,11 +15,13 @@ return new class extends Migration
             $table->foreignId('emp_no')
                 ->references('emp_no')
                 ->on('employees')
-                ->constrained();
+                ->constrained()
+                ->restrictOnDelete();
             $table->foreignId('dept_no')
                 ->references('dept_no')
                 ->on('departments')
-                ->constrained();
+                ->constrained()
+                ->restrictOnDelete();
             $table->date('from_date');
             $table->string('status', 100);
             $table->date('to_date')->nullable();
