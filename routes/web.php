@@ -11,6 +11,7 @@ use App\Http\Controllers\employee\EmployeeController;
 use App\Http\Controllers\homepage\HomePagesController;
 use App\Http\Controllers\leave\LeaveController;
 use App\Http\Controllers\logs\LogsController;
+use App\Http\Controllers\message\MessageController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\MiscError;
 use App\Http\Controllers\pages\MiscTooManyRequest;
@@ -57,6 +58,8 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('employee-add');
   Route::get('/employee/face-registration', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
 
+  Route::post('/message/sent', [MessageController::class, 'sendMessage'])->name('message-sent');
+
   Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll');
 
   Route::get('/leave', [LeaveController::class, 'index'])->name('leave');
@@ -77,3 +80,6 @@ Route::get('/logout', [LoginBasic::class, 'logoutAccount'])->name('logout-proces
 Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
 Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
 Route::get('/pages/misc-too-many-request', [MiscTooManyRequest::class, 'index'])->name('pages-misc-too-many-request');
+Route::get('/test', function () {
+    return 'Hello';
+})->middleware('throttle:3,1');

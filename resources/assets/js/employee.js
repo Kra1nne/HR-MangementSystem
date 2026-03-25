@@ -226,7 +226,7 @@ $(function () {
         },
         success: function (data) {
           $('.preloader').hide();
-          if (data.error == 1) {
+          if (data.Error == 1) {
             Swal.fire('Error!', data.Message, 'error');
           } else if (data.Error == 0) {
             Swal.fire({
@@ -247,5 +247,49 @@ $(function () {
         }
       });
     }
+  });
+});
+
+$(function () {
+  $(document).on('click', '#messageEmployee', function () {
+    const id = $(this).data('id');
+    const fullname = $(this).data('fullname');
+
+    $('#idEmployee').val(id);
+    $('#messageRecipents').val(fullname);
+  });
+
+  $('body').on('click', '#btnSaveMessage', function () {
+    $.ajax({
+      url: '/message/sent',
+      method: 'POST',
+      data: $('#EmployeeMessageContent').serialize(),
+      cache: false,
+      beforeSend: function () {
+        $('#ModalMessage').modal('hide');
+        $('.preloader').show();
+      },
+      success: function (data) {
+        $('.preloader').hide();
+        if (data.Error == 1) {
+          Swal.fire('Error!', data.Message, 'error');
+        } else if (data.Error == 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Saved!',
+            text: data.Message,
+            showConfirmButton: true,
+            confirmButtonText: 'OK'
+          }).then(result => {
+            location.reload();
+          });
+        }
+      },
+      error: function () {
+        $('.preloader').hide();
+        Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+      }
+    });
   });
 });

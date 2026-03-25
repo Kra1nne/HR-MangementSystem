@@ -112,7 +112,9 @@
                                                 {{ date('F m Y', strtotime($item->hire_date)) }}
                                             </td>
                                             <td>
-                                                <a class="text-success" href="javascript::void(0)" data-bs-target="#Modal"
+                                                <a class="text-success" href="javascript::void(0)" id="ModalPersonalMessage"
+                                                    data-bs-target="#Modal" data-id="{{ $item->emp_no }}"
+                                                    data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
                                                     data-bs-toggle="modal"><i
                                                         class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
                                                 <a class="text-primary" href="javascript::void(0)"><i
@@ -150,31 +152,34 @@
                 <div class="modal-header bg-primary pb-4">
                     <h5 class="modal-title text-white" id="modalCenterTitle">New Message</h5>
                 </div>
-                <div class="modal-body">
+                <form class="modal-body" id="EmployeeMessageData">
+                    @csrf
+                    <input type="hidden" name="id" id="idEmployee">
                     <div class="row">
                         <div class="col mt-2">
                             <label for="messageRecipents" class="form-label">Recipents</label>
-                            <input id="messageRecipents" class="form-control form-control-sm" type="text"
-                                placeholder="Enter the Recipents" />
+                            <input id="messageRecipents" name="messageRecipents[]" class="form-control form-control-sm"
+                                type="text" placeholder="Enter the Recipents" readonly />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mt-2">
                             <label for="messageTitle" class="form-label">Title</label>
-                            <input id="messageTitle" class="form-control form-control-sm" type="text"
-                                placeholder="Enter the message title" />
+                            <input id="messageTitle" name="messageTitle" class="form-control form-control-sm"
+                                type="text" placeholder="Enter the message title" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mt-2">
                             <label for="message" class="form-label">Messages</label>
-                            <textarea class="form-control h-px-100" id="messageContent" placeholder="Enter message here..."></textarea>
+                            <textarea class="form-control h-px-100" name="messageContent" id="messageContent"
+                                placeholder="Enter message here..."></textarea>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Send Message</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveMessage">Send Message</button>
                 </div>
             </div>
         </div>

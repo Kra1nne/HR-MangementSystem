@@ -32,7 +32,7 @@
                     <a class="text-danger" href="#">
                         <i class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i>
                     </a>
-                    <a class="text-success" href="#" data-bs-target="#Modal" data-bs-toggle="modal">
+                    <a class="text-success" href="#" data-bs-target="#ModalMessage" data-bs-toggle="modal">
                         <i class="icon-base ri ri-mail-send-line icon-18px me-1"></i>
                     </a>
                 </div>
@@ -59,7 +59,7 @@
                             <tr>
                                 <th class="text-center p-1 employee-row" style="width: 40px;">
                                     <input class="form-check-input m-0 employee-checkbox" type="checkbox" name="employee[]"
-                                        value="{{ $item->dept_no }}">
+                                        value="{{ $item->emp_no }}">
                                 </th>
                                 <td>
                                     <span>{{ $item->emp_id }}</span>
@@ -75,8 +75,10 @@
                                 </td>
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
-                                    <a class="text-success" href="javascript::void(0)" data-bs-target="#ModalMessage"
-                                        data-bs-toggle="modal"><i
+                                    <a class="text-success" href="javascript::void(0)" id="messageEmployee"
+                                        data-id="{{ $item->emp_no }}"
+                                        data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
+                                        data-bs-target="#ModalMessage" data-bs-toggle="modal"><i
                                             class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
 
                                     <a class="text-success" id="ModalClickEdit" href="javascript::void(0)"
@@ -105,7 +107,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8 class="text-center">No Employee Found</td>
+                                <td colspan="8" class="text-center">No Employee Found</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -257,28 +259,31 @@
                 <div class="modal-header bg-primary pb-4">
                     <h5 class="modal-title text-white" id="modalCenterTitle">New Message</h5>
                 </div>
-                <div class="modal-body">
+                <form class="modal-body" id="EmployeeMessageContent">
+                    @csrf
+                    <input type="hidden" name="id" id="idEmployee">
                     <div class="row">
                         <div class="col mt-2">
                             <label for="messageRecipents" class="form-label">Recipents</label>
-                            <input id="messageRecipents" class="form-control form-control-sm" type="text"
-                                placeholder="Enter the Recipents" />
+                            <input id="messageRecipents" name="messageRecipents[]" class="form-control form-control-sm"
+                                type="text" placeholder="Enter the Recipents" readonly />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mt-2">
                             <label for="messageTitle" class="form-label">Title</label>
-                            <input id="messageTitle" class="form-control form-control-sm" type="text"
-                                placeholder="Enter the message title" />
+                            <input id="messageTitle" name="messageTitle" class="form-control form-control-sm"
+                                type="text" placeholder="Enter the message title" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mt-2">
                             <label for="message" class="form-label">Messages</label>
-                            <textarea class="form-control h-px-100" id="messageContent" placeholder="Enter message here..."></textarea>
+                            <textarea class="form-control h-px-100" id="messageContent" name="messageContent"
+                                placeholder="Enter message here..."></textarea>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="btnSaveMessage">Send Message</button>

@@ -141,13 +141,7 @@
             </p>
 
             <p style="margin-top:10px;">
-                This is to formally inform you that a meeting has been scheduled for tomorrow. Your presence is highly
-                encouraged as we will be discussing important updates and matters relevant to the organization.
-            </p>
-
-            <p>
-                Kindly ensure that you are available at the specified time. If you have any concerns or are unable to
-                attend, please notify the HR department in advance.
+                {{ $description }}
             </p>
 
             <p style="margin-top:20px;">

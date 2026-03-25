@@ -13,9 +13,9 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'person_id'          => 1,
-                'email'              => 'admin@empathra.com',
+                'email'              => 'cabarrubias1002@gmail.com',
                 'password'           => Hash::make('password'),
-                'role'               => 'Admin',
+                'role'               => 'User',
                 'otp'                => null,
                 'email_verified_at'  => now(),
                 'status_request'     => 'Active',
