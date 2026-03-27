@@ -224,8 +224,8 @@
                             Face ID not yet registered
                         </p>
 
-                        <a href="{{ route('employee-faceRegistration') }}" class="btn btn-primary btn-sm w-100 rounded-3"
-                            id="btnRegisterFace">
+                        <a href="{{ route('employee-faceRegistration', $employee_id) }}"
+                            class="btn btn-primary btn-sm w-100 rounded-3" id="btnRegisterFace">
                             Register Face
                         </a>
 

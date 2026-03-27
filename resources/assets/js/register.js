@@ -208,7 +208,8 @@ $(document).ready(function () {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
-      reverseButtons: true
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
     }).then(result => {
       if (result.isConfirmed) {
         $.ajax({

@@ -3,7 +3,6 @@
 @section('title', 'Dashboard')
 @section('page-script')
     @vite('resources/assets/js/face.js')
-    @vite('resources/assets/js/attendance.js')
 @endsection
 @section('content')
     <main class="container">
@@ -13,12 +12,12 @@
             </div>
             <div
                 class="d-flex flex-column flex-lg-row 
-            justify-content-between align-items-start align-items-lg-center gap-3">
+            justify-content-between align-items-start align-items-center gap-3">
                 <div class="col">
                     <div class="card p-2 border-0 rounded-4">
                         <div class="mt-4 mx-auto" style="position: relative; display: inline-block;">
                             <video id="video" style="height: 100%; width: 100%; display: block;" autoplay muted></video>
-                            <!-- canvas will be injected here by JS -->
+
                         </div>
                         <div id="status" class="mt-3">Loading...</div>
                     </div>
@@ -42,7 +41,7 @@
                             </div>
 
                             <!-- Morning -->
-                            <h6 class="fw-bold text-uppercase text-muted mb-3">Morning</h6>
+                            <h6 class="text-uppercase text-muted mb-3">Morning</h6>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-6">
@@ -61,7 +60,7 @@
                             </div>
 
                             <!-- Afternoon -->
-                            <h6 class="fw-bold text-uppercase text-muted mb-3">Afternoon</h6>
+                            <h6 class="text-uppercase text-muted mb-3">Afternoon</h6>
 
                             <div class="row g-3">
                                 <div class="col-6">

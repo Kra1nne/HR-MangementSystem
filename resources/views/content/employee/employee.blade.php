@@ -29,11 +29,9 @@
                 </form>
 
                 <div class="d-flex justify-content-center align-items-center px-5">
-                    <a class="text-danger" href="#">
-                        <i class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i>
-                    </a>
-                    <a class="text-success" href="#" data-bs-target="#ModalMessage" data-bs-toggle="modal">
-                        <i class="icon-base ri ri-mail-send-line icon-18px me-1"></i>
+                    <a class="text-success" href="javascript::void(0)" id="MessageAll" data-bs-target="#ModalMessage"
+                        data-bs-toggle="modal">
+                        <i class="icon-base ri ri-megaphone-line icon-18px me-1"></i>
                     </a>
                 </div>
 
@@ -42,9 +40,6 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width: 40px;">
-                                <input class="form-check-input m-0" type="checkbox" id="selectAll">
-                            </th>
                             <th>Employee ID</th>
                             <th>Name</th>
                             <th>Hire Date</th>
@@ -57,10 +52,6 @@
                     <tbody class="table-border-bottom-0">
                         @forelse ($employees as $item)
                             <tr>
-                                <th class="text-center p-1 employee-row" style="width: 40px;">
-                                    <input class="form-check-input m-0 employee-checkbox" type="checkbox" name="employee[]"
-                                        value="{{ $item->emp_no }}">
-                                </th>
                                 <td>
                                     <span>{{ $item->emp_id }}</span>
                                 </td>
@@ -73,7 +64,7 @@
                                 <td>
                                     ₱ {{ number_format($item->latestSalary->salary, 2) }}
                                 </td>
-                                <td><span class="badge bg-success">Active</span></td>
+                                <td><span class="{{ $item->EmployeeBadge() }}">{{ $item->status }}</span></td>
                                 <td>
                                     <a class="text-success" href="javascript::void(0)" id="messageEmployee"
                                         data-id="{{ $item->emp_no }}"
@@ -101,13 +92,14 @@
                                     <a class="text-primary" href="{{ route('profile-index', $item->encrypted_id) }}"><i
                                             class="icon-base ri ri-information-line icon-18px me-1"></i></a>
 
-                                    <a class="text-danger" href="javascript::void(0)" id="employeeDelete"><i
+                                    <a class="text-danger" href="javascript::void(0)" id="employeeDelete"
+                                        data-id="{{ $item->emp_no }}"><i
                                             class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">No Employee Found</td>
+                                <td colspan="7" class="text-center">No Employee Found</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -115,7 +107,7 @@
                 </table>
                 <div class="d-flex justify-content-between">
                     <div class="p-3">
-                        <span id="selectedCount">0 selected</span>
+                        <span id="selectedCount"></span>
                     </div>
                     <div class="m-3">
                         {{ $employees->onEachSide(5)->links() }}
@@ -261,6 +253,7 @@
                 </div>
                 <form class="modal-body" id="EmployeeMessageContent">
                     @csrf
+                    <input type="hidden" name="action" id="action">
                     <input type="hidden" name="id" id="idEmployee">
                     <div class="row">
                         <div class="col mt-2">

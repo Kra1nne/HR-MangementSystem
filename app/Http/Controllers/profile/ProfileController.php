@@ -16,6 +16,8 @@ class ProfileController extends Controller
             ->where('emp_no', Crypt::decryptString($id))
             ->first();
         
-        return view('content.accounts.profile', compact('data'));
+        $employee_id = $id;
+        
+        return view('content.accounts.profile', compact('data', 'employee_id'));
     }
 }

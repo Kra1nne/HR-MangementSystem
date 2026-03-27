@@ -12,7 +12,7 @@ class MessageController extends Controller
 {
     public function sendMessage(Request $request) 
     {
-        if(empty($request->messageTitle) && empty($request->messageTitle) && empty($request->id))
+        if(empty($request->messageTitle) && empty($request->messageContent) && empty($request->id))
         {
             return response()->json(['Error' => 1, 'Message' => 'Invalid empty message']);   
         }
@@ -32,5 +32,37 @@ class MessageController extends Controller
         if($result){
             return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
         }
+    }
+    public function broadcastMessage(Request $request){
+        // $emails = Employee::leftjoin('users', 'users.person_id', 'employees.person_id')
+        //     ->whereNull('employees.deleted_at')
+        //     ->pluck('users.email') 
+        //     ->toArray();
+
+        //  $data = [
+        //     'name' => 'Employee',
+        //     'title' => $request->messageTitle,
+        //     'description' => $request->messageContent
+        // ];
+        
+        // try {
+        //     Mail::bcc($emails)->send(new MessageMail($data));
+
+        //     return response()->json([
+        //         'Error' => 0,
+        //         'Message' => 'Message successfully sent'
+        //     ]);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'Error' => 1,
+        //         'Message' => 'Failed to send message',
+        //         'Details' => $e->getMessage()
+        //     ]);
+        // }
+        return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
+    }
+    public function broadcastMessageDepartment(Request $request)
+    {
+        return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
     }
 }

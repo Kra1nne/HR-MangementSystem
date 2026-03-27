@@ -19,6 +19,7 @@ use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\payroll\PayrollController;
 use App\Http\Controllers\profile\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Mime\Message;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
@@ -46,19 +47,26 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/attendance/dashboard', [AttendanceController::class, 'index'])->name('attendance-index');
   Route::get('/attendance/user', [AttendanceController::class, 'userAttendance'])->name('attendance-user');
   Route::get('/attendance/face-recognation', [AttendanceController::class, 'faceRecognation'])->name('attendance-check');
+  Route::get('/employee-data', [AttendanceController::class, 'employeeData'])->name('employee-data-fetch');
 
   Route::get('/department/list', [DepartmentController::class, 'index'])->name('department-list');
   Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
 
   Route::get('/department/{id}', [DepartmentController::class, 'details'])->name('department-details');
   Route::post('/department/addEmployee', [DepartmentController::class, 'addEmployee'])->name('department-add-employee');
+  Route::post('/department/remove', [DepartmentController::class, 'removeEmployee'])->name('departmane-remove-employee');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
   Route::post('/employee/edit', [EmployeeController::class, 'editEmployee'])->name('employee-edit');
   Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('employee-add');
-  Route::get('/employee/face-registration', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
+  Route::post('/employee/remove', [EmployeeController::class, 'removeEmployee'])->name('employee-remove');
+
+  Route::get('/employee/face-registration/{id}', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
+  Route::post('/employee/face-registration/add', [EmployeeController::class, 'registerFaceProcess'])->name('employyee-registerFace-process');
 
   Route::post('/message/sent', [MessageController::class, 'sendMessage'])->name('message-sent');
+  Route::post('/message-broadcast/sent', [MessageController::class, 'broadcastMessage'])->name('broadcast-sent');
+  Route::post('/message-broadcast-department/sent', [MessageController::class, 'broadcastMessageDepartment'])->name('broadcast-department-sent');
 
   Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll');
 

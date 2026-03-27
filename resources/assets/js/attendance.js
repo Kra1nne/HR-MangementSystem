@@ -39,7 +39,6 @@ $(function () {
   function updateTime() {
     const now = new Date();
     $('#liveTime').text(formatDate(now));
-    $('#runningTime').text(formatDate(now, false));
   }
 
   // Run immediately and then every second

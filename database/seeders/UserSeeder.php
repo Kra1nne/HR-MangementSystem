@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
                 'person_id'          => 1,
                 'email'              => 'cabarrubias1002@gmail.com',
                 'password'           => Hash::make('password'),
-                'role'               => 'User',
+                'role'               => 'Admin',
                 'otp'                => null,
                 'email_verified_at'  => now(),
                 'status_request'     => 'Active',

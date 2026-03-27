@@ -4,11 +4,13 @@ namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DepartmentEmployee;
 use App\Models\Employee;
 use App\Models\Log;
 use App\Models\Person;
 use App\Models\Salary;
 use App\Models\Title;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -37,8 +39,9 @@ class EmployeeController extends Controller
         ];
         return view('content.employee.employee', compact('breadcrumbs','employees'));
     }
-    public function registerFace(){
-        return view('content.employee.face-registration');
+    public function registerFace($id){
+        
+        return view('content.employee.face-registration', compact('id'));
     }
     public function addEmployee(Request $request){
         $dataPersonal = [
@@ -141,5 +144,79 @@ class EmployeeController extends Controller
         if($resultEmployee && $resultPerson && $resultSalary && $resultTitle){
             return response()->json(['Error' => 0, 'Message' => 'Employee Information Successfully Updated']);
         }
+    }
+    public function removeEmployee(Request $request)
+    {
+        // employeeData->person_id
+        // employeeData->emp_no
+        $employeeData = Employee::where('emp_no', $request->id)
+            ->whereNull('to_date')
+            ->whereNull('deleted_at')
+            ->first();
+
+        // userData->id
+        $userData = User::where('person_id', $employeeData->person_id)
+            ->whereNull('deleted_at')
+            ->first();
+
+        // titleData->id
+        $titleData = Title::where('emp_no', $request->id)
+            ->whereNull('to_date')
+            ->first();
+
+        // salaryData->id
+        $salaryData = Salary::where('emp_no', $request->id)
+            ->whereNull('to_date')
+            ->first();
+
+        $employeeDepartmentData = DepartmentEmployee::where('emp_no', $employeeData->emp_no)
+            ->whereNull('to_date')
+            ->first();
+        
+        $dataUser = [
+            'status_request' => 'Deleted',
+            'deleted_at' => now()
+        ];
+        $dataEmployee = [
+            'to_date' => now()->toDateString(),
+            'status' => 'Remove',
+            'deleted_at' => now(),
+        ];
+        $data = [
+            'deleted_at' => now(),
+        ];
+        $dataDeptEmployee = [
+            'status' => 'remove',
+            'to_date' => now()->toDateString(),
+            'updated_at' => now(),
+        ];
+
+        $dataSalaryAndTitle = [
+            'to_date' => now()->toDateString(),
+            'updated_at' => now()
+        ];
+
+        $resultPerson = Person::where('id', $employeeData->person_id)->update($data);
+        $resultUser = User::where('id', $userData->id)->update($dataUser);
+        $resultEmployee = Employee::where('emp_no',$employeeData->emp_no )->update($dataEmployee);
+        $resultSalary = Salary::where('id', $salaryData->id)->update($dataSalaryAndTitle);
+        $resultTitle = Title::where('id',$titleData->id)->update($dataSalaryAndTitle);
+        $resultDepartmentEmployee = DepartmentEmployee::where('id_no', $employeeDepartmentData->id_no)->update($dataDeptEmployee);
+
+        if($resultPerson && $resultEmployee && $resultUser && $resultDepartmentEmployee){
+            return response()->json(['Error' => 0, 'Message' => 'Employee Successfully Deleted']);   
+        }
+    }
+    public function registerFaceProcess(Request $request)
+    {
+        $data = [
+            'face_descriptor' => $request->descriptor,
+            'updated_at' => now()
+        ];
+        $result = Employee::where('emp_no', Crypt::decryptString($request->id))->update($data);
+
+        if($result){
+            return response()->json(['Error' => 0, 'Message' => 'Face successfully register']);
+        } 
     }
 }

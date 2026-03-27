@@ -47,7 +47,9 @@ class DepartmentController extends Controller
 
         $data = Employee::with(['person', 'latestSalary', 'latestTitle'])
             ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
-            ->where('department_employees.dept_no', Crypt::decryptString($id));
+            ->where('department_employees.dept_no', Crypt::decryptString($id))
+            ->where('department_employees.status', '=', 'active')
+            ->whereNull('department_employees.to_date');
 
         if($request->search)
         {
@@ -61,7 +63,8 @@ class DepartmentController extends Controller
             ->whereNotIn('employees.emp_no', function ($query) {
                 $query->select('emp_no')
                     ->from('department_employees')
-                    ->whereNull('deleted_at');
+                    ->where('status', '!=', 'remove')
+                    ->whereNull('to_date');
             })
             ->orderBy('hire_date', 'Desc')
             ->get();
@@ -89,7 +92,7 @@ class DepartmentController extends Controller
         $logData = Log::insert($log);
 
         if($isCreated && $logData){
-            return response()->json(['Error' => 0, 'Message' => 'Successfulyy added a new Department']);
+            return response()->json(['Error' => 0, 'Message' => 'Successfully added a new Department']);
         }
     }
     public function addEmployee(Request $request)
@@ -117,6 +120,20 @@ class DepartmentController extends Controller
         ];
         $logData = Log::insert($log);
 
-        return response()->json(['Error' => 0, 'Message' => 'Successfulyy added a Employee']);
+        return response()->json(['Error' => 0, 'Message' => 'Successfully added a Employee']);
+    }
+    public function removeEmployee(Request $request)
+    {
+        $data = [
+            'status' => 'remove',
+            'to_date' => now()
+        ];
+        $result = DepartmentEmployee::where('id_no', $request->id)->update($data);
+
+        if($result)
+        {
+            return response()->json(['Error' => 0, 'Message' => 'Successfully remove a Employee']);
+        }
+        
     }
 }

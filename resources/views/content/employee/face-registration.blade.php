@@ -7,23 +7,26 @@
 @section('content')
     <main>
         <div class="px-4">
-            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm rounded-3">
+            <a href="{{ route('employee') }}">
                 Back
             </a>
         </div>
         <section class="container">
             <div class="mx-auto text-center">
                 <div class="mt-4 d-flex justify-content-center">
-                    <video id="video" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px;" autoplay
+                    <video id="video" style="width: 75%; height: auto; border-radius: 10px; display: block;" autoplay
                         muted>
                     </video>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center mt-3">
-                    <button class="btn btn-primary">Register</button>
+                    <button class="btn btn-primary btn-sm" type="button" id="btnRegister"
+                        data-id="{{ $id }}">Register</button>
                 </div>
 
-                <p id="status"></p>
+                <div class="badge badge-success">
+                    <p id="status" class="mt-3"></p>
+                </div>
             </div>
         </section>
 

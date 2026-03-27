@@ -42,7 +42,7 @@ class SalarySeeder extends Seeder
                 'emp_no'     => 5,
                 'salary'     => 38000.00,
                 'from_date'  => '2024-04-05',
-                'to_date'    => '2024-12-31',
+                'to_date'    => null,
                 'updated_at' => now(),
             ],
         ];

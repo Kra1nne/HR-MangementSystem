@@ -39,9 +39,6 @@
                                 <h3 class="lead">{{ $departmentDetails->dept_name }}</h3>
                             </div>
                             <div class="gap-2">
-                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                    data-bs-target="#Modal">
-                                    <span class="icon-base ri ri-filter-2-line icon-16px me-1_5"></span>Filter</button>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#ModalAddEmployee">
                                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
@@ -65,12 +62,11 @@
                                 <button type="submit" class="btn btn-primary btn-sm">Search</button>
                             </form>
 
-                            <div class="d-flex justify-content-center align-items-center px-5">
-                                <a class="text-danger" href="#">
-                                    <i class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i>
-                                </a>
-                                <a class="text-success" href="#" data-bs-target="#Modal" data-bs-toggle="modal">
-                                    <i class="icon-base ri ri-mail-send-line icon-18px me-1"></i>
+                            <div class="d-flex justify-content-center align-items-center px-5" id="options">
+                                <a class="text-success" href="javascript::void(0)" data-bs-target="#Modal"
+                                    data-department="{{ $departmentDetails->dept_name }}" id="MessageAll"
+                                    data-bs-toggle="modal">
+                                    <i class="icon-base ri ri-megaphone-line icon-18px me-1"></i>
                                 </a>
                             </div>
 
@@ -79,9 +75,6 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 40px;">
-                                            <input class="form-check-input m-0" type="checkbox" id="employeeSelectAll">
-                                        </th>
                                         <th>Employee ID</th>
                                         <th>Name</th>
                                         <th>Salary</th>
@@ -93,10 +86,6 @@
                                 <tbody class="table-border-bottom-0">
                                     @forelse ($departmentEmployee as $item)
                                         <tr>
-                                            <th class="text-center p-1 employee-container" style="width: 40px;">
-                                                <input class="form-check-input m-0 employee-department-checkbox"
-                                                    type="checkbox" value="{{ $item->id_no }}">
-                                            </th>
                                             <td>
                                                 <span>{{ $item->emp_id }}</span>
                                             </td>
@@ -113,19 +102,20 @@
                                             </td>
                                             <td>
                                                 <a class="text-success" href="javascript::void(0)" id="ModalPersonalMessage"
-                                                    data-bs-target="#Modal" data-id="{{ $item->emp_no }}"
+                                                    data-bs-target="#Modal" data-id="{{ $item->id_no }}"
                                                     data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
                                                     data-bs-toggle="modal"><i
                                                         class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
                                                 <a class="text-primary" href="javascript::void(0)"><i
                                                         class="icon-base ri ri-information-line icon-18px me-1"></i></a>
-                                                <a class="text-danger" href="javascript::void(0)" id="employeeDelete"><i
+                                                <a class="text-danger" href="javascript::void(0)" id="employeeDelete"
+                                                    data-id="{{ $item->emp_no }}"><i
                                                         class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr class="text-center">
-                                            <td colspan="7">No Employees Found</td>
+                                            <td colspan="6">No Employees Found</td>
                                         </tr>
                                     @endforelse
 
@@ -133,7 +123,7 @@
                             </table>
                             <div class="d-flex justify-content-between">
                                 <div class="p-3">
-                                    <span id="selectedCountEmployees">0 selected</span>
+                                    <span id="selectedCountEmployees"></span>
                                 </div>
                                 <div class="m-3">
                                     {{ $departmentEmployee->onEachSide(5)->links() }}
@@ -143,7 +133,6 @@
                     </section>
                 </div>
             </div>
-
         </div>
     </main>
     <div class="modal fade" id="Modal" tabindex="-1" aria-hidden="true">
@@ -154,6 +143,7 @@
                 </div>
                 <form class="modal-body" id="EmployeeMessageData">
                     @csrf
+                    <input type="hidden" name="action" id="action">
                     <input type="hidden" name="id" id="idEmployee">
                     <div class="row">
                         <div class="col mt-2">

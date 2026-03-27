@@ -110,12 +110,7 @@ class UserController extends Controller
       'status_request' => 'Deleted'
     ];
 
-    $person = [
-      'deleted_at' => now()
-    ];
-
     $userData = User::where('id', $id)->update($user);
-    $personData = Person::where('id', $id)->update($person);
 
 
     $log = [

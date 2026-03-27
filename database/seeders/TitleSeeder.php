@@ -42,7 +42,7 @@ class TitleSeeder extends Seeder
                 'emp_no'    => 5,
                 'title'     => 'Accounting Clerk',
                 'from_date' => '2024-04-05',
-                'to_date'   => '2024-12-31',
+                'to_date'   => null,
                 'updated_at' => now(),
             ],
         ];

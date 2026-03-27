@@ -41,37 +41,11 @@ function validateForm(fields) {
 
   return valid;
 }
-$(function () {
-  $('#selectAll').on('change', function () {
-    const isChecked = $(this).is(':checked');
-    $('.employee-row:visible .employee-checkbox').prop('checked', isChecked).trigger('change'); // ensure UI updates
-    updateCount();
-  });
-
-  $(document).on('change', '.employee-checkbox', function () {
-    const $isChecked = $(this).is(':checked');
-    updateCount();
-  });
-
-  function updateCount() {
-    const $visibleCheckboxes = $('.employee-row:visible .employee-checkbox');
-    const $checkedVisible = $visibleCheckboxes.filter(':checked');
-
-    const total = $('.employee-checkbox:checked').length;
-    $('#selectedCount').text(total + ' selected');
-
-    const selectAll = $('#selectAll')[0];
-
-    if ($checkedVisible.length === 0) {
-      selectAll.checked = false;
-    } else if ($checkedVisible.length === $visibleCheckboxes.length) {
-      selectAll.checked = true;
-    }
-  }
-});
 
 $(function () {
   $('body').on('click', '#employeeDelete', function () {
+    const id = $(this).data('id');
+
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -82,10 +56,38 @@ $(function () {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'Your file has been deleted.',
-          icon: 'success'
+        $.ajax({
+          url: '/employee/remove',
+          method: 'POST',
+          cache: false,
+          data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id: id
+          },
+          beforeSend: function () {
+            $('.preloader').show();
+          },
+          success: function (data) {
+            $('.preloader').hide();
+            if (data.Error == 1) {
+              Swal.fire('Error!', data.Message, 'error');
+            } else if (data.Error == 0) {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Saved!',
+                text: data.Message,
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+              }).then(result => {
+                location.reload();
+              });
+            }
+          },
+          error: function () {
+            $('.preloader').hide();
+            Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+          }
         });
       }
     });
@@ -251,45 +253,101 @@ $(function () {
 });
 
 $(function () {
-  $(document).on('click', '#messageEmployee', function () {
+  let action;
+  $('body').on('click', '#messageEmployee', function () {
     const id = $(this).data('id');
     const fullname = $(this).data('fullname');
 
     $('#idEmployee').val(id);
     $('#messageRecipents').val(fullname);
+    $('#action').val('personal');
+    action = 'personal';
+  });
+
+  $('body').on('click', '#MessageAll', function () {
+    $('#idEmployee').val(0);
+    $('#messageRecipents').val('All Employees');
+    $('#action').val('everyone');
+    action = 'everyone';
   });
 
   $('body').on('click', '#btnSaveMessage', function () {
-    $.ajax({
-      url: '/message/sent',
-      method: 'POST',
-      data: $('#EmployeeMessageContent').serialize(),
-      cache: false,
-      beforeSend: function () {
-        $('#ModalMessage').modal('hide');
-        $('.preloader').show();
-      },
-      success: function (data) {
-        $('.preloader').hide();
-        if (data.Error == 1) {
-          Swal.fire('Error!', data.Message, 'error');
-        } else if (data.Error == 0) {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Saved!',
-            text: data.Message,
-            showConfirmButton: true,
-            confirmButtonText: 'OK'
-          }).then(result => {
-            location.reload();
-          });
+    const fields = [
+      { id: 'messageRecipents', label: 'Recipents' },
+      { id: 'messageTitle', label: 'Title' },
+      { id: 'messageContent', label: 'Message Content' }
+    ];
+
+    const isValid = validateForm(fields);
+
+    if (!isValid) {
+      event.preventDefault();
+      return;
+    }
+    if (action == 'personal') {
+      $.ajax({
+        url: '/message/sent',
+        method: 'POST',
+        data: $('#EmployeeMessageContent').serialize(),
+        cache: false,
+        beforeSend: function () {
+          $('#ModalMessage').modal('hide');
+          $('.preloader').show();
+        },
+        success: function (data) {
+          $('.preloader').hide();
+          if (data.Error == 1) {
+            Swal.fire('Error!', data.Message, 'error');
+          } else if (data.Error == 0) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Saved!',
+              text: data.Message,
+              showConfirmButton: true,
+              confirmButtonText: 'OK'
+            }).then(result => {
+              location.reload();
+            });
+          }
+        },
+        error: function () {
+          $('.preloader').hide();
+          Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
         }
-      },
-      error: function () {
-        $('.preloader').hide();
-        Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
-      }
-    });
+      });
+    } else {
+      $.ajax({
+        url: '/message-broadcast/sent',
+        method: 'POST',
+        data: $('#EmployeeMessageContent').serialize(),
+        cache: false,
+        beforeSend: function () {
+          $('#ModalMessage').modal('hide');
+          $('.preloader').show();
+        },
+        success: function (data) {
+          $('.preloader').hide();
+          if (data.Error == 1) {
+            Swal.fire('Error!', data.Message, 'error');
+          } else if (data.Error == 0) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Saved!',
+              text: data.Message,
+              showConfirmButton: true,
+              confirmButtonText: 'OK'
+            }).then(result => {
+              location.reload();
+            });
+          }
+        },
+        error: function () {
+          $('.preloader').hide();
+          Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+        }
+      });
+    }
   });
 });
