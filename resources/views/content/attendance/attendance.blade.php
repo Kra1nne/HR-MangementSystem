@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Dashboard')
+@section('title', 'DTR')
 
 @section('content')
     <main class="container mt-5">

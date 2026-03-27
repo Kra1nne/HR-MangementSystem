@@ -37,10 +37,7 @@
                 </div>
             </div>
 
-            <div class="pb-2 d-flex gap-2 flex-wrap">
-                <span class="badge rounded-pill bg-success text-white border px-3 py-2">
-                    {{ $data->status_request }}
-                </span>
+            <div class="pb-2 d-flex">
                 <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
                     {{ $data->emp_id }}
                 </span>
@@ -165,51 +162,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!-- Stats -->
-                <div class="col-12 col-md-3">
-                    <div class="bg-light rounded-3 p-3 text-center">
-                        <p class="text-muted small mb-1">Days Present</p>
-                        <p class="fw-semibold fs-4 mb-0" id="statPresent">21</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-3">
-                    <div class="bg-light rounded-3 p-3 text-center">
-                        <p class="text-muted small mb-1">Absences</p>
-                        <p class="fw-semibold fs-4 mb-0 text-danger" id="statAbsent">1</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-3">
-                    <div class="bg-light rounded-3 p-3 text-center">
-                        <p class="text-muted small mb-1">Leave Balance</p>
-                        <p class="fw-semibold fs-4 mb-0" id="statLeave">9</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-3">
-                    <div class="bg-light rounded-3 p-3 text-center">
-                        <p class="text-muted small mb-1">Years Working</p>
-                        <p class="fw-semibold fs-4 mb-0" id="statYears">4</p>
-                    </div>
-                </div>
-
-
-                <!-- Notes -->
-                <div class="col-12 col-lg-8">
-                    <div class="bg-warning-subtle border border-warning-subtle border-start border-4 rounded-3 p-3">
-                        <p class="fw-semibold small text-warning-emphasis mb-1">Notes</p>
-                        <p class="small text-warning-emphasis mb-0" id="employeeNotes">
-                            Employee is currently under a 6-month probationary review.
-                            Performance evaluation scheduled for June 2025.
-                            No disciplinary records on file.
-                        </p>
-                    </div>
-                </div>
-
-
                 <!-- Face Registration -->
                 <div class="col-12 col-lg-4">
                     <div

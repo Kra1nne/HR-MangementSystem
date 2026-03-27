@@ -17,10 +17,8 @@ return new class extends Migration
                 ->references('id_no')
                 ->on('department_employees')
                 ->restrictOnDelete();
-            $table->enum('log_type', ['IN', 'OUT']);
             $table->date('date');
             $table->time('time');
-            $table->integer('row_number');
             $table->string('remarks');
             $table->timestamps();
         });

@@ -4,8 +4,7 @@ $(document).ready(function () {
     initialView: 'dayGridMonth',
     headerToolbar: {
       left: 'prev,next',
-      center: 'title',
-      right: 'dayGridMonth,dayGridWeek,dayGridDay'
+      center: 'title'
     }
   });
 

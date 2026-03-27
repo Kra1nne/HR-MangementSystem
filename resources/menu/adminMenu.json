@@ -22,7 +22,7 @@
       "slug": "employee"
     },
     {
-      "name": "Attendance",
+      "name": "DTR",
       "icon": "menu-icon tf-icons ri-list-radio",
       "slug": "attendance",
       "submenu": [
@@ -33,7 +33,7 @@
         },
         {
           "url": "/attendance/user",
-          "name": "My Attendance",
+          "name": "My DTR",
           "slug": "attendance-user"
         }
       ]

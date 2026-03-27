@@ -2,6 +2,8 @@ import * as faceapi from 'face-api.js';
 
 const video = document.getElementById('video');
 let canvas;
+let lastMatchTime = 0;
+const MATCH_COOLDOWN = 5000;
 
 let employeeName;
 let faceMatcher;
@@ -14,13 +16,9 @@ $.ajax({
   success: function (response) {
     employeeName = response.employee;
 
-    // Convert descriptor to Float32Array
     const labeledDescriptor = new faceapi.LabeledFaceDescriptors(employeeName, [new Float32Array(response.descriptor)]);
 
-    // Create matcher
-    faceMatcher = new faceapi.FaceMatcher(labeledDescriptor, 0.6);
-
-    console.log('✅ Employee descriptor loaded');
+    faceMatcher = new faceapi.FaceMatcher(labeledDescriptor, 0.4);
   },
   error: function (err) {
     console.error(err);
@@ -34,7 +32,6 @@ Promise.all([
   faceapi.nets.faceRecognitionNet.loadFromUri('/models')
 ]).then(startVideo);
 
-// 🔹 Start webcam
 function startVideo() {
   navigator.mediaDevices
     .getUserMedia({ video: {} })
@@ -45,6 +42,7 @@ function startVideo() {
         const container = video.parentElement;
         container.style.position = 'relative';
 
+        // OPTIONAL: Keep canvas but no drawing
         canvas = faceapi.createCanvasFromMedia(video);
         canvas.style.position = 'absolute';
         canvas.style.top = '0';
@@ -60,13 +58,13 @@ function startVideo() {
 
         faceapi.matchDimensions(canvas, displaySize);
 
-        setInterval(detectFace, 300); // 🔹 optimized interval
+        setInterval(detectFace, 300);
       });
     })
     .catch(err => console.error(err));
 }
 
-// 🔹 Detect + Match face
+// 🔹 Detect + Match face (NO DRAWING)
 async function detectFace() {
   if (!canvas || !faceMatcher || isProcessing) return;
 
@@ -84,49 +82,66 @@ async function detectFace() {
     .withFaceLandmarks()
     .withFaceDescriptor();
 
+  // Clear canvas (no drawings anyway)
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (!detection) {
-    document.getElementById('status').innerText = 'No face detected';
+    $('#status').text('No face detected');
     isProcessing = false;
     return;
   }
 
-  const resizedDetection = faceapi.resizeResults(detection, displaySize);
-
-  // 🔹 Match face
+  // 🔹 Match face (NO BOX / LABEL)
   const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
 
-  const box = resizedDetection.detection.box;
-
-  // 🔹 Draw box
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = 'blue';
-  ctx.strokeRect(box.x, box.y, box.width, box.height);
-
-  // 🔹 Label
-  const label = bestMatch.toString(); // "John Doe (0.45)" or "unknown"
-
-  ctx.font = '16px Arial';
-  ctx.textBaseline = 'top';
-
-  ctx.fillStyle = 'blue';
-  ctx.fillRect(box.x, box.y - 20, ctx.measureText(label).width + 10, 20);
-
-  ctx.fillStyle = 'white';
-  ctx.fillText(label, box.x + 5, box.y - 18);
-
-  // 🔹 Status text
   if (bestMatch.label === employeeName) {
-    document.getElementById('status').innerText = `✅ Matched: ${employeeName}`;
+    const now = Date.now();
+
+    if (now - lastMatchTime < MATCH_COOLDOWN) {
+      isProcessing = false;
+      $('#status').text('Loading...');
+      return;
+    }
+
+    lastMatchTime = now;
+    $('#status').text(`Matched: ${employeeName}`);
+
+    $.ajax({
+      url: '/attendance/check',
+      method: 'GET',
+      cache: false,
+      success: function (data) {
+        Toastify({
+          text: data.Message,
+          duration: 3000,
+          close: true,
+          gravity: 'top',
+          position: 'right',
+          backgroundColor: data.Error == 0 ? '#008000' : '#cc3300',
+          stopOnFocus: true
+        }).showToast();
+      },
+      error: function () {
+        Toastify({
+          text: 'Unable to save data. Please try again later.',
+          duration: 3000,
+          close: true,
+          gravity: 'top',
+          position: 'right',
+          backgroundColor: '#dc3545',
+          stopOnFocus: true
+        }).showToast();
+      }
+    });
   } else {
-    document.getElementById('status').innerText = `❌ Not Matched`;
+    $('#status').text('Not Matched'); // ✅ fixed typo
   }
 
   isProcessing = false;
 }
 
+// running time
 $(function () {
   function formatDate(date, includeDate = true) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

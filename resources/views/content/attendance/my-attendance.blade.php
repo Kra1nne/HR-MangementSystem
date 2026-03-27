@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'My Attendance')
+@section('title', 'DTR')
 
 @section('page-script')
     @vite('resources/assets/js/attendance.js')

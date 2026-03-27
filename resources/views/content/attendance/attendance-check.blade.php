@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Dashboard')
+@section('title', 'DTR')
 @section('page-script')
     @vite('resources/assets/js/face.js')
 @endsection
@@ -22,7 +22,7 @@
                         <div id="status" class="mt-3">Loading...</div>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col w-100">
 
                     <div class="card shadow border-0 rounded-4">
 

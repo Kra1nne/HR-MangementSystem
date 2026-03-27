@@ -4,6 +4,9 @@ namespace App\Http\Controllers\attendance;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\EmployeeLog;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,5 +43,46 @@ class AttendanceController extends Controller
             'employee' => $employeeData->firstname . ' ' . $employeeData->lastname,
             'descriptor' => $descriptor
         ]);
+    }
+    public function attendace()
+    {
+        $employeeData = User::leftjoin('persons','persons.id', '=', 'users.person_id')
+            ->leftjoin('employees', 'employees.person_id', '=', 'persons.id')
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->where('users.id', Auth::id())
+            ->whereNull('users.deleted_at')
+            ->select('employees.emp_no as id', 'department_employees.id_no as emp_id')
+            ->first();
+            
+        $latestLog = EmployeeLog::where('dept_employee_id', $employeeData->emp_id)
+            ->where('date', now()->toDateString())
+            ->orderBy('time', 'desc')
+            ->first();
+        
+        if ($latestLog != null) {
+            $time = Carbon::parse($latestLog->time);
+
+            if ($time->addMinutes(10)->isFuture()) {
+                return response()->json([
+                    'Error' => 1,
+                    'Message' => 'Wait at least 10 minutes to time-in/time-out.'
+                ]);
+            }
+        }
+
+        $date = now()->toDateString(); 
+        $time = now()->toTimeString();
+        
+        $data = [
+            'dept_employee_id' => $employeeData->emp_id,
+            'time' => $time,
+            'date' => $date,
+            'remarks' => 'Present',
+            'created_at' => now()
+        ];
+        $result = EmployeeLog::insert($data);
+        if($result){
+            return response()->json(['Error' => 0, 'Message' => 'Attendance Successfully']);
+        }
     }
 }

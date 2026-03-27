@@ -13,7 +13,11 @@ class EmployeeLog extends Model
         'log_type',
         'time',
         'date',
-        'row_number',
         'remarks'
+    ];
+
+    protected $casts = [
+        'time' => 'datetime',
+        'date' => 'date'
     ];
 }
