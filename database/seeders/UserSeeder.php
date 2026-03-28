@@ -121,7 +121,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id' => 10,
-                'email' => 'employee2@empathra.com',
+                'email' => 'employee100@empathra.com',
                 'password' => Hash::make('password'),
                 'role' => 'Employee',
                 'otp' => null,
