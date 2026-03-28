@@ -71,6 +71,14 @@ class EmployeeLogSeeder extends Seeder
                 'row' => 1,
                 'created_at' => now()
             ],
+            [
+                'dept_employee_id' => 2,
+                'time' => now()->copy()->setTime(17, 0, 0), 
+                'date' => now()->toDateString(),
+                'remarks' => 'Present',
+                'row' => 2,
+                'created_at' => now()
+            ],
 
              [
                 'dept_employee_id' => 3,

@@ -10,7 +10,7 @@ class EmployeeLog extends Model
 
     protected $fillable = [
         'dept_employee_id',
-        'log_type',
+        'row',
         'time',
         'date',
         'remarks'
@@ -20,4 +20,8 @@ class EmployeeLog extends Model
         'time' => 'datetime',
         'date' => 'date'
     ];
+
+    public function employee(){
+        return $this->belongsTo(DepartmentEmployee::class, 'dept_employee_id', 'id_no');
+    }
 }

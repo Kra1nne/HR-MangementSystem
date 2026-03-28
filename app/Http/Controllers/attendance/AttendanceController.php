@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\attendance;
 
 use App\Http\Controllers\Controller;
+use App\Models\DepartmentEmployee;
 use App\Models\Employee;
 use App\Models\EmployeeLog;
 use App\Models\User;
@@ -13,11 +14,33 @@ use Illuminate\Support\Facades\Auth;
 class AttendanceController extends Controller
 {
     public function index(){
+
+        $today = Carbon::today();
+        
+        $Present = DepartmentEmployee::whereHas('employee_logs', function ($query) use ($today) {
+                $query->whereDate('date', $today);
+            })
+            ->leftjoin('employees', 'employees.emp_no', '=', 'department_employees.emp_no')
+            ->leftjoin('persons', 'persons.id', '=', 'employees.person_id')
+            ->leftjoin('departments','departments.dept_no', '=', 'department_employees.dept_no')
+            ->paginate(8, ['*'], 'present_page');
+
+        $Absent = DepartmentEmployee::whereDoesntHave('employee_logs', function ($query) use ($today) {
+                $query->whereDate('date', $today);
+            })
+            ->leftjoin('employees', 'employees.emp_no', '=', 'department_employees.emp_no')
+            ->leftjoin('persons', 'persons.id', '=', 'employees.person_id')
+            ->leftjoin('departments','departments.dept_no', '=', 'department_employees.dept_no')
+            ->paginate(8, ['*'], 'absent_page');
+       
+        $presentCount = $Present->count();
+        $totalEmployee = Employee::whereNull('deleted_at')->count();
+        $totalAbsent = $Absent->count();
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Attendance Dashboard'],
         ];
-        return view('content.attendance.attendance', compact('breadcrumbs'));
+        return view('content.attendance.attendance', compact('breadcrumbs', 'presentCount', 'totalEmployee', 'totalAbsent', 'Present', 'Absent'));
     }
     public function userAttendance(){
         $breadcrumbs = [

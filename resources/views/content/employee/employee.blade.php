@@ -105,10 +105,7 @@
                     </tbody>
 
                 </table>
-                <div class="d-flex justify-content-between">
-                    <div class="p-3">
-                        <span id="selectedCount"></span>
-                    </div>
+                <div class="d-flex justify-content-end">
                     <div class="m-3">
                         {{ $employees->onEachSide(5)->links() }}
                     </div>
