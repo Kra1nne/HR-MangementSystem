@@ -113,7 +113,6 @@ $(function () {
         headerToolbar: { left: 'prev,next', center: 'title', right: '' },
         dayMaxEventRows: 1,
         events,
-
         eventContent: () => ({
           html: `
           <div class="d-flex align-items-center gap-1 px-2 py-1 rounded small fw-medium bg-success-subtle text-success">
@@ -121,7 +120,6 @@ $(function () {
               <path d="M2 6l3 3 5-5" stroke="#27500A" stroke-width="1.8"
                     stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Present
           </div>`
         }),
 

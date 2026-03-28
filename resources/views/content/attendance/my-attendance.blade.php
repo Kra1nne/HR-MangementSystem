@@ -101,37 +101,9 @@
             </div>
         </section>
         <section class="card p-3 mt-4">
-            <ul class="nav nav-pills mb-4 nav-fill" role="tablist">
-                <li class="nav-item mb-1 mb-sm-0">
-                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-pills-justified-calendar" aria-controls="navs-pills-justified-calendar"
-                        aria-selected="true">
-                        <span class="d-none d-sm-inline-flex align-items-center">
-                            <i class="icon-base ri ri-calendar-todo-line icon-sm me-1_5"></i>Calendar
-                        </span>
-                        <i class="icon-base ri ri-calendar-todo-line icon-sm d-sm-none"></i>
-                    </button>
-                </li>
-                <li class="nav-item mb-1 mb-sm-0">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-pills-justified-profile" aria-controls="navs-pills-justified-profile"
-                        aria-selected="false">
-                        <span class="d-none d-sm-inline-flex align-items-center"><i
-                                class="icon-base ri ri-grid-line icon-sm me-1_5"></i>Table</span>
-                        <i class="icon-base ri ri-grid-line icon-sm d-sm-none"></i>
-                    </button>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="navs-pills-justified-calendar" role="tabpanel">
-                    <div class="row">
-                        <div class="col">
-                            <div id='calendar' style="width: 100%; height: 500px;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
-
+            <div class="row">
+                <div class="col">
+                    <div id='calendar' style="width: 100%; height: 500px;"></div>
                 </div>
             </div>
         </section>

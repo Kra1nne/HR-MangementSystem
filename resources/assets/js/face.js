@@ -25,6 +25,40 @@ $.ajax({
   }
 });
 
+function fetchAttendance() {
+  $.ajax({
+    url: '/attendance/todays-date',
+    method: 'GET',
+    success: function (response) {
+      const todaysData = response.TodayData || [];
+
+      // IDs of your DOM elements
+      const ids = ['first', 'second', 'third', 'fourth'];
+
+      ids.forEach((id, index) => {
+        const timeUtc = todaysData[index]?.time; // safely get time or undefined
+        const timeManila = timeUtc
+          ? new Date(timeUtc).toLocaleTimeString('en-PH', {
+              timeZone: 'Asia/Manila',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: true
+            })
+          : '--:--'; // fallback if no data
+
+        $('#' + id).text(timeManila.replace(/ AM| PM/, ''));
+      });
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+}
+
+fetchAttendance();
+setInterval(fetchAttendance, 5000);
+
 // 🔹 Load models then start camera
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -106,7 +140,6 @@ async function detectFace() {
 
     lastMatchTime = now;
     $('#status').text(`Matched: ${employeeName}`);
-
     $.ajax({
       url: '/attendance/check',
       method: 'GET',

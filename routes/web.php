@@ -50,6 +50,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/employee-data', [AttendanceController::class, 'employeeData'])->name('employee-data-fetch');
   Route::get('/attendance/check', [AttendanceController::class, 'attendace'])->name('attendace-check-processing');
   Route::get('/attendance/data', [AttendanceController::class, 'getAttendance'])->name('attendance-display');
+  Route::get('/attendance/todays-date', [AttendanceController::class, 'fetchTodayData'])->name('todays-data');
 
   Route::get('/department/list', [DepartmentController::class, 'index'])->name('department-list');
   Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
