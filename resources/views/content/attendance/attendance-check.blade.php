@@ -47,20 +47,14 @@
                                 <div class="col-6">
                                     <div class="p-3 border rounded-3 bg-light">
                                         <small class="text-muted">Time In</small>
-                                        {{-- <div class="fw-semibold fs-5">
-                                            {{ !empty($DTRToday[0]->time) ? date('h:i:s', strtotime($DTRToday[0]->time)) : '--:--' }}
-                                        </div> --}}
-                                        <div id="first"></div>
+                                        <div id="first" class="fw-semibold fs-5"></div>
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="p-3 border rounded-3 bg-light">
                                         <small class="text-muted">Time Out</small>
-                                        {{-- <div class="fw-semibold fs-5">
-                                            {{ !empty($DTRToday[1]->time) ? date('h:i:s', strtotime($DTRToday[1]->time)) : '--:--' }}
-                                        </div> --}}
-                                        <div id="second"></div>
+                                        <div id="second" class="fw-semibold fs-5"></div>
                                     </div>
                                 </div>
                             </div>
@@ -72,20 +66,14 @@
                                 <div class="col-6">
                                     <div class="p-3 border rounded-3 bg-light">
                                         <small class="text-muted">Time In</small>
-                                        {{-- <div class="fw-semibold fs-5">
-                                            {{ !empty($DTRToday[2]->time) ? date('h:i:s', strtotime($DTRToday[2]->time)) : '--:--' }}
-                                        </div> --}}
-                                        <div id="third"></div>
+                                        <div id="third" class="fw-semibold fs-5"></div>
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="p-3 border rounded-3 bg-light">
                                         <small class="text-muted">Time Out</small>
-                                        {{-- <div class="fw-semibold fs-5">
-                                            {{ !empty($DTRToday[3]->time) ? date('h:i:s', strtotime($DTRToday[3]->time)) : '--:--' }}
-                                        </div> --}}
-                                        <div id="fourth"></div>
+                                        <div id="fourth" class="fw-semibold fs-5"></div>
                                     </div>
                                 </div>
 
