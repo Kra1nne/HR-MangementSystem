@@ -30,6 +30,24 @@ class AttendanceController extends Controller
         
         return view('content.attendance.attendance-check');
     }
+    public function getAttendance()
+    {
+       $employeeData = User::leftjoin('persons','persons.id', '=', 'users.person_id')
+            ->leftjoin('employees', 'employees.person_id', '=', 'persons.id')
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->where('users.id', Auth::id())
+            ->whereNull('users.deleted_at')
+            ->select('employees.emp_no as id', 'department_employees.id_no as emp_id')
+            ->first();
+
+        $logs = EmployeeLog::orderBy('dept_employee_id')
+            ->orderBy('date')
+            ->orderBy('time')
+            ->where('dept_employee_id', $employeeData->emp_id)
+            ->get();
+
+        return response()->json($logs);
+    }
     public function employeeData()
     {
         $employeeData = Employee::leftJoin('persons', 'persons.id', '=', 'employees.person_id')
@@ -58,10 +76,10 @@ class AttendanceController extends Controller
             ->where('date', now()->toDateString())
             ->orderBy('time', 'desc')
             ->first();
-        
+        $row = 1;
         if ($latestLog != null) {
             $time = Carbon::parse($latestLog->time);
-
+            $latestLog->row == 1 ? $row = 2 : $row = 1;
             if ($time->addMinutes(10)->isFuture()) {
                 return response()->json([
                     'Error' => 1,
@@ -78,6 +96,7 @@ class AttendanceController extends Controller
             'time' => $time,
             'date' => $date,
             'remarks' => 'Present',
+            'row' => $row,
             'created_at' => now()
         ];
         $result = EmployeeLog::insert($data);

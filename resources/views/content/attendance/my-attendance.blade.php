@@ -5,6 +5,9 @@
 @section('page-script')
     @vite('resources/assets/js/attendance.js')
 @endsection
+@section('page-style')
+    @vite(['resources/assets/css/modal-calendar.css'])
+@endsection
 @section('content')
     <main class="container mt-5">
         <section class="row g-4">
@@ -133,4 +136,26 @@
             </div>
         </section>
     </main>
+    <!-- Modal -->
+    <div id="att-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-3 p-3">
+
+                <div class="modal-header border-0 pb-0">
+                    <h6 id="att-modal-date" class="modal-title fw-medium"></h6>
+                    <button type="button" class="btn-close" id="att-modal-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body pt-2">
+                    <div id="att-modal-logs"></div>
+
+                    <div class="d-flex justify-content-between mt-3 pt-3 border-top small text-muted">
+                        <span>Total hours worked</span>
+                        <span id="att-modal-hours" class="fw-medium text-dark"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection

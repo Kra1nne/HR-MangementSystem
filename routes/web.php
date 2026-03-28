@@ -49,6 +49,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/attendance/face-recognation', [AttendanceController::class, 'faceRecognation'])->name('attendance-check');
   Route::get('/employee-data', [AttendanceController::class, 'employeeData'])->name('employee-data-fetch');
   Route::get('/attendance/check', [AttendanceController::class, 'attendace'])->name('attendace-check-processing');
+  Route::get('/attendance/data', [AttendanceController::class, 'getAttendance'])->name('attendance-display');
 
   Route::get('/department/list', [DepartmentController::class, 'index'])->name('department-list');
   Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');

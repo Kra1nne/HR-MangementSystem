@@ -5,10 +5,6 @@
 @section('page-style')
     @vite(['resources/assets/css/auth.css'])
 @endsection
-{{-- @section('page-script')
-    @vite('resources/assets/js/login.js')
-@endsection --}}
-
 @section('content')
     <div class="container-fluid p-0 vh-100">
         <div class="row g-0 h-100">

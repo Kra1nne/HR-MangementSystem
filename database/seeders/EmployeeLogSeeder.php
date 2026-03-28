@@ -19,6 +19,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(8, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -26,6 +27,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(12, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
             [
@@ -33,6 +35,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(13, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -40,6 +43,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(17, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
 
@@ -48,6 +52,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(8, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -55,6 +60,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(12, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
             [
@@ -62,6 +68,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(13, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -69,6 +76,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(17, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
 
@@ -77,6 +85,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(8, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -84,6 +93,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(12, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
             [
@@ -91,6 +101,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(13, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -98,6 +109,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(17, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
 
@@ -106,6 +118,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(8, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -113,6 +126,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(12, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
             [
@@ -120,6 +134,7 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(13, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 1,
                 'created_at' => now()
             ],
             [
@@ -127,10 +142,11 @@ class EmployeeLogSeeder extends Seeder
                 'time' => now()->copy()->setTime(17, 0, 0), 
                 'date' => now()->toDateString(),
                 'remarks' => 'Present',
+                'row' => 2,
                 'created_at' => now()
             ],
         ];
 
-        //DB::table('employee_logs')->insert($employeelogs);
+        DB::table('employee_logs')->insert($employeelogs);
     }
 }
