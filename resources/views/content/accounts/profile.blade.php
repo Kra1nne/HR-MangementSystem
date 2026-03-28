@@ -13,8 +13,10 @@
         <div class="bg-primary px-4 pt-4 pb-3 d-flex flex-wrap align-items-end gap-3 position-relative rounded-3">
 
             <div class="position-relative flex-shrink-0">
-                <img id="employeeProfilePicture" src="https://i.pravatar.cc/150?img=12"
-                    class="rounded-circle border border-3 border-white object-fit-cover" width="96" height="96">
+                <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-1"
+                    style="width:80px;height:80px;">
+                    <i class="ri ri-user-line fs-1 text-white"></i>
+                </div>
             </div>
 
             <div class="pb-2 flex-grow-1">
@@ -38,7 +40,7 @@
             </div>
 
             <div class="pb-2 d-flex">
-                <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+                <span class="badge rounded-pill bg-success text-white px-3 py-2">
                     {{ $data->emp_id }}
                 </span>
             </div>
@@ -52,8 +54,7 @@
                 <!-- Personal Info -->
                 <div class="col-12 col-lg-8">
                     <div class="border rounded-3 p-3 h-100">
-                        <p class="text-muted small text-uppercase fw-semibold mb-3"
-                            style="letter-spacing:.07em;font-size:11px;">
+                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
                             Personal Information
                         </p>
 
@@ -124,23 +125,15 @@
                 <!-- Work Details -->
                 <div class="col-12 col-lg-4">
                     <div class="border rounded-3 p-3 h-100">
-                        <p class="text-muted small text-uppercase fw-semibold mb-3"
-                            style="letter-spacing:.07em;font-size:11px;">
+                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
                             Work Details
                         </p>
 
                         <div class="d-flex flex-column gap-3">
 
                             <div>
-                                <p class="text-muted small mb-1">Manager</p>
-                                <p class="fw-semibold small mb-0" id="employeeManager">
-                                    Maria Santos
-                                </p>
-                            </div>
-
-                            <div>
                                 <p class="text-muted small mb-1">Employment Type</p>
-                                <span class="badge bg-info-subtle text-info border border-info-subtle rounded-pill px-3">
+                                <span class="badge {{ $data->EmployeeBadge() }} text-white rounded-pill px-3">
                                     {{ $data->status }}
                                 </span>
                             </div>
@@ -167,19 +160,24 @@
                     <div
                         class="border rounded-3 p-3 text-center h-100 d-flex flex-column align-items-center justify-content-center gap-2">
 
-                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mb-1"
+                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-1"
                             style="width:48px;height:48px;">
-                            <i class="bi bi-person-bounding-box fs-5 text-secondary"></i>
+                            <i class="ri ri-user-line fs-5 text-white"></i>
                         </div>
 
-                        <p class="small text-muted mb-0">
-                            Face ID not yet registered
-                        </p>
-
-                        <a href="{{ route('employee-faceRegistration', $employee_id) }}"
-                            class="btn btn-primary btn-sm w-100 rounded-3" id="btnRegisterFace">
-                            Register Face
-                        </a>
+                        @if ($data->face_descriptor == null)
+                            <p class="small text-muted mb-0">
+                                Face ID not yet registered
+                            </p>
+                            <a href="{{ route('employee-faceRegistration', $employee_id) }}"
+                                class="btn btn-primary btn-sm w-100 rounded-3" id="btnRegisterFace">
+                                Register Face
+                            </a>
+                        @else
+                            <p class="small text-success mb-0">
+                                Face ID registered
+                            </p>
+                        @endif
 
                     </div>
                 </div>
