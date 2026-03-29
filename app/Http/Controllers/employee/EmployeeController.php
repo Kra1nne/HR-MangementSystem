@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
 use App\Models\DepartmentEmployee;
 use App\Models\Employee;
 use App\Models\Log;
@@ -26,7 +25,7 @@ class EmployeeController extends Controller
         }
 
         $employees = $data->whereNull('deleted_at')
-            ->paginate(10);
+            ->paginate(7);
 
         $employees->getCollection()->transform(function ($employee) {
             $employee->encrypted_id = Crypt::encryptString($employee->emp_no);

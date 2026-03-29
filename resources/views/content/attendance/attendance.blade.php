@@ -118,7 +118,7 @@
                                             <th>Employee #</th>
                                             <th>Department</th>
                                             <th>Gender</th>
-                                            <th>Phone</th>
+                                            <th>Time</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -130,7 +130,8 @@
                                                 <td>{{ $item->emp_id }}</td>
                                                 <td>{{ $item->dept_name }}</td>
                                                 <td>{{ $item->sex }} </td>
-                                                <td>{{ $item->phone_number }}</td>
+                                                <td>{{ date('g:m A', strtotime($item->employee_logs[0]['time'])) }}
+                                                </td>
                                                 <td>
                                                     <span class="badge bg-success text-white">
                                                         Present
