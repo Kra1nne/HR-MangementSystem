@@ -11,17 +11,17 @@
                     class="btn btn-primary btn-sm">Back</a>
             </div>
             <div
-                class="d-flex flex-column flex-lg-row 
+                class="card p-2 d-flex flex-column flex-lg-row 
             justify-content-between align-items-start align-items-center gap-3">
                 <div class="col">
-                    <div class="card p-2 border-0 rounded-4 w-100 h-100">
+                    <div class="w-100 h-100">
                         <div class="mt-4 mx-auto" style="position: relative; display: inline-block;">
-                            <video id="video" style="height: 100%; width: 100%; display: block;" autoplay muted></video>
-
+                            <video id="video" style="display: block;" autoplay muted></video>
                         </div>
                         <div id="status" class="mt-3">Loading...</div>
                     </div>
                 </div>
+
                 <div class="col w-100">
 
                     <div class="card shadow border-0 rounded-4">

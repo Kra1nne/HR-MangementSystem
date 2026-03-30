@@ -32,6 +32,11 @@
           "slug": "attendance-index"
         },
         {
+          "url": "/attendance/employee-dtr",
+          "name": "Employee DTR",
+          "slug": "attendance-employee"
+        },
+        {
           "url": "/attendance/user",
           "name": "My DTR",
           "slug": "attendance-user"

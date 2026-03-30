@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class AttendanceController extends Controller
 {
@@ -54,6 +55,42 @@ class AttendanceController extends Controller
         ];
         return view('content.attendance.my-attendance', compact('breadcrumbs'));
     }
+    public function employeeAttendanceView($id){
+
+        $employeeData = Employee::leftJoin('persons', 'persons.id', '=', 'employees.person_id')
+            ->leftJoin('users', 'users.person_id', '=', 'employees.person_id')
+            ->where('employees.emp_no', Crypt::decryptString($id))
+            ->selectRaw('CONCAT(persons.firstname," ", persons.middlename," ", persons.lastname) as name')
+            ->first();
+
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Employee DTR', 'link' => route('attendance-employee')],
+            ['name' => 'Employee DTR View', 'link']
+        ];
+        return view('content.attendance.attendance-employee-view', compact('breadcrumbs', 'employeeData'));
+    }
+    public function employeeAttendance(Request $request){
+        $data = Employee::with(['person', 'latestSalary', 'latestTitle']);
+
+        if($request->search){
+            $data->where('emp_id', 'like', '%'.$request->search.'%');
+        }
+
+        $employees = $data->whereNull('deleted_at')
+            ->paginate(7);
+
+        $employees->getCollection()->transform(function ($employee) {
+            $employee->encrypted_id = Crypt::encryptString($employee->emp_no);
+            return $employee;
+        });
+
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Employee DTR'],
+        ];
+        return view('content.attendance.attendance-employee', compact('breadcrumbs', 'employees'));
+    }
     public function faceRecognation(){
         $employeeData = User::leftjoin('persons','persons.id', '=', 'users.person_id')
             ->leftjoin('employees', 'employees.person_id', '=', 'persons.id')
@@ -97,6 +134,24 @@ class AttendanceController extends Controller
             ->leftjoin('employees', 'employees.person_id', '=', 'persons.id')
             ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
             ->where('users.id', Auth::id())
+            ->whereNull('users.deleted_at')
+            ->select('employees.emp_no as id', 'department_employees.id_no as emp_id')
+            ->first();
+
+        $logs = EmployeeLog::orderBy('dept_employee_id')
+            ->orderBy('date')
+            ->orderBy('time')
+            ->where('dept_employee_id', $employeeData->emp_id)
+            ->get();
+
+        return response()->json($logs);
+    }
+    public function getAttendanceEmployee($id)
+    {
+       $employeeData = User::leftjoin('persons','persons.id', '=', 'users.person_id')
+            ->leftjoin('employees', 'employees.person_id', '=', 'persons.id')
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->where('users.id', Crypt::decryptString(($id)))
             ->whereNull('users.deleted_at')
             ->select('employees.emp_no as id', 'department_employees.id_no as emp_id')
             ->first();
