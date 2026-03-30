@@ -71,9 +71,11 @@ class AttendanceController extends Controller
         return view('content.attendance.attendance-employee-view', compact('breadcrumbs', 'employeeData'));
     }
     public function employeeAttendance(Request $request){
+        $isSearch = false;
         $data = Employee::with(['person', 'latestSalary', 'latestTitle']);
 
         if($request->search){
+            $isSearch = true;
             $data->where('emp_id', 'like', '%'.$request->search.'%');
         }
 
@@ -89,7 +91,7 @@ class AttendanceController extends Controller
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Employee DTR'],
         ];
-        return view('content.attendance.attendance-employee', compact('breadcrumbs', 'employees'));
+        return view('content.attendance.attendance-employee', compact('breadcrumbs', 'employees', 'isSearch'));
     }
     public function faceRecognation(){
         $employeeData = User::leftjoin('persons','persons.id', '=', 'users.person_id')

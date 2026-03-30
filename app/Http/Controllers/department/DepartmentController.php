@@ -31,6 +31,7 @@ class DepartmentController extends Controller
         return view('content.department.department-list', compact('departments', 'breadcrumbs'));
     }
     public function details($id, Request $request){
+        $isSearch = false;
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Department List', 'link' => route('department-list')],
@@ -51,8 +52,8 @@ class DepartmentController extends Controller
             ->where('department_employees.status', '=', 'active')
             ->whereNull('department_employees.to_date');
 
-        if($request->search)
-        {
+        if($request->search){
+             $isSearch = true;
             $data->where('employees.emp_id',  'like', '%'.$request->search.'%');
         }
 
@@ -69,7 +70,7 @@ class DepartmentController extends Controller
             ->orderBy('hire_date', 'Desc')
             ->get();
         
-        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee'));
+        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee', 'isSearch'));
     }
     public function addDepartment(Request $request)
     {

@@ -60,6 +60,8 @@
                                         aria-label="Search..." aria-describedby="basic-addon-search31" />
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                <button class="border-none btn-outline-dark {{ $isSearch ? 'd-block' : 'd-none' }}"
+                                    id="closeMark"><i class="ri-close-line text-danger"></i></button>
                             </form>
 
                             <div class="d-flex justify-content-center align-items-center px-5" id="options">

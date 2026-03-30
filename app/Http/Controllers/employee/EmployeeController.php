@@ -19,10 +19,13 @@ class EmployeeController extends Controller
     public function index(Request $request){
         
         $data = Employee::with(['person', 'latestSalary', 'latestTitle']);
+        $isSearch = false;
 
         if($request->search){
             $data->where('emp_id', 'like', '%'.$request->search.'%');
+            $isSearch = true;
         }
+        
 
         $employees = $data->whereNull('deleted_at')
             ->paginate(7);
@@ -36,7 +39,7 @@ class EmployeeController extends Controller
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Employee'],
         ];
-        return view('content.employee.employee', compact('breadcrumbs','employees'));
+        return view('content.employee.employee', compact('breadcrumbs','employees', 'isSearch'));
     }
     public function registerFace($id){
         
