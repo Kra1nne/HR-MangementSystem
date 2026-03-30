@@ -5,6 +5,7 @@ namespace App\Http\Controllers\department;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\DepartmentEmployee;
+use App\Models\DepartmentManager;
 use App\Models\Employee;
 use App\Models\Log;
 use Illuminate\Http\Request;
@@ -31,6 +32,7 @@ class DepartmentController extends Controller
         return view('content.department.department-list', compact('departments', 'breadcrumbs'));
     }
     public function details($id, Request $request){
+        $dept_id = $id;
         $isSearch = false;
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
@@ -61,7 +63,7 @@ class DepartmentController extends Controller
             ->paginate(10);
         
         $employees = Employee::with('person', 'latestTitle')
-            ->whereNotIn('employees.emp_no', function ($query) {
+            ->whereNotIn('emp_no', function ($query) {
                 $query->select('emp_no')
                     ->from('department_employees')
                     ->where('status', '!=', 'remove')
@@ -69,8 +71,27 @@ class DepartmentController extends Controller
             })
             ->orderBy('hire_date', 'Desc')
             ->get();
+
+        $manager = Employee::with('person', 'latestTitle')
+            ->whereIn('employees.emp_no', function ($query) {
+                $query->select('emp_no')
+                    ->from('department_employees')
+                    ->where('status', '!=', 'remove')
+                    ->whereNull('to_date');
+            })
+            ->whereNotIn('employees.emp_no', function ($query) {
+                $query->select('emp_no')
+                    ->from('department_managers')
+                    ->where('status', '!=', 'remove')
+                    ->whereNull('to_date');
+            })
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->where('department_employees.dept_no', Crypt::decryptString($id))
+            ->whereNull('department_employees.to_date')
+            ->orderBy('Employees.hire_date', 'Desc')
+            ->get();
         
-        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee', 'isSearch'));
+        return view('content.department.department-details', compact('departmentDetails', 'breadcrumbs', 'employees', 'departmentEmployee', 'isSearch', 'manager'));
     }
     public function addDepartment(Request $request)
     {
@@ -136,5 +157,31 @@ class DepartmentController extends Controller
             return response()->json(['Error' => 0, 'Message' => 'Successfully remove a Employee']);
         }
         
+    }
+    public function addManager(Request $request){
+
+        $data = [
+            'emp_no' => $request->employee,
+            'dept_no' => $request->id,
+            'from_date' => now(),
+            'status' => 'Active',
+            'created_at' => now()
+        ];
+
+        $result = DepartmentManager::insert($data);
+
+         $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Add',
+            'table_name' => 'Departments Manager',
+            'description' => 'Assign a new manager',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        $logData = Log::insert($log);
+
+        if($result){
+            return response()->json(['Error' => 0, 'Message' => 'Successfully assign the new Manager']);
+        }
     }
 }

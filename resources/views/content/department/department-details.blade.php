@@ -42,6 +42,9 @@
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#ModalAddEmployee">
                                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
+                                <button type="button" class="btn btn-primary mt-1" data-bs-toggle="modal"
+                                    data-bs-target="#ModalAddManeger">
+                                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Manager</button>
                             </div>
                         </div>
                     </div>
@@ -249,6 +252,79 @@
                         </button>
                         <button type="submit" id="btnAddEmployee" class="btn btn-primary btn-sm">
                             Add Employees
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalAddManeger" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
+                {{-- Header --}}
+                <div class="modal-header bg-primary border-0 px-4 py-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div>
+                            <h5 class="modal-title text-white fw-bold mb-0">Assign New Manager</h5>
+                            <small class="text-white text-opacity-75">Select a new manager replacement</small>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Search + Select All --}}
+                <div class="px-4 py-3 border-bottom d-flex align-items-center gap-3">
+                    <div class="input-group input-group-sm flex-grow-1">
+                        <span class="input-group-text border-end-0">
+                            <i class="ri re-search-line text-muted"></i>
+                        </span>
+                        <input type="text" id="searchInputManager" class="form-control border-start-0 ps-0 text-black"
+                            placeholder="Search employees...">
+                    </div>
+                </div>
+
+                {{-- Body --}}
+                <form id="ManagerFormData">
+                    @csrf
+                    <input type="hidden" id="id" name="id" value="{{ $departmentDetails->dept_no }}">
+                    <div class="modal-body px-4 py-2" style="max-height: 340px; overflow-y: auto;">
+
+                        <div id="noResultsManager" class="text-center text-muted py-4 d-none">
+                            No matching employees found
+                        </div>
+                        @foreach ($manager as $item)
+                            <div class="employee-row">
+                                <label class="d-flex align-items-center gap-3 p-2 rounded-3 w-100 mb-1"
+                                    style="cursor: pointer;"
+                                    data-name="{{ strtolower($item->person->firstname . ' ' . $item->person->lastname) }}">
+                                    <input class="form-check-input mt-0 flex-shrink-0 employee-checkbox" type="radio"
+                                        name="employee" value="{{ $item->emp_no }}">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <div class="fw-medium text-dark lh-sm">
+                                            {{ $item->person->firstname }}
+                                            {{ isset($item->person->middlename[0]) ? $item->person->middlename[0] . '.' : '' }}
+                                            {{ $item->person->lastname }}
+                                        </div>
+                                        <small class="text-muted">
+                                            {{ $item->latestTitle->title }}
+                                        </small>
+                                    </div>
+
+                                    <span class="badge bg-success-subtle text-success rounded-pill">Active</span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </form>
+                <div class="modal-footer border-top px-4 py-3 d-flex justify-content-between">
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" id="btnAddManager" class="btn btn-primary btn-sm">
+                            Submit
                         </button>
                     </div>
                 </div>

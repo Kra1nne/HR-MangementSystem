@@ -1,3 +1,4 @@
+// error trappings for inputs
 function validateForm(fields) {
   let valid = true;
 
@@ -41,6 +42,7 @@ function validateForm(fields) {
 
   return valid;
 }
+// delete ajax
 $(function () {
   $('body').on('click', '#employeeDelete', function () {
     const id = $(this).data('id');
@@ -91,7 +93,7 @@ $(function () {
     });
   });
 });
-
+// add Employee Ajax
 $(function () {
   $('body').on('click', '#btnAddEmployee', function () {
     $.ajax({
@@ -127,6 +129,7 @@ $(function () {
     });
   });
 });
+// for changing tabs
 $(function () {
   var activeTab = localStorage.getItem('activeTab');
 
@@ -146,7 +149,31 @@ $(function () {
     localStorage.setItem('activeTab', $(e.target).data('bs-target'));
   });
 });
+// for selecting the employee in add manager modal
+$(function () {
+  let debounceTimer;
 
+  $('#searchInputManager').on('input', function () {
+    clearTimeout(debounceTimer);
+    const query = $(this).val().toLowerCase().trim();
+
+    debounceTimer = setTimeout(() => {
+      let visibleCount = 0;
+
+      $('.employee-row').each(function () {
+        const name = $(this).find('label').data('name');
+        const match = name.includes(query);
+
+        $(this).toggle(match);
+        if (match) visibleCount++;
+      });
+
+      $('#noResultsManager').toggleClass('d-none', visibleCount !== 0);
+    }, 250);
+  });
+});
+
+// for selecting the employee in adding the employee modal
 $(function () {
   let debounceTimer;
 
@@ -191,6 +218,7 @@ $(function () {
   }
 });
 
+// for message
 $(function () {
   let action;
   $('body').on('click', '#MessageAll', function () {
@@ -258,5 +286,43 @@ $(function () {
     } else {
       console.log('Ongoing');
     }
+  });
+});
+
+// adding a manager in department
+
+$(function () {
+  $(document).on('click', '#btnAddManager', function () {
+    $.ajax({
+      url: '/department/manager/add',
+      method: 'POST',
+      cache: false,
+      data: $('#ManagerFormData').serialize(),
+      beforeSend: function () {
+        $('#ModalAddManeger').modal('hide');
+        $('.preloader').show();
+      },
+      success: function (data) {
+        $('.preloader').hide();
+        if (data.Error == 1) {
+          Swal.fire('Error!', data.Message, 'error');
+        } else if (data.Error == 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Saved!',
+            text: data.Message,
+            showConfirmButton: true,
+            confirmButtonText: 'OK'
+          }).then(result => {
+            location.reload();
+          });
+        }
+      },
+      error: function () {
+        $('.preloader').hide();
+        Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+      }
+    });
   });
 });

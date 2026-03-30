@@ -58,6 +58,9 @@
                                 </td>
                             </tr>
                         @empty
+                            <tr class="text-center">
+                                <td colspan="6">Empty Log</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>

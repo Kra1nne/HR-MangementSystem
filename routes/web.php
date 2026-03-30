@@ -62,6 +62,8 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/department/addEmployee', [DepartmentController::class, 'addEmployee'])->name('department-add-employee');
   Route::post('/department/remove', [DepartmentController::class, 'removeEmployee'])->name('departmane-remove-employee');
 
+  Route::post('/department/manager/add', [DepartmentController::class, 'addManager'])->name('department-manager-add');
+
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
   Route::post('/employee/edit', [EmployeeController::class, 'editEmployee'])->name('employee-edit');
   Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('employee-add');
