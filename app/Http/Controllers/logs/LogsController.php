@@ -9,16 +9,23 @@ use Illuminate\View\View;
 
 class LogsController extends Controller
 {
-    public function index() : View
+    public function index(Request $request) : View
     {
+        $isSearch = false;
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Accounts'],
         ];
-        $logsData = Log::with('user')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+
+        $data = Log::with('user')->orderBy('id', 'desc');
+
+        if($request->search){
+            $isSearch = true;
+            $data->where('table_name', 'like',  '%'.$request->search.'%');
+        }
+
+        $logsData = $data->paginate(10);
             
-        return view('content.logs-activity.logs', compact('breadcrumbs', 'logsData'));
+        return view('content.logs-activity.logs', compact('breadcrumbs', 'logsData', 'isSearch'));
     }
 }

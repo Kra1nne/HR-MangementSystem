@@ -8,7 +8,8 @@
             <div class="d-flex flex-column flex-md-row align-items-start justify-content-between m-2 pb-2">
 
                 <!-- Search -->
-                <form action="" method="get" class="nav-item d-flex align-items-center gap-1 mb-2 mt-5 mb-md-0">
+                <form action="{{ route('logs') }}" method="get"
+                    class="nav-item d-flex align-items-center gap-1 mb-2 mt-5 mb-md-0">
                     <div class="input-group input-group-merge">
                         <input type="text" name="search" class="form-control-sm border-0 border-bottom w-100"
                             placeholder="Search" style="outline: none; box-shadow: none;"
@@ -17,6 +18,8 @@
                             aria-describedby="basic-addon-search31" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                    <button class="border-none btn-outline-dark {{ $isSearch ? 'd-block' : 'd-none' }}" id="closeMark"><i
+                            class="ri-close-line text-danger"></i></button>
                 </form>
 
             </div>
