@@ -41,10 +41,10 @@
                             <div class="gap-2">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#ModalAddEmployee">
-                                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
-                                <button type="button" class="btn btn-primary mt-1" data-bs-toggle="modal"
+                                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Employee</button>
+                                <button type="button" class="btn btn-outline-primary mt-1" data-bs-toggle="modal"
                                     data-bs-target="#ModalAddManeger">
-                                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Manager</button>
+                                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Manager</button>
                             </div>
                         </div>
                     </div>

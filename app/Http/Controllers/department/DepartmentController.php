@@ -160,6 +160,23 @@ class DepartmentController extends Controller
     }
     public function addManager(Request $request){
 
+        $manager = DepartmentManager::where('dept_no', $request->id)
+            ->whereNull('to_date')
+            ->where('status', '!=', 'remove')
+            ->first();
+
+        if($manager){
+            $managerData = [
+                'status' => 'remove',
+                'to_date' => now()
+            ];
+
+            DepartmentManager::where('dept_no', $request->id)
+                ->whereNull('to_date')
+                ->where('status', '!=', 'remove')
+                ->update($managerData);
+        }
+
         $data = [
             'emp_no' => $request->employee,
             'dept_no' => $request->id,
