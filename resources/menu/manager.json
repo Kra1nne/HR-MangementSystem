@@ -1,0 +1,37 @@
+{
+    "menu": [
+        {
+            "url": "/dashboard",
+            "name": "Dashboards",
+            "icon": "menu-icon tf-icons ri-home-smile-line",
+            "slug": "dashboard-analytics"
+        },
+        {
+            "menuHeader": "Components"
+        },
+        {
+            "url": "/department/list",
+            "name": "Department",
+            "icon": "menu-icon tf-icons ri-building-line",
+            "slug": "department-list"
+        },
+        {
+            "url": "/employee",
+            "name": "Employee",
+            "icon": "menu-icon tf-icons ri-team-line",
+            "slug": "employee"
+        },
+        {
+            "url": "/attendance/user",
+            "name": "DTR",
+            "icon": "menu-icon tf-icons ri-list-radio",
+            "slug": "attendance"
+        },
+        {
+            "menuHeader": "System Management"
+        },
+        {
+            "menuHeader": "System Reports"
+        }
+    ]
+}

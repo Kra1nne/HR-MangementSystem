@@ -28,7 +28,9 @@
                                         <h5 class="fw-bold mb-1">{{ $item->dept_name }}</h5>
 
                                         <span class="badge bg-light text-dark border">
-                                            Manager: <strong>John Doe</strong>
+                                            Manager:
+                                            <strong>{{ $item->latestManager->employee->person->firstname ?? ' ' }}
+                                                {{ $item->latestManager->employee->person->lastname ?? ' ' }}</strong>
                                         </span>
                                     </div>
                                 </div>

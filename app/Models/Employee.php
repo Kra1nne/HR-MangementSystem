@@ -35,11 +35,13 @@ class Employee extends Model
     public function latestTitle()
     {
         return $this->hasOne(Title::class, 'emp_no', 'emp_no')
+                    ->whereNull('to_date')
                     ->orderByDesc('from_date');
     }
     public function latestSalary()
     {
         return $this->hasOne(Salary::class, 'emp_no', 'emp_no')
+                    ->whereNull('to_date')
                     ->orderByDesc('from_date');
     }
     public function EmployeeBadge(): string

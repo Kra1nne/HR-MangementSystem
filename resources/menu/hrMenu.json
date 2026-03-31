@@ -7,22 +7,41 @@
       "slug": "dashboard-analytics"
     },
     {
-      "url": "/attendance",
-      "name": "Attendance",
-      "icon": "menu-icon tf-icons ri-list-radio",
-      "slug": "attendance"
+      "menuHeader": "Components"
     },
     {
-      "url": "/onboarding",
-      "name": "Onboarding",
-      "icon": "menu-icon tf-icons ri-rocket-line",
-      "slug": "onboarding"
+      "url": "/department/list",
+      "name": "Department",
+      "icon": "menu-icon tf-icons ri-building-line",
+      "slug": "department-list"
     },
     {
       "url": "/employee",
       "name": "Employee",
       "icon": "menu-icon tf-icons ri-team-line",
       "slug": "employee"
+    },
+    {
+      "name": "DTR",
+      "icon": "menu-icon tf-icons ri-list-radio",
+      "slug": "attendance",
+      "submenu": [
+        {
+          "url": "/attendance/dashboard",
+          "name": "Dashboard",
+          "slug": "attendance-index"
+        },
+        {
+          "url": "/attendance/employee-dtr",
+          "name": "Employee DTR",
+          "slug": "attendance-employee"
+        },
+        {
+          "url": "/attendance/user",
+          "name": "My DTR",
+          "slug": "attendance-user"
+        }
+      ]
     },
     {
       "url": "/payroll",
@@ -37,12 +56,21 @@
       "slug": "leave"
     },
     {
-      "menuHeader": "Management"
+      "menuHeader": "System Management"
     },
     {
-      "url": "/logs",
-      "name": "Activity Logs",
-      "icon": "menu-icon tf-icons ri-hourglass-line",
+      "url": "/user",
+      "name": "Accounts",
+      "icon": "menu-icon tf-icons ri-user-shared-2-line",
+      "slug": "user-accounts"
+    },
+    {
+      "menuHeader": "System Reports"
+    },
+    {
+      "url": "/dtr-report",
+      "name": "DTR Report",
+      "icon": "menu-icon tf-icons ri-printer-line",
       "slug": "logs"
     }
   ]

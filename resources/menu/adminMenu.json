@@ -72,6 +72,12 @@
     },
     {
       "menuHeader": "System Reports"
+    },
+    {
+      "url": "/dtr-report",
+      "name": "DTR Report",
+      "icon": "menu-icon tf-icons ri-printer-line",
+      "slug": "logs"
     }
   ]
 }

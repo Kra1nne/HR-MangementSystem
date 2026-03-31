@@ -7,28 +7,16 @@
       "slug": "dashboard-analytics"
     },
     {
-      "url": "/attendance",
-      "name": "Attendance",
+      "menuHeader": "Components"
+    },
+    {
+      "url": "/attendance/user",
+      "name": "DTR",
       "icon": "menu-icon tf-icons ri-list-radio",
       "slug": "attendance"
     },
     {
-      "url": "/payroll",
-      "name": "Payroll",
-      "icon": "menu-icon tf-icons ri-money-dollar-box-line",
-      "slug": "payroll"
-    },
-    {
-      "url": "/leave",
-      "name": "Leave",
-      "icon": "menu-icon tf-icons ri-user-received-2-line",
-      "slug": "leave"
-    },
-    {
-      "url": "/department",
-      "name": "Department",
-      "icon": "menu-icon tf-icons ri-building-line",
-      "slug": "leave"
+      "menuHeader": "System Reports"
     }
   ]
 }

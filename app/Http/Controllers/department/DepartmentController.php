@@ -21,14 +21,15 @@ class DepartmentController extends Controller
             ['name' => 'Department List', 'link'],
         ];
 
-        $departments = Department::whereNull('deleted_at')
+        $departments = Department::with('latestManager.employee.person')
+            ->whereNull('deleted_at')
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($department) {
                 $department->dept_no = Crypt::encryptString($department->dept_no);
                 return $department;
             });
-
+        
         return view('content.department.department-list', compact('departments', 'breadcrumbs'));
     }
     public function details($id, Request $request){
@@ -160,6 +161,9 @@ class DepartmentController extends Controller
     }
     public function addManager(Request $request){
 
+         if(Auth::user()->role != "Admin" && Auth::user()->role != "Hr"){
+            return response()->json(['Error' => 1, 'Message' => 'You are not authorized']);
+        }
         $manager = DepartmentManager::where('dept_no', $request->id)
             ->whereNull('to_date')
             ->where('status', '!=', 'remove')

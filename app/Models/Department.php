@@ -22,6 +22,12 @@ class Department extends Model
     {
         return $this->hasMany(DepartmentManager::class, 'dept_no', 'dept_no');
     }
+    public function latestManager()
+    {
+        return $this->hasOne(DepartmentManager::class, 'dept_no', 'dept_no')
+                    ->whereNull('to_date')
+                    ->orderByDesc('from_date');
+    }
     public function department_employees()
     {
         return $this->hasMany(DepartmentEmployee::class, 'dept_no', 'dept_no');
