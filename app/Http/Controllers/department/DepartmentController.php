@@ -40,11 +40,12 @@ class DepartmentController extends Controller
             ['name' => 'Department List', 'link' => route('department-list')],
             ['name' => 'Department Details'],
         ];
-        $departmentDetails = Department::whereNull('deleted_at')
+        $departmentDetails = Department::with('latestManager.employee.person')
+            ->whereNull('deleted_at')
             ->where('dept_no', Crypt::decryptString($id))
             ->orderBy('created_at', 'desc')
             ->first();
-            
+        
         if ($departmentDetails) {
             $departmentDetails->encrypted_id = Crypt::encryptString($departmentDetails->dept_no);
         }
@@ -199,10 +200,39 @@ class DepartmentController extends Controller
             'ip_address' => request()->ip(),
             'created_at' => now(),
         ];
-        $logData = Log::insert($log);
+        Log::insert($log);
 
         if($result){
             return response()->json(['Error' => 0, 'Message' => 'Successfully assign the new Manager']);
         }
+    }
+    public function editDepartment(Request $request){
+        
+        $data = [
+            'dept_name' => $request->name,
+            'details' => $request->details,
+            'icon' => $request->departmentIcon,
+            'updated_at' => now(),
+        ];
+        $result = Department::where('dept_no', $request->dept_no)->update($data);
+
+        if(!$result){
+            return response()->json(['Error' => 0, 'Message' => 'Updated department error']);
+        }
+
+         $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'Departments',
+            'description' => 'Update Department',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
+
+        return response()->json(['Error' => 0, 'Message' => 'Department successfully updated']);
+    }
+    public function deleteDepartment(){
+        return response()->json(['Error' => 0, 'Message' => 'Department successfully deleted']);
     }
 }

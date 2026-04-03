@@ -82,20 +82,6 @@
             </div>
 
         </section>
-        <section class="card p-3 mt-4 shadow-sm">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <div>
-                    <h5 class="mb-1">Attendance Record</h5>
-                    <small class="text-muted">{{ $employeeData->name }}</small>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <a href="#" class="btn btn-primary">
-                        Export
-                    </a>
-                </div>
-            </div>
-        </section>
         <section class="card p-3 mt-4">
             <div class="row">
                 <div class="col">

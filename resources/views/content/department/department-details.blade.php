@@ -13,7 +13,7 @@
                     <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                         data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
                         <span class="d-none d-sm-inline-flex align-items-center">
-                            <i class="icon-base ri ri-bar-chart-grouped-line icon-sm me-1_5"></i>Dashboard
+                            <i class="icon-base ri ri-bar-chart-grouped-line icon-sm me-1_5"></i>Menu
                         </span>
                         <i class="icon-base ri ri-bar-chart-grouped-line icon-sm d-sm-none"></i>
                     </button>
@@ -30,7 +30,80 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                <div class="tab-pane fade show" id="navs-top-home" role="tabpanel">
+                    <div class="d-flex justify-content-center align-items-center text-white"
+                        style="height: 150px; background: linear-gradient(135deg, #2b147f, #0a409d);">
+                    </div>
+                    <div class="py-4 px-2">
+                        <!-- Header -->
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                            <div>
+                                <h3 class="fw-bold mb-1 text-dark">
+                                    {{ $departmentDetails->dept_name }}
+                                </h3>
+                            </div>
+                            <div>
+                                <a href="javascript::void(0)" data-id="{{ $departmentDetails->dept_no }}"
+                                    id="deleteDepartment" class="text-danger">
+                                    <i class="ri-delete-bin-5-line"></i>
+                                </a>
+                                <a href="javascript::void(0)" id="updateDepartment" data-bs-toggle="modal"
+                                    data-bs-target="#ModalEdit" data-id="{{ $departmentDetails->dept_no }}"
+                                    data-name="{{ $departmentDetails->dept_name }}"
+                                    data-details="{{ $departmentDetails->details }}"
+                                    data-icon="{{ $departmentDetails->icon }}" class="text-primary">
+                                    <i class="ri-edit-2-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div>
+                            <h6 class="fw-bold text-uppercase text-secondary mb-3" style="letter-spacing: 1px;">
+                                Description
+                            </h6>
+
+                            <div class="text-muted lh-lg">
+                                @foreach (explode("\n", $departmentDetails->details) as $description)
+                                    @if (trim($description) != '')
+                                        <p class="mb-2">{{ trim($description) }}</p>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Info Row -->
+                        <div class="row text-center mb-4 g-3 mt-5">
+                            <div class="col-md-4">
+                                <div class="border-end h-100">
+                                    <div class="text-muted small">Manager</div>
+                                    <div class="fw-semibold fs-5 mt-1 text-dark">
+                                        {{ $departmentDetails->latestManager->employee->person->firstname ?? ' ' }}
+                                        {{ $departmentDetails->latestManager->employee->person->lastname ?? 'No Manager' }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="border-end h-100">
+                                    <div class="text-muted small">Employees</div>
+                                    <div class="fw-semibold fs-5 mt-1 text-dark">
+                                        18
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div>
+                                    <div class="text-muted small">Created</div>
+                                    <div class="fw-semibold fs-5 mt-1 text-dark">
+                                        Jan 15, 2022
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
                     <div>
@@ -106,8 +179,9 @@
                                                 {{ date('F m Y', strtotime($item->hire_date)) }}
                                             </td>
                                             <td>
-                                                <a class="text-success" href="javascript::void(0)" id="ModalPersonalMessage"
-                                                    data-bs-target="#Modal" data-id="{{ $item->id_no }}"
+                                                <a class="text-success" href="javascript::void(0)"
+                                                    id="ModalPersonalMessage" data-bs-target="#Modal"
+                                                    data-id="{{ $item->id_no }}"
                                                     data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
                                                     data-bs-toggle="modal"><i
                                                         class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
@@ -329,6 +403,89 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalEdit" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary pb-4">
+                    <h5 class="modal-title text-white" id="modalCenterTitle">Update Department</h5>
+                </div>
+                <form id="dataDepartment" class="modal-body">
+                    @csrf
+                    <input type="hidden" name="dept_no" id="dept_no">
+                    <div class="row">
+                        <div class="col">
+                            <label for="departmentIcon" class="form-label">Icon</label>
+                            <select name="departmentIcon" id="departmentIcon" class="form-select">
+                                <option value="" selected disabled>Select Icon</option>
+                                <option value="ri-building-line">🏢</option>
+                                <option value="ri-home-office-line">🏠</option>
+                                <option value="ri-team-line">👥</option>
+                                <option value="ri-user-line">👤</option>
+                                <option value="ri-group-line">👨‍👩‍👧</option>
+                                <option value="ri-briefcase-line">💼</option>
+                                <option value="ri-folder-line">📁</option>
+                                <option value="ri-archive-line">🗄</option>
+                                <option value="ri-file-list-line">📄</option>
+                                <option value="ri-task-line">✅</option>
+                                <option value="ri-computer-line">💻</option>
+                                <option value="ri-database-2-line">🗄</option>
+                                <option value="ri-server-line">🖥</option>
+                                <option value="ri-code-s-slash-line">💻</option>
+                                <option value="ri-bug-line">🐞</option>
+                                <option value="ri-bank-line">🏦</option>
+                                <option value="ri-money-dollar-circle-line">💰</option>
+                                <option value="ri-wallet-3-line">👛</option>
+                                <option value="ri-secure-payment-line">💳</option>
+                                <option value="ri-user-heart-line">❤️</option>
+                                <option value="ri-user-settings-line">⚙️</option>
+                                <option value="ri-user-search-line">🔍</option>
+                                <option value="ri-book-open-line">📚</option>
+                                <option value="ri-graduation-cap-line">🎓</option>
+                                <option value="ri-school-line">🏫</option>
+                                <option value="ri-hospital-line">🏥</option>
+                                <option value="ri-heart-pulse-line">❤️</option>
+                                <option value="ri-medicine-bottle-line">💊</option>
+                                <option value="ri-customer-service-2-line">🎧</option>
+                                <option value="ri-chat-1-line">💬</option>
+                                <option value="ri-phone-line">📞</option>
+                                <option value="ri-shield-check-line">🛡</option>
+                                <option value="ri-lock-line">🔒</option>
+                                <option value="ri-alarm-warning-line">🚨</option>
+                                <option value="ri-truck-line">🚚</option>
+                                <option value="ri-store-2-line">🏬</option>
+                                <option value="ri-shopping-cart-line">🛒</option>
+                                <option value="ri-settings-3-line">⚙️</option>
+                                <option value="ri-bar-chart-box-line">📊</option>
+                                <option value="ri-pie-chart-line">📈</option>
+                                <option value="ri-line-chart-line">📉</option>
+                                <option value="ri-lightbulb-line">💡</option>
+                                <option value="ri-earth-line">🌍</option>
+                                <option value="ri-calendar-line">📅</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col mt-2">
+                            <label for="name" class="form-label">Department Name</label>
+                            <input id="name" name="name" class="form-control form-control-sm" type="text"
+                                placeholder="Enter the department name" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="details" class="form-label">Details</label>
+                            <textarea class="form-control h-px-100" id="details" name="details"
+                                placeholder="Enter department details here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btnSaveEdit">Save</button>
+                </div>
             </div>
         </div>
     </div>

@@ -56,13 +56,15 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/attendance/employee-dtr/{id}', [AttendanceController::class, 'employeeAttendanceView'])->name('attendance-employee-view');
 
   Route::get('/department/list', [DepartmentController::class, 'index'])->name('department-list');
-  Route::post('department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
+  Route::post('/department/add', [DepartmentController::class, 'addDepartment'])->name('department-add');
 
   Route::get('/department/{id}', [DepartmentController::class, 'details'])->name('department-details');
   Route::post('/department/addEmployee', [DepartmentController::class, 'addEmployee'])->name('department-add-employee');
   Route::post('/department/remove', [DepartmentController::class, 'removeEmployee'])->name('departmane-remove-employee');
 
   Route::post('/department/manager/add', [DepartmentController::class, 'addManager'])->name('department-manager-add');
+  Route::post('/department/edit', [DepartmentController::class, 'editDepartment'])->name('department-edit');
+  Route::post('/department/delete', [DepartmentController::class, 'deleteDepartment'])->name('department-delete');
 
   Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
   Route::post('/employee/edit', [EmployeeController::class, 'editEmployee'])->name('employee-edit');

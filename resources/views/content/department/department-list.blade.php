@@ -17,7 +17,10 @@
                 <!-- Card 1 -->
                 @foreach ($departments as $item)
                     <a href="{{ route('department-details', $item->dept_no) }}" class="col-md-6 col-lg-4 col-sm-12 pointer">
-                        <div class="card h-100 shadow-sm border-0 rounded-4 position-relative">
+                        <div class="card border-0 border-start border-primary border-4 shadow-sm h-100"
+                            style="transition: all 0.3s ease;"
+                            onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
+                            onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                             <div class="card-body">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center"
@@ -25,16 +28,16 @@
                                         <i class="{{ $item->icon }} fs-3"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h5 class="fw-bold mb-1">{{ $item->dept_name }}</h5>
+                                        <h5 class="fw-bolder mb-1">{{ $item->dept_name }}</h5>
 
-                                        <span class="badge bg-light text-dark border">
+                                        <span class="badge bg-primary text-white border">
                                             Manager:
                                             <strong>{{ $item->latestManager->employee->person->firstname ?? ' ' }}
                                                 {{ $item->latestManager->employee->person->lastname ?? ' ' }}</strong>
                                         </span>
                                     </div>
                                 </div>
-                                <p class="text-muted small mb-3">
+                                <p class="text-muted small mb-0">
                                     {{ Str::words($item->details, 15, '...') }}
                                 </p>
                             </div>
@@ -116,7 +119,8 @@
                     <div class="row">
                         <div class="col mt-2">
                             <label for="details" class="form-label">Details</label>
-                            <textarea class="form-control h-px-100" id="details" name="details" placeholder="Enter department details here..."></textarea>
+                            <textarea class="form-control h-px-100" id="details" name="details"
+                                placeholder="Enter department details here..."></textarea>
                         </div>
                     </div>
                 </form>
