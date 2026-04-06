@@ -70,9 +70,11 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/employee/edit', [EmployeeController::class, 'editEmployee'])->name('employee-edit');
   Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('employee-add');
   Route::post('/employee/remove', [EmployeeController::class, 'removeEmployee'])->name('employee-remove');
+  Route::post('/employee/details-update', [EmployeeController::class, 'employeeRaise'])->name('employee-details-update');
 
   Route::get('/employee/face-registration/{id}', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
   Route::post('/employee/face-registration/add', [EmployeeController::class, 'registerFaceProcess'])->name('employyee-registerFace-process');
+  Route::post('/employee/face-registration/reset', [EmployeeController::class, 'resetFaceID'])->name('employyee-registerFace-reset');
 
   Route::post('/message/sent', [MessageController::class, 'sendMessage'])->name('message-sent');
   Route::post('/message-broadcast/sent', [MessageController::class, 'broadcastMessage'])->name('broadcast-sent');

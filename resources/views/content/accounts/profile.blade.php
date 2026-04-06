@@ -2,6 +2,11 @@
 
 @section('title', 'Register')
 
+
+@section('page-script')
+    @vite('resources/assets/js/profile.js')
+@endsection
+
 @section('content')
     <div class="px-4">
         <a href="{{ route('employee') }}" class="btn btn-outline-secondary btn-sm rounded-3">
@@ -39,8 +44,11 @@
                 </div>
             </div>
 
-            <div class="pb-2 d-flex">
-                <span class="badge rounded-pill bg-success text-white px-3 py-2">
+            <div class="pb-2 d-flex gap-2">
+                <a href="javascript::void(0)" id="EditEmployee" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                    <i class="ri-file-edit-line text-white"></i>
+                </a>
+                <span class="badge rounded-pill bg-success text-white">
                     {{ $data->emp_id }}
                 </span>
             </div>
@@ -48,7 +56,7 @@
 
 
         <!-- Content -->
-        <div class="mt-4 px-2 px-md-4">
+        <div class="mt-4 px-md-4">
             <div class="row g-4">
 
                 <!-- Personal Info -->
@@ -126,7 +134,7 @@
                 <div class="col-12 col-lg-4">
                     <div class="border rounded-3 p-3 h-100">
                         <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
-                            Work Details
+                            Current Work Details
                         </p>
 
                         <div class="d-flex flex-column gap-3">
@@ -151,7 +159,130 @@
                                     ₱{{ number_format($data->latestSalary->salary, 2) }}
                                 </p>
                             </div>
+                            <div>
+                                <p class="text-muted small mb-1">Department</p>
+                                <p class="fw-semibold small mb-0" id="employeeSalary">
+                                    {{ $data->latestDepartment->department->dept_name }}
+                                </p>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="border rounded-3 p-3 h-100">
+                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
+                            Employment History
+                        </p>
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="border rounded-3 p-3 h-100">
+                                    <div class="d-flex flex-column gap-2">
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Employment Type</span>
+                                            <span class="fw-semibold small">{{ $data->status }}</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Title</span>
+                                            <span class="fw-semibold small">{{ $data->latestTitle->title }}</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Salary</span>
+                                            <span class="fw-semibold small">
+                                                ₱{{ number_format($data->latestSalary->salary, 2) }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Department</span>
+                                            <span class="fw-semibold small">
+                                                {{ $data->latestDepartment->department->dept_name }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Date</span>
+                                            <span class="fw-semibold small">date - date</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="border rounded-3 p-3 h-100">
+                                    <div class="d-flex flex-column gap-2">
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Employment Type</span>
+                                            <span class="fw-semibold small">{{ $data->status }}</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Title</span>
+                                            <span class="fw-semibold small">{{ $data->latestTitle->title }}</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Salary</span>
+                                            <span class="fw-semibold small">
+                                                ₱{{ number_format($data->latestSalary->salary, 2) }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Department</span>
+                                            <span class="fw-semibold small">
+                                                {{ $data->latestDepartment->department->dept_name }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Date</span>
+                                            <span class="fw-semibold small">date - date</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="border rounded-3 p-3 h-100">
+                                    <div class="d-flex flex-column gap-2">
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Employment Type</span>
+                                            <span class="fw-semibold small">{{ $data->status }}</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Title</span>
+                                            <span class="fw-semibold small">{{ $data->latestTitle->title }}</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Salary</span>
+                                            <span class="fw-semibold small">
+                                                ₱{{ number_format($data->latestSalary->salary, 2) }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Department</span>
+                                            <span class="fw-semibold small">
+                                                {{ $data->latestDepartment->department->dept_name }}
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between">
+                                            <span class="text-muted small">Date</span>
+                                            <span class="fw-semibold small">date - date</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,6 +308,10 @@
                             <p class="small text-success mb-0">
                                 Face ID registered
                             </p>
+                            <a href="javascript::void(0)" data-id="{{ $employee_id }}"
+                                class="btn btn-danger btn-sm w-100 rounded-3" id="btnResetRegisterFace">
+                                Reset
+                            </a>
                         @endif
 
                     </div>
@@ -185,4 +320,37 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="modalEdit" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary pb-4">
+                    <h5 class="modal-title text-white" id="modalCenterTitle">Update Employee</h5>
+                </div>
+                <form class="modal-body" id="UpadteEmployeeDetails">
+                    @csrf
+                    <input type="hidden" name="id" id="EmployeeID" value="{{ $employee_id }}">
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="messageTitle" class="form-label">Salary</label>
+                            <input id="Employeesalary" name="salary" class="form-control form-control-sm"
+                                type="number" placeholder="Enter the employee salary"
+                                value="{{ $data->latestSalary->salary }}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="messageTitle" class="form-label">Title</label>
+                            <input id="Employeetitle" name="title" value="{{ $data->latestTitle->title }}"
+                                class="form-control form-control-sm" type="text"
+                                placeholder="Enter the employee title" />
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="btnDetailsUpdate">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

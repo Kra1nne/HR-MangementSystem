@@ -221,4 +221,68 @@ class EmployeeController extends Controller
             return response()->json(['Error' => 0, 'Message' => 'Face successfully register']);
         } 
     }
+    public function resetFaceID(Request $request)
+    {
+        $data = [
+            'face_descriptor' => null,
+            'updated_at' => now()
+        ];
+        $result = Employee::where('emp_no', Crypt::decryptString($request->id))->update($data);
+
+        if(!$result){
+            return response()->json(['Error' => 0, 'Message' => 'Face ID failed reset']);
+        }
+
+        return response()->json(['Error' => 0, 'Message' => 'Face ID successfully reset']);
+    }
+    public function employeeRaise(Request $request)
+    {
+        $isUpdate = false;
+        $id = Crypt::decryptString($request->id);
+        $salaryResult = Salary::where('emp_no', $id)->whereNull('to_date')
+            ->where('salary', '!=', $request->salary)
+            ->first();
+
+        if(!empty($salaryResult)){
+            $currentSalary = [
+                'to_date' => now()->toDateString(),
+                'updated_at' => now()
+            ];
+            
+            $data = [
+                'emp_no' => $id,
+                'salary' => $request->salary,
+                'from_date' => now()->toDateString()
+            ];
+
+            Salary::where('id', $salaryResult->id)->update($currentSalary);
+            Salary::insert($data);
+            $isUpdate = true;
+        }
+
+        $titleResult = Title::where('emp_no', $id)->whereNull('to_date')
+            ->where('title', '!=', $request->title)
+            ->first();
+
+        if(!empty($titleResult)){
+            $currentTitle = [
+                'to_date' => now()->toDateString(),
+                'updated_at' => now()
+            ];
+            $data = [
+                'emp_no' => $id,
+                'salary' => $request->title,
+                'from_date' => now()->toDateString()
+            ];
+            
+            Title::where('id', $titleResult->id)->update($currentTitle);
+            Title::insert($data);
+            $isUpdate = true;
+        }
+
+        if($isUpdate){
+            return response()->json(['Error' => 0, 'Message' => 'Changes saved successfully']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'No changes were made']);
+    }
 }

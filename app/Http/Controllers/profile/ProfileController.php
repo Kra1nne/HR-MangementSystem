@@ -11,13 +11,22 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $data = Employee::with(['person', 'latestSalary', 'latestTitle'])
+        $data = Employee::with(['person', 'latestSalary', 'latestTitle', 'latestDepartment.department'])
             ->leftjoin('users', 'employees.person_id', '=', 'users.person_id')
             ->where('emp_no', Crypt::decryptString($id))
             ->first();
         
         $employee_id = $id;
+
+        $employeeHistory = Employee::with(['person', 'salaries', 'titles', 'department_employee.department', 'department_manager.department'])
+            ->leftjoin('users', 'employees.person_id', '=', 'users.person_id')
+            ->where('emp_no', Crypt::decryptString($id))
+            ->first();
         
-        return view('content.accounts.profile', compact('data', 'employee_id'));
+        return view('content.accounts.profile', compact('data', 'employee_id', 'employeeHistory'));
+    }
+    public function updateEmployee()
+    {
+
     }
 }

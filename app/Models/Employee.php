@@ -32,6 +32,10 @@ class Employee extends Model
     public function titles(){
         return $this->hasMany(Title::class, 'emp_no', 'emp_no');
     }
+    public function department_manager()
+    {
+        return $this->hasMany(DepartmentManager::class, 'emp_no', 'emp_no');
+    }
     public function latestTitle()
     {
         return $this->hasOne(Title::class, 'emp_no', 'emp_no')
@@ -43,6 +47,16 @@ class Employee extends Model
         return $this->hasOne(Salary::class, 'emp_no', 'emp_no')
                     ->whereNull('to_date')
                     ->orderByDesc('from_date');
+    }
+    public function department_employee()
+    {
+        return $this->belongsTo(DepartmentEmployee::class, 'emp_no', 'emp_no');
+    }
+    public function latestDepartment()
+    {
+        return $this->hasOne(DepartmentEmployee::class, 'emp_no', 'emp_no')
+            ->whereNull('to_date')
+            ->orderByDesc('from_date');
     }
     public function EmployeeBadge(): string
     {
