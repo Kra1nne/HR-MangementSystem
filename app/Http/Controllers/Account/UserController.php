@@ -35,7 +35,7 @@ class UserController extends Controller
         ->whereNull('users.deleted_at')
         ->select('persons.*', 'users.*','users.id as user_id')
         ->get();
-        
+       
       return view('content.accounts.users', compact('users', 'employees', 'breadcrumbs'));
     }
     public function store(Request $request){

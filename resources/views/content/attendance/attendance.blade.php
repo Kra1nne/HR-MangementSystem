@@ -49,7 +49,7 @@
                     onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
-                            <h6 class="text-muted mb-2">Absent</h6>
+                            <h6 class="text-muted mb-2">Unavailable</h6>
                             <h3 class="fw-bold mb-0">{{ $totalAbsent }}</h3>
                         </div>
                         <div class="bg-danger bg-opacity-10 p-3 rounded-circle">
@@ -94,7 +94,7 @@
                                 data-bs-target="#navs-justified-profile" aria-controls="navs-justified-profile"
                                 aria-selected="false">
                                 <span class="d-none d-sm-inline-flex align-items-center"><i
-                                        class="icon-base ri ri-user-unfollow-line icon-sm me-1_5"></i>Absent</span>
+                                        class="icon-base ri ri-user-unfollow-line icon-sm me-1_5"></i>Unavailable</span>
                                 <i class="icon-base ri ri-user-unfollow-line icon-sm d-sm-none"></i>
                             </button>
                         </li>
@@ -175,8 +175,8 @@
                                                 <td>{{ $item->sex }} </td>
                                                 <td>{{ $item->phone_number }}</td>
                                                 <td>
-                                                    <span class="badge bg-danger text-white">
-                                                        Absent
+                                                    <span class="badge bg-warning text-white">
+                                                        Unavailable
                                                     </span>
                                                 </td>
                                             </tr>

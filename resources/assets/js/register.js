@@ -263,12 +263,13 @@ $(document).ready(function () {
     }
 
     users.forEach(user => {
+      console.log(user.status_class);
       const userRow = `
         <tr>
           <td><span>${user.firstname} ${user.lastname}</span></td>
           <td>${user.email}</td>
           <td>${user.role}</td>
-          <td><span class="badge rounded-pill ${user.status_request === 'Active' ? 'bg-label-success' : user.status_request === 'Done' ? 'bg-label-primary' : user.status_request === 'Request' ? 'bg-label-warning' : 'bg-label-danger'} me-1">${user.status_request === 'Active' ? 'Active' : user.status_request === 'Done' ? 'Done' : user.status_request === 'Request' ? 'Processing' : 'Decline'}</span></td>
+          <td><span class="badge ${user.status_class} rounded-pill me-1">${user.status_request}</span></td>
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->double('salary', 10, 2);
             $table->date('from_date');
             $table->date('to_date')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

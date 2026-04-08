@@ -71,6 +71,7 @@ class EmployeeController extends Controller
             'emp_no' => $employee->id,
             'salary' => $request->salary,
             'from_date' => $request->hire_date,
+            'created_at' => now()
         ];
         $dataTitle = [
             'emp_no' => $employee->id,
@@ -252,7 +253,8 @@ class EmployeeController extends Controller
             $data = [
                 'emp_no' => $id,
                 'salary' => $request->salary,
-                'from_date' => now()->toDateString()
+                'from_date' => now()->toDateString(),
+                'created_at' => now()
             ];
 
             Salary::where('id', $salaryResult->id)->update($currentSalary);
@@ -271,8 +273,9 @@ class EmployeeController extends Controller
             ];
             $data = [
                 'emp_no' => $id,
-                'salary' => $request->title,
-                'from_date' => now()->toDateString()
+                'title' => $request->title,
+                'from_date' => now()->toDateString(),
+                'created_at' => now()
             ];
             
             Title::where('id', $titleResult->id)->update($currentTitle);

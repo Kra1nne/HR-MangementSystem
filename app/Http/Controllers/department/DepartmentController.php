@@ -152,10 +152,19 @@ class DepartmentController extends Controller
             'status' => 'remove',
             'to_date' => now()
         ];
-        $result = DepartmentEmployee::where('id_no', $request->id)->update($data);
+        $emp = DepartmentEmployee::whereNull('to_date')->where('emp_no', $request->id)->first();
+        $manager = DepartmentManager::whereNull('to_date')->where('status', '=', 'Active')->where('emp_no', $request->id)->first();
 
-        if($result)
-        {
+        if($manager){
+            DepartmentManager::where('emp_no', $manager->emp_no)->where('dept_no', $manager->dept_no)->update($data);
+        }
+
+        if(!$emp){
+            return response()->json(['Error' => 1, 'Message' => 'Employee Not Found']);
+        }
+        $result = DepartmentEmployee::where('id_no', $emp->id_no)->update($data);
+
+        if($result){
             return response()->json(['Error' => 0, 'Message' => 'Successfully remove a Employee']);
         }
         

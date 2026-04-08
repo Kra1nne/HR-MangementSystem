@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -28,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
   protected $casts = [
     'otp_validity' => 'date'
   ];
+  protected $appends = ['status_class'];
   public function person()
   {
     return $this->belongsTo(Person::class, 'person_id', 'id');
@@ -36,14 +38,15 @@ class User extends Authenticatable implements MustVerifyEmail
   {
     return $this->hasMany(Log::class, 'user_id', 'id');
   }
-
-  public function getStatus(): string
+  public function statusClass(): Attribute
   {
-    return match($this->status_request) {
-      'Active' => 'bg-label-success',
-      'Done' => 'bg-label-primary',
-      'Deleted' => 'bg-label-warning',
-      default => 'bg-label-secondary'
-    };
+    return Attribute::make(
+      get: fn () => match($this->status_request) {
+        'Active' => 'bg-label-success',
+        'Done' => 'bg-label-primary',
+        'Deleted' => 'bg-label-warning',
+        default => 'bg-label-secondary'
+      }
+    );
   }
 }

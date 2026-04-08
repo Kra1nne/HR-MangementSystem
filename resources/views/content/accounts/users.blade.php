@@ -186,6 +186,7 @@
                     'email' => $user->email,
                     'role' => $user->role,
                     'status_request' => $user->status_request,
+                    'status_class' => $user->status_class,
                 ];
             })
             ->values()
