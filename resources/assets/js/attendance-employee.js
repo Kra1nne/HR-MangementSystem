@@ -1,6 +1,8 @@
 $(function () {
   // ── Helpers ─────────────────────────────────────────
 
+  const toDateStr = raw => raw.split('T')[0];
+
   const parseTime = (date, time) =>
     time
       ? new Date(
@@ -21,7 +23,12 @@ $(function () {
 
   const fmtHours = m => `${Math.floor(m / 60)}h ${m % 60}m`;
 
-  const groupByDate = logs => logs.reduce((acc, l) => ((acc[l.date] ??= []).push(l), acc), {});
+  const groupByDate = logs =>
+    logs.reduce((acc, l) => {
+      const key = toDateStr(l.date);
+      (acc[key] ??= []).push(l);
+      return acc;
+    }, {});
 
   // ── Shift Builder ───────────────────────────────────
 
@@ -60,26 +67,25 @@ $(function () {
     const rows = buildShifts(logs, date)
       .map(s => {
         if (s.mins) total += s.mins;
-
+        console.log(s);
         return `
-      <div class="d-flex justify-content-between align-items-center py-2 border-bottom small">
-        <div>
+      <div class="row align-items-center py-2 border-bottom small">
+        <div class="col col-lg-6 col-md-6 col-sm-12">
           <div class="text-muted small mb-1">${s.label}</div>
           <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill bg-success-subtle text-success">
-              IN&nbsp;${fmt(date, s.in.time)}
-            </span>
+            <input type="text" value="${fmt(date, s.in.time)}" class="rounded-pill bg-success-subtle text-success border-0 text-center fw-bold input-time" style="width: 100px; font-size: 11px; outline: none; box-shadow: none;" readonly/>
             ${
               s.out
                 ? `<span class="text-muted small">→</span>
-                   <span class="badge rounded-pill bg-warning-subtle text-warning">
-                     OUT&nbsp;${fmt(date, s.out.time)}
-                   </span>`
+                   <input type="text" value="${fmt(date, s.out.time)}" class="rounded-pill bg-warning-subtle text-warning border-0 text-center fw-bold input-time" style="width: 100px; font-size: 11px; outline: none; box-shadow: none;" readonly/>
+                   `
                 : ''
             }
           </div>
         </div>
-        <div class="fw-medium">${s.mins ? fmtHours(s.mins) : ''}</div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end alin-items-start gap-4">
+          <div class="fw-medium">${s.mins ? fmtHours(s.mins) : ''}</div>
+        </div>
       </div>`;
       })
       .join('');
@@ -97,10 +103,7 @@ $(function () {
     $('#att-modal-hours').text(total ? fmtHours(total) : '—');
   }
 
-  // ── Fetch + Calendar ────────────────────────────────
   var path = window.location.pathname;
-  // "/attendance/employee-dtr/123"
-
   var segments = path.split('/');
   var id = segments[segments.length - 1];
 
@@ -108,8 +111,10 @@ $(function () {
     .done(logs => {
       const events = Object.entries(groupByDate(logs)).map(([date, logs]) => ({
         id: date,
-        title: 'Present',
+        title: ' ',
         date,
+        backgroundColor: '#07aa5e',
+        display: 'background',
         extendedProps: { logs }
       }));
 
@@ -117,18 +122,40 @@ $(function () {
         initialView: 'dayGridMonth',
         headerToolbar: { left: 'prev,next', center: 'title', right: '' },
         dayMaxEventRows: 1,
+        selectable: true,
         events,
-        eventContent: () => ({
-          html: `
-          <div class="d-flex align-items-center gap-1 px-2 py-1 rounded small fw-medium bg-success-subtle text-success">
-            <svg viewBox="0 0 12 12" width="10" height="10">
-              <path d="M2 6l3 3 5-5" stroke="#27500A" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>`
-        }),
+        dateClick: function (info) {
+          const clickedDate = info.dateStr;
+          const existingEvent = events.find(e => e.id === clickedDate);
 
-        eventClick: ({ event }) => openModal(event.startStr, event.extendedProps.logs)
+          if (existingEvent) {
+            openModal(existingEvent.id, existingEvent.extendedProps.logs);
+          } else {
+            $('#att-modal').modal('show');
+            $('#att-modal-date').text(
+              new Date(clickedDate).toLocaleDateString([], {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })
+            );
+            $('#att-modal-logs').html(`
+              <div class="text-center text-muted py-4 small">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" class="mb-2 opacity-50">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5
+                          A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5
+                          A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5
+                          A2.25 2.25 0 0 1 21 11.25v7.5"/>
+                </svg>
+                <div>No attendance records for this day.</div>
+              </div>
+            `);
+            $('#att-modal-hours').text('—');
+          }
+        }
       }).render();
     })
     .fail(() => console.error('Failed to fetch attendance data.'));
@@ -147,7 +174,7 @@ $(function () {
 
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    if (hours === 0) hours = 12; // handle midnight & noon
+    if (hours === 0) hours = 12;
     hours = String(hours).padStart(2, '0');
 
     if (includeDate) {
@@ -157,13 +184,27 @@ $(function () {
     }
   }
 
-  // Update both elements
   function updateTime() {
     const now = new Date();
     $('#liveTime').text(formatDate(now));
   }
 
-  // Run immediately and then every second
   updateTime();
   setInterval(updateTime, 1000);
+});
+
+$(function () {
+  $(document).on('click', '#EditOn', function () {
+    if ($('#btnDisplay button').length) {
+      $('#btnDisplay').empty();
+      $('#EditOn').removeClass('text-primary');
+      $('#EditOn').addClass('text-secondary');
+      $('.input-time').prop('readonly', true);
+    } else {
+      $('#btnDisplay').append('<button class="btn btn-primary rounded-pill p-2 btn-sm">Save</button>');
+      $('#EditOn').removeClass('text-secondary');
+      $('#EditOn').addClass('text-primary');
+      $('.input-time').prop('readonly', false);
+    }
+  });
 });

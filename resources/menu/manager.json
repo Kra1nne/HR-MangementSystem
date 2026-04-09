@@ -28,10 +28,13 @@
             "slug": "attendance"
         },
         {
-            "menuHeader": "System Management"
+            "menuHeader": "System Reports"
         },
         {
-            "menuHeader": "System Reports"
+            "url": "/dtr-report",
+            "name": "Print DTR",
+            "icon": "menu-icon tf-icons ri-printer-line",
+            "slug": "logs"
         }
     ]
 }

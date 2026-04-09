@@ -20,6 +20,13 @@ function startVideo() {
     })
     .catch(err => console.error(err));
 }
+function stopVideo() {
+  if (videoStream) {
+    // Stop all tracks (video/audio)
+    videoStream.getTracks().forEach(track => track.stop());
+    video.srcObject = null; // remove the video source
+  }
+}
 
 async function detect() {
   if (!canvas || video.readyState !== 4) return;
@@ -88,7 +95,7 @@ $(function () {
   $(document).on('click', '#btnRegister', function () {
     const descriptor = Array.from(latestDetection.descriptor) ?? '';
     const id = $(this).data('id');
-
+    stopVideo;
     $.ajax({
       url: '/employee/face-registration/add',
       method: 'POST',

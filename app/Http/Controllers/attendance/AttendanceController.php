@@ -145,7 +145,7 @@ class AttendanceController extends Controller
             ->orderBy('time')
             ->where('dept_employee_id', $employeeData->emp_id)
             ->get();
-
+        
         return response()->json($logs);
     }
     public function getAttendanceEmployee($id)
@@ -172,7 +172,7 @@ class AttendanceController extends Controller
             ->leftJoin('users', 'users.person_id', '=', 'employees.person_id')
             ->where('users.id', Auth::id())
             ->first();
-
+        
         $descriptor = json_decode($employeeData->face_descriptor, true);
 
         return response()->json([

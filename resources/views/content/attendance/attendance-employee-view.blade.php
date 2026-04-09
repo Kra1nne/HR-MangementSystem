@@ -82,6 +82,13 @@
             </div>
 
         </section>
+        <section class="card p-3 mt-4 shadow-sm">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                    <h5 class="mb-1">{{ $employeeData->name }}</h5>
+                </div>
+            </div>
+        </section>
         <section class="card p-3 mt-4">
             <div class="row">
                 <div class="col">
@@ -100,15 +107,20 @@
                     <button type="button" class="btn-close" id="att-modal-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <div class="modal-body pt-2">
+                <form class="modal-body pt-2">
+                    @csrf
+                    <div class="d-flex justify-content-end">
+                        <i class="ri-edit-2-line cursor-pointer text-secondary" id="EditOn" title="Edit"></i>
+                    </div>
                     <div id="att-modal-logs"></div>
 
                     <div class="d-flex justify-content-between mt-3 pt-3 border-top small text-muted">
                         <span>Total hours worked</span>
                         <span id="att-modal-hours" class="fw-medium text-dark"></span>
                     </div>
+                </form>
+                <div class="d-flex justify-content-end p-3" id="btnDisplay">
                 </div>
-
             </div>
         </div>
     </div>

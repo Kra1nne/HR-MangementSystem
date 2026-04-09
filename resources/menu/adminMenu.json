@@ -44,18 +44,6 @@
       ]
     },
     {
-      "url": "/payroll",
-      "name": "Payroll",
-      "icon": "menu-icon tf-icons ri-money-dollar-box-line",
-      "slug": "payroll"
-    },
-    {
-      "url": "/leave",
-      "name": "Leave",
-      "icon": "menu-icon tf-icons ri-user-received-2-line",
-      "slug": "leave"
-    },
-    {
       "menuHeader": "System Management"
     },
     {
@@ -75,7 +63,7 @@
     },
     {
       "url": "/dtr-report",
-      "name": "DTR Report",
+      "name": "Print DTR",
       "icon": "menu-icon tf-icons ri-printer-line",
       "slug": "dtr-report"
     }

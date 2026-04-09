@@ -19,8 +19,8 @@ class EmployeeLog extends Model
     ];
 
     protected $casts = [
-        'time' => 'datetime',
-        'date' => 'date'
+        'date' => 'date:Y-m-d',
+        'time' => 'string', 
     ];
 
     public function employee(){

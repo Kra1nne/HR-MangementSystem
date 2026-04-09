@@ -1,6 +1,8 @@
 $(function () {
   // ── Helpers ─────────────────────────────────────────
 
+  const toDateStr = raw => raw.split('T')[0];
+
   const parseTime = (date, time) =>
     time
       ? new Date(
@@ -21,7 +23,12 @@ $(function () {
 
   const fmtHours = m => `${Math.floor(m / 60)}h ${m % 60}m`;
 
-  const groupByDate = logs => logs.reduce((acc, l) => ((acc[l.date] ??= []).push(l), acc), {});
+  const groupByDate = logs =>
+    logs.reduce((acc, l) => {
+      const key = toDateStr(l.date);
+      (acc[key] ??= []).push(l);
+      return acc;
+    }, {});
 
   // ── Shift Builder ───────────────────────────────────
 
@@ -99,12 +106,18 @@ $(function () {
 
   // ── Fetch + Calendar ────────────────────────────────
 
+  var path = window.location.pathname;
+  var segments = path.split('/');
+  var id = segments[segments.length - 1];
+
   $.get('/attendance/data')
     .done(logs => {
       const events = Object.entries(groupByDate(logs)).map(([date, logs]) => ({
         id: date,
-        title: 'Present',
+        title: ' ',
         date,
+        backgroundColor: '#07aa5e',
+        display: 'background',
         extendedProps: { logs }
       }));
 
@@ -112,18 +125,40 @@ $(function () {
         initialView: 'dayGridMonth',
         headerToolbar: { left: 'prev,next', center: 'title', right: '' },
         dayMaxEventRows: 1,
+        selectable: true,
         events,
-        eventContent: () => ({
-          html: `
-          <div class="d-flex align-items-center gap-1 px-2 py-1 rounded small fw-medium bg-success-subtle text-success">
-            <svg viewBox="0 0 12 12" width="10" height="10">
-              <path d="M2 6l3 3 5-5" stroke="#27500A" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>`
-        }),
+        dateClick: function (info) {
+          const clickedDate = info.dateStr;
+          const existingEvent = events.find(e => e.id === clickedDate);
 
-        eventClick: ({ event }) => openModal(event.startStr, event.extendedProps.logs)
+          if (existingEvent) {
+            openModal(existingEvent.id, existingEvent.extendedProps.logs);
+          } else {
+            $('#att-modal').modal('show');
+            $('#att-modal-date').text(
+              new Date(clickedDate).toLocaleDateString([], {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })
+            );
+            $('#att-modal-logs').html(`
+              <div class="text-center text-muted py-4 small">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" class="mb-2 opacity-50">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5
+                          A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5
+                          A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5
+                          A2.25 2.25 0 0 1 21 11.25v7.5"/>
+                </svg>
+                <div>No attendance records for this day.</div>
+              </div>
+            `);
+            $('#att-modal-hours').text('—');
+          }
+        }
       }).render();
     })
     .fail(() => console.error('Failed to fetch attendance data.'));
@@ -142,7 +177,7 @@ $(function () {
 
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    if (hours === 0) hours = 12; // handle midnight & noon
+    if (hours === 0) hours = 12;
     hours = String(hours).padStart(2, '0');
 
     if (includeDate) {
@@ -152,13 +187,11 @@ $(function () {
     }
   }
 
-  // Update both elements
   function updateTime() {
     const now = new Date();
     $('#liveTime').text(formatDate(now));
   }
 
-  // Run immediately and then every second
   updateTime();
   setInterval(updateTime, 1000);
 });
