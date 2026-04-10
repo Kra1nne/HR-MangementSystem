@@ -3,13 +3,13 @@ import * as faceapi from 'face-api.js';
 const video = document.getElementById('video');
 let canvas;
 let latestDetection;
-
+startVideo();
 // Load models
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('/models')
-]).then(startVideo);
+]);
 
 // Start webcam
 function startVideo() {

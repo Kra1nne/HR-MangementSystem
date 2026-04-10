@@ -4,7 +4,7 @@ const video = document.getElementById('video');
 let canvas;
 let lastMatchTime = 0;
 const MATCH_COOLDOWN = 5000;
-
+startVideo();
 let employeeName;
 let faceMatcher;
 let isProcessing = false;
@@ -31,16 +31,32 @@ function fetchAttendance() {
     method: 'GET',
     success: function (response) {
       const todaysData = response.TodayData || [];
-      console.log(todaysData);
-      // IDs of your DOM elements
       const ids = ['first', 'second', 'third', 'fourth'];
 
       ids.forEach((id, index) => {
-        const timeUtc = todaysData[index]?.time;
+        const time = todaysData[index]?.time;
 
-        const timeManila = timeUtc ? timeUtc : '--:--';
+        if (!time) {
+          $('#' + id).text('--:--');
+          return;
+        }
 
-        $('#' + id).text(timeManila.replace(/ AM| PM/, ''));
+        // Attach a dummy date so JS can parse it
+        const date = new Date(`1970-01-01T${time}`);
+
+        if (isNaN(date)) {
+          $('#' + id).text('Invalid time');
+          return;
+        }
+
+        // Format to 12-hour with AM/PM
+        const formatted = date.toLocaleTimeString('en-PH', {
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        });
+
+        $('#' + id).text(formatted);
       });
     },
     error: function (err) {
@@ -48,7 +64,6 @@ function fetchAttendance() {
     }
   });
 }
-
 fetchAttendance();
 setInterval(fetchAttendance, 5000);
 
@@ -57,7 +72,7 @@ Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('/models')
-]).then(startVideo);
+]);
 
 function startVideo() {
   navigator.mediaDevices
