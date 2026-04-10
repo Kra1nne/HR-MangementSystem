@@ -9,6 +9,7 @@ use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\department\DepartmentController;
 use App\Http\Controllers\employee\EmployeeController;
 use App\Http\Controllers\homepage\HomePagesController;
+use App\Http\Controllers\job_posting\JobController;
 use App\Http\Controllers\leave\LeaveController;
 use App\Http\Controllers\logs\LogsController;
 use App\Http\Controllers\message\MessageController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\pages\MiscUnderMaintenance;
 use App\Http\Controllers\payroll\PayrollController;
 use App\Http\Controllers\profile\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\Mime\Message;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
@@ -71,6 +71,8 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('employee-add');
   Route::post('/employee/remove', [EmployeeController::class, 'removeEmployee'])->name('employee-remove');
   Route::post('/employee/details-update', [EmployeeController::class, 'employeeRaise'])->name('employee-details-update');
+
+  Route::get('/job_posting', [JobController::class, 'job_posting'])->name('job-posting');
 
   Route::get('/employee/face-registration/{id}', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
   Route::post('/employee/face-registration/add', [EmployeeController::class, 'registerFaceProcess'])->name('employyee-registerFace-process');

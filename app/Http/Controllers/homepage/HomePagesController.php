@@ -17,7 +17,8 @@ class HomePagesController extends Controller
     }
     public function services()
     {
-        return view('content.homepage.services');
+        $isSearch = '';
+        return view('content.homepage.services', compact('isSearch'));
     }
     public function contact()
     {

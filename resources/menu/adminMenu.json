@@ -10,6 +10,12 @@
       "menuHeader": "Components"
     },
     {
+      "url": "/job_posting",
+      "name": "Job",
+      "icon": "menu-icon tf-icons ri-briefcase-line",
+      "slug": "job-posting"
+    },
+    {
       "url": "/department/list",
       "name": "Department",
       "icon": "menu-icon tf-icons ri-building-line",
