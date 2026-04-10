@@ -67,7 +67,7 @@
                     onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
-                            <h6 class="text-muted mb-2">On Leave</h6>
+                            <h6 class="text-muted mb-2">OnBoarding</h6>
                             <h3 class="fw-bold mb-0">0</h3>
                         </div>
                         <div class="bg-warning bg-opacity-10 p-3 rounded-circle">

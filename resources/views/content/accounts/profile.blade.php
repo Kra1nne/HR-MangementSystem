@@ -44,13 +44,25 @@
                 </div>
             </div>
 
-            <div class="pb-2 d-flex gap-2">
+            <div class="pb-2 d-flex gap-2 align-items-center">
                 <a href="javascript::void(0)" id="EditEmployee" data-bs-toggle="modal" data-bs-target="#modalEdit">
                     <i class="ri-file-edit-line text-white"></i>
                 </a>
                 <span class="badge rounded-pill bg-success text-white">
                     {{ $data->emp_id }}
                 </span>
+                @if ($data->face_descriptor == null)
+                    <a href="{{ route('employee-faceRegistration', $employee_id) }}"
+                        class="btn btn-primary border-white btn-sm p-1 w-100 rounded-3" id="btnRegisterFace">
+                        Register Face
+                    </a>
+                @else
+                    <a href="javascript::void(0)" data-id="{{ $employee_id }}"
+                        class="btn btn-danger p-1 btn-sm w-100 rounded-3" id="btnResetRegisterFace">
+                        Reset
+                    </a>
+                @endif
+
             </div>
         </div>
 
@@ -172,40 +184,95 @@
                 <div class="col-12">
                     <div class="border rounded-3 p-3 h-100">
                         <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
-                            Employment Profile Update
+                            Employment History
                         </p>
                         <div class="row">
-                            <h5 class="text-center lead">No Profile Update</h5>
+                            <h5 class="text-center lead">No Experience</h5>
                         </div>
                     </div>
                 </div>
-                <!-- Face Registration -->
-                <div class="col-12 col-lg-4">
-                    <div
-                        class="border rounded-3 p-3 text-center h-100 d-flex flex-column align-items-center justify-content-center gap-2">
+                <div class="col-12 col-lg-6">
+                    <div class="border rounded-3 p-4 h-100">
 
-                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-1"
-                            style="width:48px;height:48px;">
-                            <i class="ri ri-user-line fs-5 text-white"></i>
+                        <p class="text-dark small text-uppercase fw-bold mb-4" style="letter-spacing:.07em;font-size:11px;">
+                            Employment Timeline
+                        </p>
+
+                        <div class="position-relative">
+
+                            <!-- Vertical Line -->
+                            <div style="position:absolute; left:5px; top:0; bottom:0; width:2px; background:#dee2e6;">
+                            </div>
+
+                            <!-- Item -->
+                            <div class="d-flex mb-4 position-relative">
+                                <div style="width:20px;">
+                                    <div
+                                        style="width:12px; height:12px; background:#0d6efd; border-radius:50%; margin-top:5px;">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ps-3">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-1 fw-bold">Junior Developer</p>
+                                        <p class="mb-1 small text-success">$30,000</p>
+                                    </div>
+                                    <p class="mb-1 text-muted small">IT Department</p>
+                                    <p class="mb-0 small text-muted">Jan 2020 - Dec 2021</p>
+                                </div>
+                            </div>
+
+                            <!-- Item -->
+                            <div class="d-flex mb-4 position-relative">
+                                <div style="width:20px;">
+                                    <div
+                                        style="width:12px; height:12px; background:#0d6efd; border-radius:50%; margin-top:5px;">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ps-3">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-1 fw-bold">Software Developer</p>
+                                        <p class="mb-1 small text-success">$45,000</p>
+                                    </div>
+                                    <p class="mb-1 text-muted small">Product Development</p>
+                                    <p class="mb-0 small text-muted">Jan 2022 - Jun 2023</p>
+                                </div>
+                            </div>
+
+                            <!-- Item -->
+                            <div class="d-flex mb-4 position-relative">
+                                <div style="width:20px;">
+                                    <div
+                                        style="width:12px; height:12px; background:#0d6efd; border-radius:50%; margin-top:5px;">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ps-3">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-1 fw-bold">Senior Software Developer</p>
+                                        <p class="mb-1 small text-success">$65,000</p>
+                                    </div>
+                                    <p class="mb-1 text-muted small">Engineering Department</p>
+                                    <p class="mb-0 small text-muted">Jul 2023 - Dec 2024</p>
+                                </div>
+                            </div>
+
+                            <!-- Item -->
+                            <div class="d-flex position-relative">
+                                <div style="width:20px;">
+                                    <div
+                                        style="width:12px; height:12px; background:#198754; border-radius:50%; margin-top:5px;">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ps-3">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="mb-1 fw-bold">Lead Engineer</p>
+                                        <p class="mb-1 small text-success">$85,000</p>
+                                    </div>
+                                    <p class="mb-1 text-muted small">Technology Division</p>
+                                    <p class="mb-0 small text-muted">Jan 2025 - Present</p>
+                                </div>
+                            </div>
+
                         </div>
-
-                        @if ($data->face_descriptor == null)
-                            <p class="small text-muted mb-0">
-                                Face ID not yet registered
-                            </p>
-                            <a href="{{ route('employee-faceRegistration', $employee_id) }}"
-                                class="btn btn-primary btn-sm w-100 rounded-3" id="btnRegisterFace">
-                                Register Face
-                            </a>
-                        @else
-                            <p class="small text-success mb-0">
-                                Face ID registered
-                            </p>
-                            <a href="javascript::void(0)" data-id="{{ $employee_id }}"
-                                class="btn btn-danger btn-sm w-100 rounded-3" id="btnResetRegisterFace">
-                                Reset
-                            </a>
-                        @endif
 
                     </div>
                 </div>

@@ -31,21 +31,14 @@ function fetchAttendance() {
     method: 'GET',
     success: function (response) {
       const todaysData = response.TodayData || [];
-
+      console.log(todaysData);
       // IDs of your DOM elements
       const ids = ['first', 'second', 'third', 'fourth'];
 
       ids.forEach((id, index) => {
-        const timeUtc = todaysData[index]?.time; // safely get time or undefined
-        const timeManila = timeUtc
-          ? new Date(timeUtc).toLocaleTimeString('en-PH', {
-              timeZone: 'Asia/Manila',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-              hour12: true
-            })
-          : '--:--'; // fallback if no data
+        const timeUtc = todaysData[index]?.time;
+
+        const timeManila = timeUtc ? timeUtc : '--:--';
 
         $('#' + id).text(timeManila.replace(/ AM| PM/, ''));
       });

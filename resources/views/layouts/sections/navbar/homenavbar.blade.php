@@ -25,9 +25,9 @@
                 </a>
 
                 <a class="nav-link rounded-pill w-px-100 px-5 text-dark
-          {{ request()->routeIs('services-page') ? 'active text-white' : '' }}"
-                    href="{{ route('services-page') }}">
-                    Services
+          {{ request()->routeIs('job-page') ? 'active text-white' : '' }}"
+                    href="{{ route('job-page') }}">
+                    Jobs
                 </a>
 
                 <a class="nav-link rounded-pill w-px-100 px-5 text-dark
@@ -41,6 +41,7 @@
                     href="{{ route('contact-page') }}">
                     Contact
                 </a>
+
 
             </div>
 

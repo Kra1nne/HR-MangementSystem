@@ -23,7 +23,7 @@ use Symfony\Component\Mime\Message;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
-Route::get('/services', [HomePagesController::class, 'services'])->name('services-page');
+Route::get('/job', [HomePagesController::class, 'services'])->name('job-page');
 Route::get('/contact', [HomePagesController::class, 'contact'])->name('contact-page');
 
 Route::middleware(['guest', 'throttle:web'])->group(function () {

@@ -10,7 +10,7 @@
         <section class="row g-4">
 
             <!-- Total Hours Worked -->
-            <div class="col-12 col-lg-3 col-md-6">
+            {{-- <div class="col-12 col-lg-3 col-md-6">
                 <div class="card border-0 border-start border-info border-4 shadow-sm h-100"
                     style="transition: all 0.3s ease;"
                     onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </section>
         <section class="card p-3 mt-4 shadow-sm">

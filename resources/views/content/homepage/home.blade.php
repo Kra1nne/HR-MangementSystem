@@ -24,8 +24,8 @@
                     <div class="d-flex gap-3 mt-4">
                         <a href="{{ route('login') }}" class="btn btn-primary btn-lg rounded-pill px-3">Get
                             Started</a>
-                        <a href="{{ route('services-page') }}" class="btn btn-outline-primary btn-lg rounded-pill px-3">Our
-                            Services</a>
+                        <a href="{{ route('job-page') }}" class="btn btn-outline-primary btn-lg rounded-pill px-3">Job
+                            Vancies</a>
                     </div>
                 </div>
             </div>

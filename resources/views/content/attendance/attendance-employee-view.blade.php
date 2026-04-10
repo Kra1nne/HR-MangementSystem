@@ -10,7 +10,7 @@
         <section class="row g-4">
 
             <!-- Total Hours Worked -->
-            <div class="col-12 col-lg-3 col-md-6">
+            {{-- <div class="col-12 col-lg-3 col-md-6">
                 <div class="card border-0 border-start border-info border-4 shadow-sm h-100"
                     style="transition: all 0.3s ease;"
                     onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
@@ -79,13 +79,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </section>
         <section class="card p-3 mt-4 shadow-sm">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <div>
                     <h5 class="mb-1">{{ $employeeData->name }}</h5>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <a href="javascript::void(0)" class="btn btn-success">
+                        <i class="ri-login-circle-line"></i> Attendance
+                    </a>
                 </div>
             </div>
         </section>
