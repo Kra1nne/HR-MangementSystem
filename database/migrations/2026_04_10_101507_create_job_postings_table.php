@@ -23,11 +23,13 @@ return new class extends Migration
                   ->cascadeOnDelete();
             $table->string('job_title');
             $table->text('description');
+            $table->text('objectives');
             $table->text('requirements');
             $table->integer('salary');
             $table->string('position');
             $table->string('employment_type');
-            $table->string('work_setup');     
+            $table->string('work_setup');
+            $table->string('location');     
             $table->enum('status', ['draft', 'open', 'closed'])->default('draft');
             $table->timestamp('posted_at')->nullable();
             $table->timestamp('closing_date')->nullable();

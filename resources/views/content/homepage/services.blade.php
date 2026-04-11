@@ -9,90 +9,110 @@
                 <header>
                     <h4 class="fw-bold">Job Vacancies</h4>
                 </header>
-                <div class="d-flex flex-column flex-md-row align-items-start justify-content-between m-2">
-                    <div>
 
-                    </div>
-                    <form method="get" class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
-                        <div class="input-group input-group-merge">
-                            <input type="text" name="search" class="form-control-sm border-0 border-bottom w-100"
-                                placeholder="Search" style="outline: none; box-shadow: none;"
-                                onmouseover="this.style.boxShadow='none'; this.style.outline='none';"
-                                onfocus="this.style.boxShadow='none'; this.style.outline='none';" aria-label="Search..."
-                                aria-describedby="basic-addon-search31" />
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm" id="search">Search</button>
-                        <button class="border-none btn-outline-dark {{ $isSearch ? 'd-block' : 'd-none' }}"
-                            id="closeMark"><i class="ri-close-line text-danger"></i></button>
+                <div class="d-flex flex-column flex-md-row align-items-stretch gap-2 m-2">
+
+                    {{-- Filters --}}
+                    <form method="get" id="filterForm"
+                        class="d-flex flex-column flex-md-row align-items-stretch gap-2 flex-grow-1">
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+
+                        <select name="work_setup" class="form-select form-select-sm" onchange="$('#filterForm').submit()">
+                            <option value="">All Work Setups</option>
+                            <option value="On-site" {{ request('work_setup') == 'On-site' ? 'selected' : '' }}>On-site
+                            </option>
+                            <option value="Remote" {{ request('work_setup') == 'Remote' ? 'selected' : '' }}>Remote
+                            </option>
+                            <option value="Hybrid" {{ request('work_setup') == 'Hybrid' ? 'selected' : '' }}>Hybrid
+                            </option>
+                        </select>
+
+                        <select name="employment_type" class="form-select form-select-sm"
+                            onchange="$('#filterForm').submit()">
+                            <option value="">All Employment Types</option>
+                            <option value="Full-time" {{ request('employment_type') == 'Full-time' ? 'selected' : '' }}>
+                                Full-time</option>
+                            <option value="Part-time" {{ request('employment_type') == 'Part-time' ? 'selected' : '' }}>
+                                Part-time</option>
+                            <option value="Contract" {{ request('employment_type') == 'Contract' ? 'selected' : '' }}>
+                                Contract</option>
+                            <option value="Internship" {{ request('employment_type') == 'Internship' ? 'selected' : '' }}>
+                                Internship</option>
+                        </select>
+
+                        <select name="dept_name" class="form-select form-select-sm" onchange="$('#filterForm').submit()">
+                            <option value="">All Departments</option>
+                            @foreach ($departments as $dept)
+                                <option value="{{ $dept->dept_name }}"
+                                    {{ request('dept_name') == $dept->dept_name ? 'selected' : '' }}>
+                                    {{ $dept->dept_name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </form>
+
+                    {{-- Search --}}
+                    <form method="get" class="d-flex align-items-stretch gap-2">
+                        <input type="hidden" name="work_setup" value="{{ request('work_setup') }}">
+                        <input type="hidden" name="employment_type" value="{{ request('employment_type') }}">
+                        <input type="hidden" name="dept_name" value="{{ request('dept_name') }}">
+
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            class="form-control form-control-sm border-0 border-bottom" placeholder="Search"
+                            style="outline: none; box-shadow: none;"
+                            onmouseover="this.style.boxShadow='none'; this.style.outline='none';"
+                            onfocus="this.style.boxShadow='none'; this.style.outline='none';" aria-label="Search..." />
+
+                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+
+                        <a href="{{ route('job-page') }}"
+                            class="btn btn-outline-secondary btn-sm {{ $isSearch ? 'd-flex' : 'd-none' }} align-items-center"
+                            id="closeMark">
+                            <i class="ri-close-line text-danger"></i>
+                        </a>
+                    </form>
+
                 </div>
-                {{-- <div class="d-flex flex-column align-items-center justify-content-center">
-                    <div>
-                        <i class="ri-briefcase-line fs-1 text-primary"></i>
-                    </div>
-                    <h5 class="lead mt-3">No Available Job Vacancies</h5>
-                </div> --}}
-                <a href="javascript::void(0)" class="col-md-4 pointer">
-                    <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
-                        <div class="card-body">
-                            <span class="badge bg-light text-dark mb-3">
-                                Active until: <strong>Jan 31, 2024</strong>
-                            </span>
 
-                            <h5 class="fw-bold">UI/UX Designer</h5>
-                            <p class="text-muted small">
-                                Gathering and evaluating user requirements, in collaboration with product managers and
-                                engineers
-                            </p>
-
-                            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-3 align-items-start">
-                                <span class="badge bg-success-subtle text-success">Department</span>
-                                <span class="badge bg-light text-dark border">Full Time</span>
-                                <span class="badge bg-light text-dark border">Onsite</span>
+                @forelse ($jobs as $item)
+                    <a href="{{ route('job-details', $item->encrypted_id) }}" class="col-md-4 pointer">
+                        <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
+                            <div class="card-body">
+                                <div
+                                    class="d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start alin-items-md-center mb-2">
+                                    <span class="badge bg-light text-dark">
+                                        {{ $item->created_at->diffForHumans() }}
+                                    </span>
+                                    <span class="badge bg-light text-dark">
+                                        Until {{ date('M d, Y', strtotime($item->closing_date)) }}
+                                    </span>
+                                </div>
+                                <h5 class="fw-bold">{{ $item->job_title }}</h5>
+                                <p class="text-muted small">
+                                    {{ Str::limit($item->description, 150, '...') }}
+                                </p>
+                                <p class="fw-thin small mb-2">
+                                    Salary: ₱{{ number_format($item->salary, 2) }} monthly
+                                </p>
+                                <div class="d-flex flex-wrap gap-2 mt-2">
+                                    <span class="badge bg-success-subtle text-success">{{ $item->dept_name }}</span>
+                                    <span class="badge bg-light text-dark border">{{ $item->work_setup }}</span>
+                                    <span class="badge bg-light text-dark border">{{ $item->employment_type }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="javascript::void(0)" class="col-md-4">
-                    <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
-                        <div class="card-body">
-                            <span class="badge bg-light text-dark mb-3">
-                                Active until: <strong>Jan 31, 2024</strong>
-                            </span>
-
-                            <h5 class="fw-bold">Junior Frontend Developer</h5>
-                            <p class="text-muted small">
-                                A front-end developer is basically a web developer who has a specialization in creating user
-                                interfaces for applications
-                            </p>
-
-                            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-3 align-items-start">
-                                <span class="badge bg-primary-subtle text-primary">Development</span>
-                                <span class="badge bg-light text-dark border">Full Time</span>
-                                <span class="badge bg-light text-dark border">Remote</span>
-                            </div>
+                    </a>
+                @empty
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                        <div>
+                            <i class="ri-briefcase-line fs-1 text-primary"></i>
                         </div>
+                        <h5 class="lead mt-3">No Available Job Vacancies</h5>
                     </div>
-                </a>
-                <a href="javascript::void(0)" class="col-md-4">
-                    <div class="card h-100 w-100 shadow-sm border-0 rounded-4">
-                        <div class="card-body">
-                            <span class="badge bg-light text-dark mb-3">
-                                Active until: <strong>Jan 31, 2024</strong>
-                            </span>
-
-                            <h5 class="fw-bold">Motion Graphic Designer</h5>
-                            <p class="text-muted small">
-                                We are currently hiring a Motion Graphics Designer who will work closely with the marketing
-                                team, video producers
-                            </p>
-
-                            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 mt-3 align-items-start">
-                                <span class="badge bg-light text-dark border">Full Time</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                @endforelse
+            </div>
+            <div class="pt-5 d-flex justify-content-end">
+                {{ $jobs->onEachSide(2)->links() }}
             </div>
         </section>
     </main>

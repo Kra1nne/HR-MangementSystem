@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Department extends Model
 {
@@ -17,7 +18,6 @@ class Department extends Model
         'updated_at',
         'deleted_at',
     ];
-
     public function department_managers()
     {
         return $this->hasMany(DepartmentManager::class, 'dept_no', 'dept_no');
@@ -31,5 +31,9 @@ class Department extends Model
     public function department_employees()
     {
         return $this->hasMany(DepartmentEmployee::class, 'dept_no', 'dept_no');
+    }
+    public function jobs()
+    {
+        return $this->hasMany(JobPosting::class, 'dept_no', 'dept_no');
     }
 }

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('application_documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')
-                ->unique()
-                ->constrained('job_postings')
+            $table->foreignId('application_id')
+                ->constrained('applications')
                 ->restrictOnDelete();
-            $table->string('status');
-            $table->date('applied_at');
+            $table->string('type'); 
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('application_documents');
     }
 };

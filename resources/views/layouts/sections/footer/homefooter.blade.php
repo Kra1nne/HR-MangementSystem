@@ -1,4 +1,5 @@
 <footer class="bg-white text-white py-5">
+    <hr>
     <div class="container mb-4">
         <div class="row">
             <!-- About -->

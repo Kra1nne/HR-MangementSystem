@@ -23,7 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePagesController::class, 'home'])->name('home-page');
 Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
+
 Route::get('/job', [HomePagesController::class, 'services'])->name('job-page');
+Route::get('/job/{id}', [HomePagesController::class, 'viewJob'])->name('job-details');
+Route::get('/job/form/{id}', [HomePagesController::class, 'jobForm'])->name('job-form');
+
+
 Route::get('/contact', [HomePagesController::class, 'contact'])->name('contact-page');
 
 Route::middleware(['guest', 'throttle:web'])->group(function () {
@@ -72,7 +77,9 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/employee/remove', [EmployeeController::class, 'removeEmployee'])->name('employee-remove');
   Route::post('/employee/details-update', [EmployeeController::class, 'employeeRaise'])->name('employee-details-update');
 
-  Route::get('/job_posting', [JobController::class, 'job_posting'])->name('job-posting');
+  Route::get('/job_posting', [JobController::class, 'jobPosting'])->name('job-posting');
+  Route::post('/job_posting/add', [JobController::class, 'addJob'])->name('job-posting-add');
+  Route::get('/job_posting/{id}', [JobController::class, 'viewJob'])->name('job-posting-view');
 
   Route::get('/employee/face-registration/{id}', [EmployeeController::class, 'registerFace'])->name('employee-faceRegistration');
   Route::post('/employee/face-registration/add', [EmployeeController::class, 'registerFaceProcess'])->name('employyee-registerFace-process');

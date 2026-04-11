@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidates', function (Blueprint $table) {
+        Schema::create('application_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_id')
-                ->unique()
                 ->constrained('applications')
                 ->restrictOnDelete();
-            $table->foreignId('person_id')
-                ->unique()
-                ->constrained('persons')
-                ->restrictOnDelete();
+            $table->string('event_type'); 
+            $table->string('stage')->nullable(); 
+            $table->string('status')->nullable();
+            $table->integer('score')->nullable();
+            $table->decimal('rating', 5, 2)->nullable();
+            $table->timestamp('scheduled_at')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('candidates');
+        Schema::dropIfExists('application_logs');
     }
 };

@@ -31,6 +31,10 @@ class Person extends Model
     {
       return $this->hasOne(Employee::class, 'person_id', 'id');
     }
+    public function candidate()
+    {
+      return $this->hasOne(Candidate::class, 'person_id', 'id');
+    }
     public function user()
     {
       return $this->hasOne(User::class, 'person_id', 'id');

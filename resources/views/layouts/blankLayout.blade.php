@@ -1,7 +1,7 @@
-@extends('layouts/commonMaster' )
+@extends('layouts/commonMaster')
 
-@section('layoutContent')<!-- Content -->
-@yield('content')
-<!--/ Content -->
-
+@section('layoutContent')
+    <!-- Content -->
+    @yield('content')
+    <!--/ Content -->
 @endsection
