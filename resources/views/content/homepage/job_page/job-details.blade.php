@@ -11,9 +11,9 @@
                 </a>
             </div>
             <div
-                class="d-flex flex-column flex-md-row align-items-md-center align-items-start justify-content-start justify-content-md-between">
+                class="mb-1 d-flex flex-column flex-md-row align-items-md-center align-items-start justify-content-start justify-content-md-between">
                 <h3 class="fw-bold">Job Description</h3>
-                <a href="{{ route('job-form', $jobID) }}"><i class="ri-edit-2-line"></i></a>
+                <a href="{{ route('job-form', $jobID) }}" class="btn btn-primary">Apply now</a>
             </div>
             <div class="boder border-0 border-top"></div>
             <div class="row">
@@ -70,7 +70,7 @@
                         <hr>
 
                         <div>
-                            <small class="text-muted">Monthl Salary</small>
+                            <small class="text-muted">Monthly Salary</small>
                             <h6 class="fw-bold mt-1">₱{{ number_format($details->salary, 2) }}</h6>
                         </div>
 

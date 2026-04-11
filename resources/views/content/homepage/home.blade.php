@@ -72,8 +72,8 @@
                                 <i class="ri-user-line fs-5 fs-lg-3"></i>
                             </div>
                             <div>
-                                <span class="fw-bold fs-6 fs-md-5 fs-lg-4 d-block">1000+</span>
-                                <p class="mb-0 small text-muted">Employees</p>
+                                <span class="fw-bold fs-6 fs-md-5 fs-lg-4 d-block">24/7</span>
+                                <p class="mb-0 small text-muted">Job Application</p>
                             </div>
                         </div>
                     </div>
@@ -167,59 +167,106 @@
     </div>
     <div class="">
         <section class="container pt-5 d-flex flex-column align-items-center justify-content-center">
-            <h3 class="fw-bold text-center">Simple Steps to Get Started </h3>
+            <h3 class="fw-bold text-center">Job Application Process</h3>
+            <p class="text-muted text-center">Follow these simple steps to apply for a position in our organization.
+            </p>
             <div class="row d-flex justify-content-center mt-4 pt-5">
+
                 <div class="col-md-6 col-lg-3">
                     <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto"
                         style="width: 75px; height: 75px;">
-                        <i class="ri-user-follow-line fs-4 text-primary"></i>
+                        <i class="ri-search-line fs-4 text-primary"></i>
                     </div>
-                    <h5 class="mt-3 text-center">Create an Account</h5>
+                    <h5 class="mt-3 text-center">Find a Job</h5>
                     <p class="mt-3 text-center">
-                        Register your organization or employee account to access HR tools, manage profiles,
-                        and securely store workforce data.
+                        Browse and search available job openings. Filter by position, department,
+                        or employment type to find the role that fits you best.
                     </p>
                 </div>
+
                 <div class="col-md-6 col-lg-3">
                     <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mx-auto"
                         style="width: 75px; height: 75px;">
-                        <i class="ri-search-line fs-4 text-white"></i>
+                        <i class="ri-file-upload-line fs-4 text-white"></i>
                     </div>
-                    <h5 class="mt-3 text-center">Manage Employees</h5>
+                    <h5 class="mt-3 text-center">Submit Application</h5>
                     <p class="mt-3 text-center">
-                        Add, update, and organize employee records, roles, and departments in one centralized
-                        system.
+                        Complete the online application form and upload the required documents
+                        such as your resume, certificates, and valid IDs.
                     </p>
-
                 </div>
+
                 <div class="col-md-6 col-lg-3">
                     <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto"
                         style="width: 75px; height: 75px;">
-                        <i class="ri-file-upload-line fs-4 text-primary"></i>
+                        <i class="ri-time-line fs-4 text-primary"></i>
                     </div>
-                    <h5 class="mt-3 text-center">Track Attendance & Performance</h5>
+                    <h5 class="mt-3 text-center">Wait for HR Response</h5>
                     <p class="mt-3 text-center">
-                        Monitor attendance, leave requests, and employee performance using real-time analytics
-                        and reports.
+                        Your application will be reviewed by our HR team. You will receive
+                        updates and notifications regarding your application status.
                     </p>
-
                 </div>
+
                 <div class="col-md-6 col-lg-3">
                     <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mx-auto"
                         style="width: 75px; height: 75px;">
-                        <i class="ri-mail-check-line fs-4 text-white"></i>
+                        <i class="ri-checkbox-circle-line fs-4 text-white"></i>
                     </div>
-                    <h5 class="text-center mt-3">Review Reports & Notifications</h5>
+                    <h5 class="text-center mt-3">Get Accepted</h5>
                     <p class="mt-3 text-center">
-                        Receive system notifications, generate HR reports, and make informed decisions to
-                        improve workforce productivity.
+                        Once approved, you will be officially onboarded into the system and
+                        gain access to your employee account and HR tools.
                     </p>
+                </div>
 
+            </div>
+        </section>
+    </div>
+
+    <div class="bg-white">
+        <section class="py-5 container" id="jobs-section">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-lg-6 d-flex justify-content-center">
+                    <img src="{{ asset('assets/img/backgrounds/recruiting.png') }}" alt="Job Postings"
+                        class="img-fluid w-75" />
+                </div>
+                <div class="col-md-12 col-lg-6 d-flex flex-column justify-content-center">
+                    <h3 class="fw-bold">We're Hiring!</h3>
+                    <p class="text-muted mt-3">
+                        Ready to take the next step in your career? Discover exciting opportunities through our
+                        integrated job board. Browse openings, apply in just a few clicks, and stay updated on
+                        your application status — all from one seamless experience.
+                    </p>
+                    <ul class="list-unstyled small mt-2">
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="ri-check-line text-success me-2"></i>
+                            Browse open job positions anytime
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="ri-check-line text-success me-2"></i>
+                            Submit applications online with ease
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="ri-check-line text-success me-2"></i>
+                            Track your application status in real-time
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="ri-check-line text-success me-2"></i>
+                            Get notified on hiring updates
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="{{ route('job-page') }}" class="btn btn-primary btn-lg rounded-pill px-4">
+                            View Job Vacancies
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
-    <div class="bg-white">
+
+    {{-- <div class="bg-white">
         <div class="container py-5">
             <div class="row w-100 flex-column-reverse flex-md-row">
 
@@ -282,7 +329,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="bg-white pb-5">
         <div class="container">
             <div class="row">

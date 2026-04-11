@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\homepage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
+use App\Models\ApplicationDocument;
+use App\Models\Candidate;
 use App\Models\Department;
 use App\Models\JobPosting;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -50,7 +54,69 @@ class HomePagesController extends Controller
     }
     public function jobForm($id)
     {
-        return view('content.homepage.job_page.job-form');
+        $JobId = $id;
+        return view('content.homepage.job_page.job-form', compact('JobId'));
+    }
+    public function message($id)
+    {
+        return view('content.homepage.job_page.job-message');
+    }
+    public function application(Request $request)
+    {
+        $encrypted_email = Crypt::encryptString($request->email);
+
+        $application = [
+            'job_id' => Crypt::decryptString($request->job_id),
+            'status' => 'apply',
+            'applied_at' => now()->toDateString(),
+            'created_at' => now(),
+        ];
+        $person = [
+            'firstname' => $request->first_name,
+            'middlename' => $request->middle_name,
+            'lastname' => $request->last_name,
+            'address' => $request->address,
+            'phone_number' => $request->phone,
+            'birth_date' => $request->dob,
+            'sex' => $request->sex,
+            'blood_type' => $request->blood_type,
+            'created_at' => now(),
+        ];
+        $applicationData = Application::create($application);
+        $personData = Person::create($person);
+
+        $candidate = [
+            'application_id' => $applicationData->id,
+            'person_id' => $personData->id,
+            'created_at' => now(),
+        ];
+        Candidate::insert($candidate);
+
+        $path_resume = $request->resume->store('uploads', 'public');
+        $resume = [
+            'application_id' => $applicationData->id,
+            'type' => 'Resume',
+            'file_path' => $path_resume,
+            'created_at' => now(),
+        ];
+        $isApplication = ApplicationDocument::insert($resume);
+
+        if($request->hasFile('certificates')){
+            foreach($request->file('certificates') as $images){
+                $path_certificate = $images->store('uploads', 'public');
+                ApplicationDocument::insert([
+                    'application_id' => $applicationData->id,
+                    'type' => 'Certificate',
+                    'file_path' => $path_certificate,
+                    'created_at' => now(),
+                ]);
+            }
+        }
+        
+        if(!$isApplication || !$applicationData || !$personData){
+            return response()->json(['Error' => 1, 'Message' => 'Application invalid']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Application successfully submitted', 'Redirect' => route('job-form-message', $encrypted_email)]);
     }
     public function contact()
     {

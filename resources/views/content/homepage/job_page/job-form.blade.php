@@ -2,13 +2,17 @@
 
 @section('title', 'Job Form')
 
+@section('page-script')
+    @vite('resources/assets/js/job_form.js')
+@endsection
+
 @section('content')
     <main class="min-vh-100 mt-5">
         <section class="container">
 
             <!-- Back Button -->
             <div class="mb-4">
-                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
+                <a href="{{ route('job-details', $JobId) }}" class="btn btn-outline-secondary btn-sm">
                     ← Back
                 </a>
             </div>
@@ -19,42 +23,42 @@
 
                     <h3 class="mb-4 text-center fw-bold">Job Application Form</h3>
 
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <form id="applicationForm" enctype="multipart/form-data">
                         @csrf
 
                         <!-- PERSONAL DETAILS -->
                         <h5 class="fw-semibold mb-3 text-primary">Personal Details</h5>
+                        <input type="text" name="job_id" value="{{ $JobId }}" hidden>
                         <div class="row mb-4">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">First Name</label>
-                                <input type="text" name="first_name" class="form-control rounded-3"
+                                <input type="text" id="first_name" name="first_name" class="form-control rounded-3"
                                     placeholder="Enter first name" required>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Last Name</label>
-                                <input type="text" name="last_name" class="form-control rounded-3"
+                                <input type="text" name="last_name" id="last_name" class="form-control rounded-3"
                                     placeholder="Enter last name" required>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Middle Name</label>
-                                <input type="text" name="last_name" class="form-control rounded-3"
-                                    placeholder="Enter last name" required>
+                                <input type="text" name="middle_name" id="middle_name" class="form-control rounded-3"
+                                    placeholder="Enter middle name" required>
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Date of Birth</label>
-                                <input type="date" name="dob" class="form-control rounded-3">
+                                <input type="date" name="dob" id="dob" class="form-control rounded-3">
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label class="form-label">Gender</label>
-                                <select name="gender" class="form-select rounded-3">
-                                    <option selected disabled>Select gender</option>
+                                <label class="form-label">Sex</label>
+                                <select name="sex" id="sex" class="form-select rounded-3">
+                                    <option value="" selected disabled>Select sex</option>
                                     <option>Male</option>
                                     <option>Female</option>
-                                    <option>Prefer not to say</option>
                                 </select>
                             </div>
                             <div class="col-md-4 mb-3">
@@ -78,19 +82,19 @@
                         <div class="row mb-4">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" name="email" class="form-control rounded-3"
+                                <input type="email" name="email" id="email" class="form-control rounded-3"
                                     placeholder="Enter email" required>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Phone Number</label>
-                                <input type="text" name="phone" class="form-control rounded-3"
+                                <input type="text" name="phone" id="phone" class="form-control rounded-3"
                                     placeholder="Enter phone number" required>
                             </div>
 
                             <div class="col-12 mb-3">
                                 <label class="form-label">Address</label>
-                                <textarea name="address" rows="3" class="form-control rounded-3" placeholder="Enter your address"></textarea>
+                                <textarea name="address" id="address" rows="3" class="form-control rounded-3" placeholder="Enter your address"></textarea>
                             </div>
                         </div>
 
@@ -99,12 +103,13 @@
                         <div class="mb-4">
                             <div class="mb-3">
                                 <label class="form-label">Upload Resume / CV</label>
-                                <input type="file" name="resume" class="form-control rounded-3" required>
+                                <input type="file" name="resume" id="resume" class="form-control rounded-3" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Upload Certificates (Optional)</label>
-                                <input type="file" name="certificates[]" class="form-control rounded-3" multiple>
+                                <input type="file" name="certificates[]" id="certificates" class="form-control rounded-3"
+                                    multiple>
                             </div>
                         </div>
 
@@ -119,7 +124,8 @@
                             </p>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="consent" id="consentCheck" required>
+                                <input class="form-check-input" type="checkbox" name="consent" id="consentCheck"
+                                    required>
                                 <label class="form-check-label small" for="consentCheck">
                                     I hereby certify that the information provided is true and correct, and I give my
                                     consent to the processing of my personal data for this application.
@@ -127,14 +133,14 @@
                             </div>
                         </div>
 
-                        <!-- SUBMIT BUTTON -->
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary px-5 py-2 rounded-3">
-                                Submit Application
-                            </button>
-                        </div>
-
                     </form>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="text-end">
+                        <button id="submitBtn" type="submit" class="btn btn-primary px-5 py-2 rounded-3">
+                            Submit Application
+                        </button>
+                    </div>
 
                 </div>
             </div>

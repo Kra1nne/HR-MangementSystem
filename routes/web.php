@@ -27,7 +27,8 @@ Route::get('/about', [HomePagesController::class, 'about'])->name('about-page');
 Route::get('/job', [HomePagesController::class, 'services'])->name('job-page');
 Route::get('/job/{id}', [HomePagesController::class, 'viewJob'])->name('job-details');
 Route::get('/job/form/{id}', [HomePagesController::class, 'jobForm'])->name('job-form');
-
+Route::post('/job/form/add', [HomePagesController::class, 'application'])->name('job-form-add');
+Route::get('/job/message/{email}', [HomePagesController::class, 'message'])->name('job-form-message');
 
 Route::get('/contact', [HomePagesController::class, 'contact'])->name('contact-page');
 

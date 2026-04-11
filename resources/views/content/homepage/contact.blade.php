@@ -5,10 +5,10 @@
 @section('content')
     <main class="min-vh-100">
         <section class="container">
-            <div class="pb-5 pt-2">
+            <div class="py-5">
                 <div class="row">
                     <div class="col-md-12 col-lg-6 d-flex align-items-center mb-5">
-                        <div class="w-100 px-4 px-lg-5">
+                        <div class="w-75 px-4 px-lg-5">
                             <img src="{{ asset('assets/img/elements/Contact.png') }}" class="img-fluid cover" alt="">
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="row px-0 px-md-2 pt-5">
-                                <div class="col d-flex align-items-center">
+                                <div class="col d-flex align-items-center justify-content-center">
                                     <button class=" btn btn-primary">Send Message</button>
                                 </div>
                             </div>
