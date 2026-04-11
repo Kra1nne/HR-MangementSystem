@@ -34,6 +34,7 @@ class JobPostingSeeder extends Seeder
                 'location' => 'Cebu, Philippines',
                 'status' => 'draft',
                 'closing_date' => '2026-06-30',
+                'created_at' => now()
             ],
 
             // SAMPLE 2
@@ -58,6 +59,7 @@ class JobPostingSeeder extends Seeder
                 'location' => 'Quezon City, Philippines',
                 'status' => 'draft',
                 'closing_date' => '2026-07-15',
+                'created_at' => now()
             ],
 
             // SAMPLE 3
@@ -82,6 +84,7 @@ class JobPostingSeeder extends Seeder
                 'location' => 'Manila, Philippines',
                 'status' => 'draft',
                 'closing_date' => '2026-08-01',
+                'created_at' => now()
             ],
         ];
 
