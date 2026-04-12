@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Crypt;
@@ -41,6 +40,10 @@ class JobPosting extends Model
     public function department()
     {
         return $this->belongsTo(Department::class, 'dept_no', 'dept_no');
+    }
+    public function applicants()
+    {
+        return $this->hasMany(Application::class, 'job_id', 'id');
     }
     public function jobStatus(): string
     {

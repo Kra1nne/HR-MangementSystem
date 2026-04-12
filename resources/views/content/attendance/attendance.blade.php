@@ -103,7 +103,7 @@
                                 data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages"
                                 aria-selected="false">
                                 <span class="d-none d-sm-inline-flex align-items-center"><i
-                                        class="icon-base ri ri-user-heart-line icon-sm me-1_5"></i>On Leave</span>
+                                        class="icon-base ri ri-user-heart-line icon-sm me-1_5"></i>Onboarding</span>
                                 <i class="icon-base ri ri-user-heart-line icon-sm d-sm-none"></i>
                             </button>
                         </li>
@@ -125,8 +125,19 @@
                                     <tbody class="table-border-bottom-0">
                                         @forelse ($Present as $item)
                                             <tr>
-                                                <td>{{ $item->firstname }} {{ $item->middlename ?? '' }}
-                                                    {{ $item->lastname }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
+                                                            style="width:42px;height:42px;flex-shrink:0;">
+                                                            {{ strtoupper(substr($item->firstname, 0, 1)) }}
+                                                            {{ strtoupper(substr($item->lastname, 0, 1)) }}
+                                                        </div>
+                                                        <div class="fw-semibold text-dark">
+                                                            {{ $item->firstname }} {{ $item->middlename }}
+                                                            {{ $item->lastname }}
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>{{ $item->emp_id }}</td>
                                                 <td>{{ $item->dept_name }}</td>
                                                 <td>{{ $item->sex }} </td>

@@ -81,6 +81,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::get('/job_posting', [JobController::class, 'jobPosting'])->name('job-posting');
   Route::post('/job_posting/add', [JobController::class, 'addJob'])->name('job-posting-add');
   Route::get('/job_posting/{id}', [JobController::class, 'viewJob'])->name('job-posting-view');
+  Route::get('/job_posting/applicants/{id}', [JobController::class, 'jobApplicants'])->name('job-posting-applicants');
   Route::post('/job_posting/open', [JobController::class, 'openJob'])->name('job-posting-open');
   Route::post('/job_posting/delete', [JobController::class, 'deteleJob'])->name('job-posting-delete');
   Route::post('/job_posting/update', [JobController::class, 'updateJob'])->name('job-posting-update');

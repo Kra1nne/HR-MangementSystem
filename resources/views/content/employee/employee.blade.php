@@ -42,8 +42,8 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Employee ID</th>
                             <th>Name</th>
+                            <th>Employee ID</th>
                             <th>Hire Date</th>
                             <th>Position</th>
                             <th>Salary</th>
@@ -55,10 +55,21 @@
                         @forelse ($employees as $item)
                             <tr>
                                 <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
+                                            style="width:42px;height:42px;flex-shrink:0;">
+                                            {{ strtoupper(substr($item->person->firstname, 0, 1)) }}
+                                            {{ strtoupper(substr($item->person->lastname, 0, 1)) }}
+                                        </div>
+                                        <div class="fw-semibold text-dark">
+                                            {{ $item->person->firstname }} {{ $item->person->middlename }}
+                                            {{ $item->person->lastname }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
                                     <span>{{ $item->emp_id }}</span>
                                 </td>
-                                <td>{{ $item->person->firstname }} {{ $item->person->middlename }}
-                                    {{ $item->person->lastname }}</td>
                                 <td>
                                     {{ $item->hire_date }}
                                 </td>

@@ -15,7 +15,8 @@ class JobController extends Controller
     {
         $isSearch = $request->filled('search') || $request->filled('work_setup') || $request->filled('employment_type') || $request->filled('dept_name');
 
-        $jobs = JobPosting::leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
+        $jobs = JobPosting::with('applicants')
+            ->leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where(function ($q2) use ($request) {
                     $q2->where('job_postings.job_title', 'like', '%' . $request->search . '%')
@@ -63,7 +64,8 @@ class JobController extends Controller
     }
     public function viewJob($id)
     {   
-        $details = JobPosting::leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
+        $details = JobPosting::with('applicants')
+            ->leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
             ->where('job_postings.id', Crypt::decryptString($id))
             ->first();
 
@@ -75,8 +77,7 @@ class JobController extends Controller
             ['name' => 'Job Details']
         ];
 
-  
-        return view('content.job_page.job-details', compact('breadcrumbs','details', 'departments'));
+        return view('content.job_page.job-details', compact('breadcrumbs','details', 'departments', 'id'));
     }
     public function updateJob(Request $request){
         $data = [
@@ -107,7 +108,7 @@ class JobController extends Controller
         }
         return response()->json(['Error' => 0, 'Message' => 'Successfully deleted the job draft', 'Redirect' => route('job-posting')]);
     }
-     public function openJob(Request $request){
+    public function openJob(Request $request){
         $jobPosting = JobPosting::where('id', $request->id)->update([
             'status' => 'open',
             'updated_at' => now()
@@ -117,6 +118,18 @@ class JobController extends Controller
             return response()->json(['Error' => 0, 'Message' => 'Unable to open the job']);
         }
         return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
+    }
+    public function jobApplicants($id)
+    {
+        $isSearch = '';
+        $decrypted_id = $id;
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Job Posting', 'link' => route('job-posting')],
+            ['name' => 'Job Details', 'link' => route('job-posting-view', $decrypted_id)],
+            ['name' => 'Job Applicants']
+        ];
+        return view('content.job_page.job-applicant', compact('breadcrumbs', 'isSearch'));
     }
     
 }

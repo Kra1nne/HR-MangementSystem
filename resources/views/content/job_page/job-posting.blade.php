@@ -82,13 +82,15 @@
                             <div class="card-body">
                                 <div
                                     class="d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start alin-items-md-center mb-2">
-                                    <span
-                                        class="badge {{ $item->closing_date->isPast() ? 'bg-danger text-white' : 'bg-light text-dark' }} ">
-                                        {{ $item->closing_date->isPast() ? 'Closed' : $item->created_at->diffForHumans() }}
-                                    </span>
                                     <span class="badge {{ $item->jobStatus() }}">
                                         {{ ucfirst($item->status) }}
                                     </span>
+                                    @if ($item->status != 'draft')
+                                        <span>
+                                            <i class="ri-user-line"></i>
+                                            <span class="badge bg-primary">{{ $item->applicants->count() ?? 0 }}</span>
+                                        </span>
+                                    @endif
                                 </div>
                                 <h5 class="fw-bold">{{ $item->job_title }}</h5>
                                 <p class="text-muted small">

@@ -11,10 +11,13 @@
             <h3 class="fw-bold">Job Description</h3>
             <div class="d-flex align-items-end gap-4">
                 @if ($details->status == 'open')
-                    <a title="View Applicants" href="javascript::void(0)"><i class="ri-user-line"></i></a>
+                    <a href="{{ route('job-posting-applicants', $id) }}" class="text-decoration-none" title="View Applicants">
+                        <i class="ri-user-line"></i>
+                        <span class="badge bg-primary">{{ $details->applicants->count() ?? 0 }}</span>
+                    </a>
                 @else
-                    <a title="Update Job Posting" href="javascript::void(0)" data-bs-toggle="modal" data-bs-target="#Modal"><i
-                            class="ri-edit-2-line"></i></a>
+                    <a title="Update Job Posting" href="javascript::void(0)" data-bs-toggle="modal"
+                        data-bs-target="#Modal"><i class="ri-edit-2-line"></i></a>
                     <a title="Open Job Posting" href="javascript::void(0)" data-id="{{ $details->id }}" id="OpenJob"><i
                             class="ri-briefcase-line"></i></a>
                     <a title="Delete Job Posting" id="deleteJob" data-id="{{ $details->id }}" href="javascript::void(0)"><i

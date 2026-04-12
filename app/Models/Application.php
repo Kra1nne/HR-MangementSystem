@@ -28,4 +28,8 @@ class Application extends Model
     {
         return $this->hasMany(ApplicationLog::class, 'application_id', 'id');
     }
+    public function jobposting()
+    {
+        return $this->belonsTo(JobPosting::class, 'job_id', 'id');
+    }
 }
