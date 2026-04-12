@@ -86,8 +86,8 @@
                                         class="badge {{ $item->closing_date->isPast() ? 'bg-danger text-white' : 'bg-light text-dark' }} ">
                                         {{ $item->closing_date->isPast() ? 'Closed' : $item->created_at->diffForHumans() }}
                                     </span>
-                                    <span class="badge bg-light text-dark">
-                                        Until {{ date('M d, Y', strtotime($item->closing_date)) }}
+                                    <span class="badge {{ $item->jobStatus() }}">
+                                        {{ ucfirst($item->status) }}
                                     </span>
                                 </div>
                                 <h5 class="fw-bold">{{ $item->job_title }}</h5>

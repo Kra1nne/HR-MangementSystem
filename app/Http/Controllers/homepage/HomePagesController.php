@@ -30,6 +30,7 @@ class HomePagesController extends Controller
 
         $jobs = JobPosting::leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
             ->where('job_postings.closing_date', '>=', now())
+            ->where('job_postings.status', '=', 'open')
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where(function ($q2) use ($request) {
                     $q2->where('job_postings.job_title', 'like', '%' . $request->search . '%')

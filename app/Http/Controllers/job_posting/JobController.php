@@ -59,13 +59,16 @@ class JobController extends Controller
         if(!$result){
             return response()->json(['Error' => 0, 'Message' => 'Job failed to save']);
         }
-        return response()->json(['Error' => 0, 'Message' => 'Successfully added a job']);
+        return response()->json(['Error' => 0, 'Message' => 'Successfully added the job']);
     }
     public function viewJob($id)
     {   
         $details = JobPosting::leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
             ->where('job_postings.id', Crypt::decryptString($id))
             ->first();
+
+        $departments = Department::whereNull('deleted_at')->get();
+        
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Job Posting', 'link' => route('job-posting')],
@@ -73,7 +76,47 @@ class JobController extends Controller
         ];
 
   
-        return view('content.job_page.job-details', compact('breadcrumbs','details'));
+        return view('content.job_page.job-details', compact('breadcrumbs','details', 'departments'));
+    }
+    public function updateJob(Request $request){
+        $data = [
+            'dept_no' => $request->department,
+            'job_title' => $request->jobTitle,
+            'description' => $request->jobDescription,
+            'objectives' => $request->jobObjective,
+            'requirements' => $request->jobRequirements,
+            'salary' => $request->salary,
+            'position' => $request->jobPosition,
+            'employment_type' => $request->jobType,
+            'work_setup' => $request->workArrangement,
+            'location' => $request->jobLocation,
+            'closing_date' => $request->activeDate,
+        ];
+
+        $result = JobPosting::where('id', $request->id)->update($data);
+        if(!$result){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to updated the job']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfully updated the job']);
+    }
+    public function deteleJob(Request $request){
+        $jobPosting = JobPosting::where('id', $request->id)->delete();
+
+        if(!$jobPosting){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to delete the job']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfully deleted the job draft', 'Redirect' => route('job-posting')]);
+    }
+     public function openJob(Request $request){
+        $jobPosting = JobPosting::where('id', $request->id)->update([
+            'status' => 'open',
+            'updated_at' => now()
+        ]);
+
+        if(!$jobPosting){
+            return response()->json(['Error' => 0, 'Message' => 'Unable to open the job']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
     }
     
 }

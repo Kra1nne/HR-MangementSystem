@@ -34,6 +34,7 @@ return new class extends Migration
             $table->timestamp('posted_at')->nullable();
             $table->timestamp('closing_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
