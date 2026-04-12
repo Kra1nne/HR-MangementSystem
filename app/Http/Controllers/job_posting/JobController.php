@@ -16,7 +16,6 @@ class JobController extends Controller
         $isSearch = $request->filled('search') || $request->filled('work_setup') || $request->filled('employment_type') || $request->filled('dept_name');
 
         $jobs = JobPosting::leftJoin('departments', 'departments.dept_no', '=', 'job_postings.dept_no')
-            ->where('job_postings.closing_date', '>=', now())
             ->when($request->filled('search'), function ($q) use ($request) {
                 $q->where(function ($q2) use ($request) {
                     $q2->where('job_postings.job_title', 'like', '%' . $request->search . '%')
@@ -26,6 +25,7 @@ class JobController extends Controller
             ->when($request->filled('work_setup'), fn($q) => $q->where('job_postings.work_setup', $request->work_setup))
             ->when($request->filled('employment_type'), fn($q) => $q->where('job_postings.employment_type', $request->employment_type))
             ->when($request->filled('dept_no'), fn($q) => $q->where('departments.dept_name', $request->dept_name))
+            ->orderBy('job_postings.id', 'Desc')
             ->select('job_postings.*', 'departments.dept_name')
             ->paginate(8);
         

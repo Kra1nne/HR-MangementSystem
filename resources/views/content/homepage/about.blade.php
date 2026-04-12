@@ -41,9 +41,6 @@
                                 <span class="feature-check">&#10003;</span> Secure, compliant data handling at every step
                             </li>
                         </ul>
-                        <div class="d-flex gap-3 flex-wrap">
-                            <button class="btn-primary-c">Learn More</button>
-                        </div>
                     </div>
 
                     {{-- RIGHT – Dashboard Illustration --}}

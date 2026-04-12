@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\homepage;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApplicationMail;
 use App\Models\Application;
 use App\Models\ApplicationDocument;
 use App\Models\Candidate;
@@ -11,6 +12,7 @@ use App\Models\JobPosting;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 
 class HomePagesController extends Controller
 {
@@ -37,6 +39,7 @@ class HomePagesController extends Controller
             ->when($request->filled('work_setup'), fn($q) => $q->where('job_postings.work_setup', $request->work_setup))
             ->when($request->filled('employment_type'), fn($q) => $q->where('job_postings.employment_type', $request->employment_type))
             ->when($request->filled('dept_name'), fn($q) => $q->where('departments.dept_name', $request->dept_name))
+            ->orderBy('job_postings.id', 'Desc')
             ->select('job_postings.*', 'departments.dept_name')
             ->paginate(8);
 
@@ -64,6 +67,8 @@ class HomePagesController extends Controller
     public function application(Request $request)
     {
         $encrypted_email = Crypt::encryptString($request->email);
+        $jobData = JobPosting::where('id', Crypt::decryptString($request->job_id))
+            ->first();
 
         $application = [
             'job_id' => Crypt::decryptString($request->job_id),
@@ -116,6 +121,12 @@ class HomePagesController extends Controller
         if(!$isApplication || !$applicationData || !$personData){
             return response()->json(['Error' => 1, 'Message' => 'Application invalid']);
         }
+        $data = [
+            'name' => $request->last_name,
+            'position' => $jobData->position,
+            'email' => $request->email
+        ];
+        Mail::to($request->email)->send(new ApplicationMail($data));
         return response()->json(['Error' => 0, 'Message' => 'Application successfully submitted', 'Redirect' => route('job-form-message', $encrypted_email)]);
     }
     public function contact()
