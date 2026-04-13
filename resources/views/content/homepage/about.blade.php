@@ -7,121 +7,59 @@
 @endsection
 @section('content')
     <main class="min-vh-100">
-
-        {{-- ════════════════════════════════════════════
-         SECTION 1 – OBJECTIVE
-    ════════════════════════════════════════════ --}}
-        <section class="section-pad" style="background:#fff;">
+        <section class="section-pad">
             <div class="container">
-                <div class="row align-items-center g-5">
+                <div class="row mt-5 align-items-center">
 
-                    {{-- LEFT – Text --}}
-                    <div class="col-lg-6">
+                    <!-- TEXT (LEFT on desktop, BELOW on mobile) -->
+                    <div class="col-12 col-lg-6 order-2 order-lg-1 text-center text-lg-start">
 
                         <h2 class="section-title mb-3">
                             Streamline Your Workforce,<br>Simplify Every Step
                         </h2>
+
                         <p class="section-sub mb-4">
-                            Empathra is built to help organizations manage their people effortlessly — from
-                            posting open roles and tracking applicants to onboarding new hires and managing
-                            day-to-day employee operations. Our platform centralizes every HR workflow in one
-                            place, so your team spends less time on paperwork and more time on what matters.
+                            Empathra is built to help organizations manage their people effortlessly —
+                            from posting open roles and tracking applicants to onboarding new hires.
                         </p>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2" style="color:#333;font-size:.95rem;">
-                                <span class="feature-check">&#10003;</span> End-to-end employee lifecycle management
+
+                        <ul class="list-unstyled mb-4 text-start">
+                            <li class="mb-2">
+                                <span class="feature-check">&#10003;</span> End-to-end employee lifecycle
                             </li>
-                            <li class="mb-2" style="color:#333;font-size:.95rem;">
-                                <span class="feature-check">&#10003;</span> Smart applicant tracking and job posting tools
+                            <li class="mb-2">
+                                <span class="feature-check">&#10003;</span> Smart applicant tracking
                             </li>
-                            <li class="mb-2" style="color:#333;font-size:.95rem;">
-                                <span class="feature-check">&#10003;</span> Real-time dashboards for HR teams and managers
+                            <li class="mb-2">
+                                <span class="feature-check">&#10003;</span> Employee management system
                             </li>
-                            <li class="mb-2" style="color:#333;font-size:.95rem;">
-                                <span class="feature-check">&#10003;</span> Secure, compliant data handling at every step
+                            <li class="mb-2">
+                                <span class="feature-check">&#10003;</span> Attendance tracking and monitoring
+                            </li>
+                            <li class="mb-2">
+                                <span class="feature-check">&#10003;</span> Real-time dashboards
+                            </li>
+                            <li class="mb-2">
+                                <span class="feature-check">&#10003;</span> Secure data handling
                             </li>
                         </ul>
+
+                        <div>
+
+                            <a href="#" class="btn btn-primary px-4 py-2">Get Started</a>
+                        </div>
+
                     </div>
 
-                    {{-- RIGHT – Dashboard Illustration --}}
-                    <div class="col-lg-6">
-                        <div class="hero-img-wrap">
-                            <svg width="100%" viewBox="0 0 540 320" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="540" height="320" fill="#e6f1fb" rx="18" />
-                                <!-- Window chrome -->
-                                <rect x="30" y="30" width="480" height="260" rx="12" fill="#fff"
-                                    stroke="#b5d4f4" stroke-width="1.5" />
-                                <rect x="30" y="30" width="480" height="44" rx="12" fill="#185fa5" />
-                                <rect x="30" y="62" width="480" height="12" fill="#185fa5" />
-                                <circle cx="55" cy="52" r="8" fill="#fff" opacity="0.3" />
-                                <rect x="72" y="46" width="80" height="10" rx="4" fill="#fff"
-                                    opacity="0.5" />
-                                <rect x="400" y="46" width="50" height="10" rx="4" fill="#fff"
-                                    opacity="0.3" />
-                                <rect x="460" y="46" width="30" height="10" rx="4" fill="#7fb3ee"
-                                    opacity="0.7" />
-                                <!-- Stat cards -->
-                                <rect x="48" y="92" width="100" height="56" rx="8" fill="#e6f1fb"
-                                    stroke="#b5d4f4" stroke-width="1" />
-                                <text x="98" y="117" text-anchor="middle" font-size="20" font-weight="700"
-                                    fill="#185fa5">124</text>
-                                <text x="98" y="133" text-anchor="middle" font-size="9" fill="#555">Employees</text>
-                                <rect x="162" y="92" width="100" height="56" rx="8" fill="#e6f1fb"
-                                    stroke="#b5d4f4" stroke-width="1" />
-                                <text x="212" y="117" text-anchor="middle" font-size="20" font-weight="700"
-                                    fill="#185fa5">38</text>
-                                <text x="212" y="133" text-anchor="middle" font-size="9" fill="#555">Applicants</text>
-                                <rect x="276" y="92" width="100" height="56" rx="8" fill="#e6f1fb"
-                                    stroke="#b5d4f4" stroke-width="1" />
-                                <text x="326" y="117" text-anchor="middle" font-size="20" font-weight="700"
-                                    fill="#185fa5">12</text>
-                                <text x="326" y="133" text-anchor="middle" font-size="9" fill="#555">Open Jobs</text>
-                                <rect x="390" y="92" width="100" height="56" rx="8" fill="#e6f1fb"
-                                    stroke="#b5d4f4" stroke-width="1" />
-                                <text x="440" y="117" text-anchor="middle" font-size="20" font-weight="700"
-                                    fill="#185fa5">7</text>
-                                <text x="440" y="133" text-anchor="middle" font-size="9" fill="#555">New Hires</text>
-                                <!-- Table header -->
-                                <rect x="48" y="162" width="442" height="20" rx="4" fill="#f0f6fe" />
-                                <text x="60" y="176" font-size="9" fill="#555" font-weight="600">Name</text>
-                                <text x="180" y="176" font-size="9" fill="#555" font-weight="600">Department</text>
-                                <text x="310" y="176" font-size="9" fill="#555" font-weight="600">Status</text>
-                                <text x="410" y="176" font-size="9" fill="#555" font-weight="600">Date Hired</text>
-                                <line x1="48" y1="183" x2="490" y2="183" stroke="#d0e4f8"
-                                    stroke-width="0.8" />
-                                <!-- Row 1 -->
-                                <circle cx="60" cy="196" r="7" fill="#b5d4f4" />
-                                <text x="72" y="200" font-size="9" fill="#333">Maria Santos</text>
-                                <text x="180" y="200" font-size="9" fill="#333">Engineering</text>
-                                <rect x="305" y="191" width="40" height="12" rx="5" fill="#d4f1e5" />
-                                <text x="325" y="200" text-anchor="middle" font-size="8" fill="#0a6640">Active</text>
-                                <text x="410" y="200" font-size="9" fill="#333">Jan 10, 2025</text>
-                                <line x1="48" y1="207" x2="490" y2="207" stroke="#d0e4f8"
-                                    stroke-width="0.8" />
-                                <!-- Row 2 -->
-                                <circle cx="60" cy="220" r="7" fill="#185fa5" />
-                                <text x="72" y="224" font-size="9" fill="#333">James Reyes</text>
-                                <text x="180" y="224" font-size="9" fill="#333">HR</text>
-                                <rect x="305" y="215" width="52" height="12" rx="5" fill="#fdebd0" />
-                                <text x="331" y="224" text-anchor="middle" font-size="8" fill="#7a4500">Applicant</text>
-                                <text x="410" y="224" font-size="9" fill="#333">Mar 5, 2025</text>
-                                <line x1="48" y1="231" x2="490" y2="231" stroke="#d0e4f8"
-                                    stroke-width="0.8" />
-                                <!-- Row 3 -->
-                                <circle cx="60" cy="244" r="7" fill="#7fb3ee" />
-                                <text x="72" y="248" font-size="9" fill="#333">Claire Bautista</text>
-                                <text x="180" y="248" font-size="9" fill="#333">Marketing</text>
-                                <rect x="305" y="239" width="40" height="12" rx="5" fill="#d4f1e5" />
-                                <text x="325" y="248" text-anchor="middle" font-size="8" fill="#0a6640">Active</text>
-                                <text x="410" y="248" font-size="9" fill="#333">Feb 22, 2025</text>
-                            </svg>
-                        </div>
+                    <!-- IMAGE (RIGHT on desktop, TOP on mobile) -->
+                    <div class="col-12 col-lg-6 order-1 order-lg-2 text-center mb-4 mb-lg-0">
+                        <img src="{{ asset('assets/img/backgrounds/about-people.png') }}" alt="Landing Background"
+                            class="img-fluid d-block mx-auto" />
                     </div>
 
                 </div>
             </div>
         </section>
-
 
         {{-- ════════════════════════════════════════════
          SECTION 2 – MISSION / VISION / DATA PRIVACY
@@ -212,8 +150,7 @@
                     {{-- Team Member 1 --}}
                     <div class="col-md-4">
                         <div class="team-card">
-                            <div class="team-img-area"
-                                style="background:linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
+                            <div class="team-img-area" style="background:linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
                                 {{-- Replace src with actual photo: <img src="{{ asset('images/team/andrea.jpg') }}" ...> --}}
                                 <svg width="120" height="180" viewBox="0 0 120 180">
                                     <ellipse cx="60" cy="65" rx="32" ry="34" fill="#7fb3ee"

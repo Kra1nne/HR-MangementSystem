@@ -96,7 +96,7 @@
                 </div>
             </div>
         </section>
-        <section class="py-5 container" id="services-section">
+        <section class=" container" id="services-section" style="padding: 80px 0;">
             <div class="d-flex flex-column justify-content-center">
                 <div class="text-center">
                     <h3 class="fw-bold pt-5">Enterprise-wide people management solution</h3>
@@ -165,8 +165,8 @@
 
         </section>
     </div>
-    <div class="">
-        <section class="container pt-5 d-flex flex-column align-items-center justify-content-center">
+    <div style="padding: 50px 0;">
+        <section class="container d-flex flex-column align-items-center justify-content-center">
             <h3 class="fw-bold text-center">Job Application Process</h3>
             <p class="text-muted text-center">Follow these simple steps to apply for a position in our organization.
             </p>
@@ -225,7 +225,7 @@
     </div>
 
     <div class="bg-white">
-        <section class="py-5 container" id="jobs-section">
+        <section class="container" id="jobs-section">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-6 d-flex justify-content-center">
                     <img src="{{ asset('assets/img/backgrounds/recruiting.png') }}" alt="Job Postings"
@@ -330,7 +330,7 @@
             </div>
         </div>
     </div> --}}
-    <div class="bg-white pb-5">
+    <div class="bg-white" style="padding: 50px 0;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
