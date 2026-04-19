@@ -8,8 +8,11 @@
     <main class="min-vh-100">
         <section class="container mt-5">
             <div class="row g-4">
-                <header>
+                <header
+                    class="d-flex justify-content-between flex-column flex-md-row  align-items-start align-items-md-center m-2">
                     <h4 class="fw-bold">Job Vacancies</h4>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+                        <span class="icon-base ri ri-add-line icon-16px me-1_5"></span> Add Job</button>
                 </header>
 
                 <div class="d-flex flex-column flex-md-row align-items-stretch gap-2 m-2">
@@ -87,7 +90,6 @@
                                     </span>
                                     @if ($item->status != 'draft')
                                         <span>
-                                            <i class="ri-user-line"></i>
                                             <span class="badge bg-primary">{{ $item->applicants->count() ?? 0 }}</span>
                                         </span>
                                     @endif

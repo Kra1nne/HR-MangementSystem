@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\job_posting;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
 use App\Models\Department;
 use App\Models\JobPosting;
 use Illuminate\Http\Request;
@@ -76,7 +77,7 @@ class JobController extends Controller
             ['name' => 'Job Posting', 'link' => route('job-posting')],
             ['name' => 'Job Details']
         ];
-
+        
         return view('content.job_page.job-details', compact('breadcrumbs','details', 'departments', 'id'));
     }
     public function updateJob(Request $request){
@@ -119,17 +120,56 @@ class JobController extends Controller
         }
         return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
     }
-    public function jobApplicants($id)
+    public function jobApplicants($id, Request $request)
     {
-        $isSearch = '';
-        $decrypted_id = $id;
+        $isSearch = false;
+        $search = $request->get('search');
+
+        $decrypted_id = Crypt::decryptString($id);
+
+        $jobPostingDetaiils = JobPosting::where('id', $decrypted_id)
+            ->whereNull('deleted_at')
+            ->first();
+
+        $query = Application::with('candidate.person', 'applicationDocuments', 'latestApplicationLogs')
+            ->leftJoin('job_postings', 'job_postings.id', '=', 'applications.job_id')
+            ->where('job_postings.id', $decrypted_id)
+            ->select('job_postings.*', 'applications.*', 'applications.id as application_id');
+            
+        if (!empty($search)) {
+            $isSearch = true;
+
+            $query->whereHas('candidate.person', function ($q) use ($search) {
+                $q->where('firstname', 'like', "%{$search}%")
+                ->orWhere('lastname', 'like', "%{$search}%")
+                ->orWhere('middlename', 'like', "%{$search}%");
+            });
+        }
+
+        $jobPosting = $query->paginate(4)->appends([
+            'search' => $search
+        ]);
+
+   
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Job Posting', 'link' => route('job-posting')],
-            ['name' => 'Job Details', 'link' => route('job-posting-view', $decrypted_id)],
+            ['name' => 'Job Details', 'link' => route('job-posting-view', $id)],
             ['name' => 'Job Applicants']
         ];
-        return view('content.job_page.job-applicant', compact('breadcrumbs', 'isSearch'));
+
+        return view('content.job_page.job-applicant', compact(
+            'breadcrumbs',
+            'isSearch',
+            'jobPosting',
+            'jobPostingDetaiils',
+            'id',
+            'search'
+        ));
+    }
+    public function applicantLogs($id)
+    {
+        return response()->json(['Data' => 0, 'Message' => 'Successfully open the job']);
     }
     
 }

@@ -96,6 +96,9 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
 
   Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll');
 
+  Route::get('/dtr-report', [AttendanceController::class, 'viewEmployee'])->name('dtr-report');
+  Route::post('/dtr-report/view', [AttendanceController::class, 'preview'])->name('dtr-report-preview');
+
   Route::get('/leave', [LeaveController::class, 'index'])->name('leave');
 
   Route::get('/logs', [LogsController::class, 'index'])->name('logs');
@@ -114,6 +117,3 @@ Route::get('/logout', [LoginBasic::class, 'logoutAccount'])->name('logout-proces
 Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-error');
 Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
 Route::get('/pages/misc-too-many-request', [MiscTooManyRequest::class, 'index'])->name('pages-misc-too-many-request');
-Route::get('/test', function () {
-    return 'Hello';
-})->middleware('throttle:3,1');

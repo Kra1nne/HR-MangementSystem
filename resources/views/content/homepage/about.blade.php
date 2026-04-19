@@ -151,17 +151,7 @@
                     <div class="col-md-4">
                         <div class="team-card">
                             <div class="team-img-area" style="background:linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
-                                {{-- Replace src with actual photo: <img src="{{ asset('images/team/andrea.jpg') }}" ...> --}}
-                                <svg width="120" height="180" viewBox="0 0 120 180">
-                                    <ellipse cx="60" cy="65" rx="32" ry="34" fill="#7fb3ee"
-                                        opacity="0.5" />
-                                    <circle cx="60" cy="58" r="26" fill="#b5d4f4" />
-                                    <ellipse cx="60" cy="140" rx="44" ry="38" fill="#7fb3ee"
-                                        opacity="0.4" />
-                                    <circle cx="60" cy="55" r="18" fill="#e6f1fb" />
-                                    <ellipse cx="60" cy="130" rx="36" ry="30" fill="#b5d4f4"
-                                        opacity="0.7" />
-                                </svg>
+                                <img src="{{ asset('assets/img/teams/Ryan.png') }}" class="img-fluid cover mx-auto mx-lg-0">
                             </div>
                             <button class="arrow-btn" aria-label="View profile">&#8599;</button>
                             <div class="team-info">
@@ -182,19 +172,8 @@
                     {{-- Team Member 2 --}}
                     <div class="col-md-4">
                         <div class="team-card">
-                            <div class="team-img-area"
-                                style="background:linear-gradient(135deg,#0d2d56 0%,#1a6fd4 100%);">
-                                {{-- Replace src with actual photo: <img src="{{ asset('images/team/carlo.jpg') }}" ...> --}}
-                                <svg width="120" height="180" viewBox="0 0 120 180">
-                                    <ellipse cx="60" cy="65" rx="32" ry="34" fill="#185fa5"
-                                        opacity="0.5" />
-                                    <circle cx="60" cy="58" r="26" fill="#7fb3ee" />
-                                    <ellipse cx="60" cy="140" rx="44" ry="38" fill="#185fa5"
-                                        opacity="0.4" />
-                                    <circle cx="60" cy="55" r="18" fill="#e6f1fb" />
-                                    <ellipse cx="60" cy="130" rx="36" ry="30" fill="#7fb3ee"
-                                        opacity="0.7" />
-                                </svg>
+                            <div class="team-img-area" style="background:linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
+                                <img src="{{ asset('assets/img/teams/Ryan.png') }}" class="img-fluid cover mx-auto mx-lg-0">
                             </div>
                             <button class="arrow-btn" aria-label="View profile">&#8599;</button>
                             <div class="team-info">
@@ -215,19 +194,8 @@
                     {{-- Team Member 3 --}}
                     <div class="col-md-4">
                         <div class="team-card">
-                            <div class="team-img-area"
-                                style="background:linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
-                                {{-- Replace src with actual photo: <img src="{{ asset('images/team/sofia.jpg') }}" ...> --}}
-                                <svg width="120" height="180" viewBox="0 0 120 180">
-                                    <ellipse cx="60" cy="65" rx="32" ry="34" fill="#378add"
-                                        opacity="0.5" />
-                                    <circle cx="60" cy="58" r="26" fill="#b5d4f4" />
-                                    <ellipse cx="60" cy="140" rx="44" ry="38" fill="#378add"
-                                        opacity="0.4" />
-                                    <circle cx="60" cy="55" r="18" fill="#fff" />
-                                    <ellipse cx="60" cy="130" rx="36" ry="30" fill="#b5d4f4"
-                                        opacity="0.7" />
-                                </svg>
+                            <div class="team-img-area" style="background:linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
+                                <img src="{{ asset('assets/img/teams/Ryan.png') }}" class="img-fluid cover mx-auto mx-lg-0">
                             </div>
                             <button class="arrow-btn" aria-label="View profile">&#8599;</button>
                             <div class="team-info">

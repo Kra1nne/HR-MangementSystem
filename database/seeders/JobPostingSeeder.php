@@ -32,7 +32,7 @@ class JobPostingSeeder extends Seeder
                 'employment_type' => 'Full-time',
                 'work_setup' => 'On-site',
                 'location' => 'Cebu, Philippines',
-                'status' => 'draft',
+                'status' => 'open',
                 'closing_date' => '2026-06-30',
                 'created_at' => now()
             ],

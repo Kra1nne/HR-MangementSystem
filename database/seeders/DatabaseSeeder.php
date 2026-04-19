@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
         TitleSeeder::class,
         EmployeeLogSeeder::class,
         JobPostingSeeder::class,
+        ApplicantSeeder::class,
+        CandidateSeeder::class,
+        ApplicantDocumentSeeder::class,
     ]);
   }
 }

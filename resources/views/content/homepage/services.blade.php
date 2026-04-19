@@ -83,8 +83,8 @@
                                     <span class="badge bg-light text-dark">
                                         {{ $item->created_at->diffForHumans() }}
                                     </span>
-                                    <span class="badge bg-light text-dark">
-                                        Until {{ date('M d, Y', strtotime($item->closing_date)) }}
+                                    <span class="badge bg-success text-white">
+                                        Open
                                     </span>
                                 </div>
                                 <h5 class="fw-bold">{{ $item->job_title }}</h5>

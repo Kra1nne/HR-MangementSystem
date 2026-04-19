@@ -54,7 +54,7 @@
                     <tbody class="table-border-bottom-0">
                         @forelse ($employees as $item)
                             <tr>
-                                <td>
+                                <td class="ps-3">
                                     <div class="d-flex align-items-center gap-2">
                                         <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
                                             style="width:42px;height:42px;flex-shrink:0;">

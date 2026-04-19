@@ -51,8 +51,8 @@ $(function () {
   $(document).on('click', '#deleteJob', function () {
     const id = $(this).data('id');
     Swal.fire({
-      title: 'Delete Draft Application?',
-      text: 'This action cannot be undone. Do you want to delete this draft job application?',
+      title: 'Delete Application?',
+      text: 'This action cannot be undone. Do you want to delete this job application?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -130,6 +130,25 @@ $(function () {
         $('.preloader').hide();
         Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
       }
+    });
+  });
+});
+
+$(function () {
+  $(document).on('click', '#urlLinks', function () {
+    const id = $(this).data('id');
+    console.log('click');
+
+    const link = `${window.location.origin}/job/${id}`;
+
+    navigator.clipboard.writeText(link).then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Copied!',
+        text: 'Link copied to clipboard',
+        timer: 500,
+        showConfirmButton: false
+      });
     });
   });
 });

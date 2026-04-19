@@ -28,6 +28,11 @@ class Application extends Model
     {
         return $this->hasMany(ApplicationLog::class, 'application_id', 'id');
     }
+    public function latestApplicationLogs()
+    {
+        return $this->hasOne(ApplicationLog::class, 'application_id', 'id')
+            ->orderByDesc('created_at');
+    }
     public function jobposting()
     {
         return $this->belonsTo(JobPosting::class, 'job_id', 'id');

@@ -7,14 +7,14 @@
         <section class="container">
             <div class="py-5">
                 <div class="row">
-                    <div class="col-md-12 col-lg-6 d-flex align-items-center mb-5">
+                    <div class="col-md-12 col-lg-6 d-flex align-items-center justify-content-center mb-5">
                         <div class="w-75 px-4 px-lg-5">
                             <img src="{{ asset('assets/img/elements/Contact.png') }}" class="img-fluid cover" alt="">
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-lg-6 d-flex flex-column justify-content-center">
-                        <div class="card p-5 rounded shadow-xl">
+                    <div class="col-md-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+                        <div class="card p-5 w-75 rounded shadow-xl">
                             <h3 class="text-center mt-5 fw-bolder">Contact Info</h3>
                             <div class="row px-sm-1">
                                 <div class="col-md-6 mt-2">
@@ -24,12 +24,6 @@
                                 <div class="col-md-6 mt-2">
                                     <label for="lastname" class="fw-bolder text-black mb-2">Last Name</label>
                                     <input type="text" class="form-control" placeholder="Your last name">
-                                </div>
-                            </div>
-                            <div class="row px-sm-1 pt-4">
-                                <div class="col-md-12 mt-2">
-                                    <label for="email" class="fw-bolder text-black mb-2">Email</label>
-                                    <input type="text" class="form-control" placeholder="Your E-mail address">
                                 </div>
                             </div>
                             <div class="row px-sm-1 pt-4">

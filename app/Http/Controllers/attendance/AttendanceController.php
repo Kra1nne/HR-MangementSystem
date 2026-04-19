@@ -7,6 +7,7 @@ use App\Models\DepartmentEmployee;
 use App\Models\Employee;
 use App\Models\EmployeeLog;
 use App\Models\User;
+use App\Services\PdfService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -229,5 +230,81 @@ class AttendanceController extends Controller
         if($result){
             return response()->json(['Error' => 0, 'Message' => 'Attendance Successfully']);
         }
+    }
+    public function viewEmployee(Request $request)
+    {
+        $data = Employee::with(['person', 'latestSalary', 'latestTitle']);
+        $isSearch = false;
+        
+        if($request->search){
+            $data->where('emp_id', 'like', '%'.$request->search.'%');
+            $isSearch = true;
+        }
+        
+
+        $employees = $data->whereNull('deleted_at')
+            ->paginate(7);
+
+        $employees->getCollection()->transform(function ($employee) {
+            $employee->encrypted_id = Crypt::encryptString($employee->emp_no);
+            return $employee;
+        });
+        
+        $breadcrumbs = [
+            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+            ['name' => 'Generate DTR'],
+        ];
+
+        return view('content.employee_dtr.dtr', compact('isSearch','employees'));
+    }
+    public function preview(PdfService $pdfService, Request $request)
+    {
+
+        $employeeData = User::leftjoin('persons','persons.id', '=', 'users.person_id')
+            ->leftjoin('employees', 'employees.person_id', '=', 'persons.id')
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=', 'employees.emp_no')
+            ->where('users.id', Crypt::decryptString($request->id))
+            ->whereNull('users.deleted_at')
+            ->select('employees.emp_no as id', 'department_employees.id_no as emp_id')
+            ->first();
+
+        $logs = EmployeeLog::orderBy('dept_employee_id')
+            ->orderBy('date')
+            ->orderBy('time')
+            ->where('dept_employee_id', $employeeData->emp_id)
+            ->whereMonth('date', $request->month)
+            ->whereYear('date', $request->year)
+            ->get();
+
+        $personData = Employee::with('latestDepartment.department', 'person')
+            ->where('emp_no', $employeeData->id)
+            ->first();
+        
+        if(!$employeeData->emp_id){
+            return back()->with('error', 'Invalid DTR Generate.');
+        }    
+       
+        // Group logs by day
+        $grouped = $logs->groupBy(function ($log) {
+            return Carbon::parse($log->date)->day;
+        });
+        
+        $info = [
+            ['Employee',   $personData->person->firstname . ' ' . $personData->person->middlename[0] . ' ' . $personData->person->lastname],
+            ['Department', $personData->latestDepartment->department->dept_name],
+            ['Employee ID', $personData->emp_id],
+            ['Generated',  date('M d, Y')],
+        ];
+
+        $daysInMonth = Carbon::create($request->year, $request->month, 1)->daysInMonth;
+
+        // Build final array
+        $result = [];
+
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $result[$i] = $grouped[$i] ?? [];
+        }
+
+        return $pdfService->generate($result, $info);
     }
 }

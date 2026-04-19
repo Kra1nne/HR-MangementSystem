@@ -77,6 +77,7 @@ $(function () {
       data: formData,
       dataType: 'json',
       beforeSend: function () {
+        $('#Modal').modal('hide');
         $('.preloader').show();
       },
       success: function (data) {
@@ -93,7 +94,7 @@ $(function () {
             confirmButtonText: 'OK'
           }).then(result => {
             if (result.isConfirmed) {
-              window.location.href = data.Redirect;
+              location.reload();
             }
           });
         }
@@ -102,6 +103,39 @@ $(function () {
         $('.preloader').hide();
         Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
       }
+    });
+  });
+});
+
+$(function () {
+  $(document).on('click', '.view-applicant', function () {
+    let documents = $(this).data('documents');
+    let time = $(this).data('time');
+    let container = $('#documentsContainer');
+    $('#applicantsTime').text(time);
+
+    container.html(''); // clear previous
+
+    if (documents.length === 0) {
+      container.append('<p>No documents found</p>');
+      return;
+    }
+
+    documents.forEach(function (doc) {
+      let fileUrl = `/storage/${doc.file_path}`;
+
+      container.append(`
+        <a href="${fileUrl}" download 
+           class="text-decoration-none me-2 gap-2 d-inline-block">
+          <div class="badge bg-lighter rounded d-flex align-items-center"
+               style="cursor:pointer;">
+              <img src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/icons/misc/pdf.png"
+                   alt="img" width="20" class="me-2" />  
+              <span class="h6 mb-0 text-body">${doc.type ?? 'Document'}</span>
+          </div>
+
+        </a>
+      `);
     });
   });
 });

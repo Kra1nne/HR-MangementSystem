@@ -10,8 +10,14 @@
             class="d-flex flex-column flex-md-row align-items-md-center align-items-start justify-content-start justify-content-md-between">
             <h3 class="fw-bold">Job Description</h3>
             <div class="d-flex align-items-end gap-4">
+                <a title="Delete Job Posting" id="deleteJob" data-id="{{ $details->id }}" href="javascript::void(0)"><i
+                        class="ri-delete-bin-6-line text-danger"></i></a>
                 @if ($details->status == 'open')
-                    <a href="{{ route('job-posting-applicants', $id) }}" class="text-decoration-none" title="View Applicants">
+                    <a href="javascript:void(0)" data-id="{{ $id }}" id="urlLinks" title="Copy link">
+                        <i class="ri-links-line"></i>
+                    </a>
+                    <a href="{{ route('job-posting-applicants', $id) }}" class="text-decoration-none"
+                        title="View Applicants">
                         <i class="ri-user-line"></i>
                         <span class="badge bg-primary">{{ $details->applicants->count() ?? 0 }}</span>
                     </a>
@@ -20,8 +26,6 @@
                         data-bs-target="#Modal"><i class="ri-edit-2-line"></i></a>
                     <a title="Open Job Posting" href="javascript::void(0)" data-id="{{ $details->id }}" id="OpenJob"><i
                             class="ri-briefcase-line"></i></a>
-                    <a title="Delete Job Posting" id="deleteJob" data-id="{{ $details->id }}" href="javascript::void(0)"><i
-                            class="ri-delete-bin-6-line text-danger"></i></a>
                 @endif
             </div>
         </div>
@@ -152,8 +156,9 @@
 
                         <div class="col-12 col-md-6">
                             <label for="activeDate" class="form-label">Active Date</label>
-                            <input id="activeDate" name="activeDate" value="{{ $details->closing_date->toDateString() }}"
-                                class="form-control form-control-sm" type="date" />
+                            <input id="activeDate" name="activeDate"
+                                value="{{ $details->closing_date->toDateString() }}" class="form-control form-control-sm"
+                                type="date" />
                         </div>
                     </div>
 

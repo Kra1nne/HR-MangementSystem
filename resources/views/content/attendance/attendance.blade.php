@@ -67,7 +67,7 @@
                     onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
-                            <h6 class="text-muted mb-2">OnBoarding</h6>
+                            <h6 class="text-muted mb-2">Unregister</h6>
                             <h3 class="fw-bold mb-0">0</h3>
                         </div>
                         <div class="bg-warning bg-opacity-10 p-3 rounded-circle">
@@ -103,7 +103,7 @@
                                 data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages"
                                 aria-selected="false">
                                 <span class="d-none d-sm-inline-flex align-items-center"><i
-                                        class="icon-base ri ri-user-heart-line icon-sm me-1_5"></i>Onboarding</span>
+                                        class="icon-base ri ri-user-heart-line icon-sm me-1_5"></i>Unregister</span>
                                 <i class="icon-base ri ri-user-heart-line icon-sm d-sm-none"></i>
                             </button>
                         </li>
@@ -125,7 +125,7 @@
                                     <tbody class="table-border-bottom-0">
                                         @forelse ($Present as $item)
                                             <tr>
-                                                <td>
+                                                <td class="ps-3">
                                                     <div class="d-flex align-items-center gap-2">
                                                         <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
                                                             style="width:42px;height:42px;flex-shrink:0;">
@@ -219,7 +219,7 @@
                                     </thead>
                                     <tbody class="table-border-bottom-0">
                                         <tr class="text-center">
-                                            <td colspan="6">No employee on leave</td>
+                                            <td colspan="6">No employee</td>
                                         </tr>
                                     </tbody>
                                 </table>

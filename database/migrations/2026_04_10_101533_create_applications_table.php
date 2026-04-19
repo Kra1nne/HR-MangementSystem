@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('job_id')
-                ->unique()
                 ->constrained('job_postings')
                 ->restrictOnDelete();
             $table->string('status');
