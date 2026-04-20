@@ -82,6 +82,11 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/job_posting/add', [JobController::class, 'addJob'])->name('job-posting-add');
   Route::get('/job_posting/{id}', [JobController::class, 'viewJob'])->name('job-posting-view');
   Route::get('/job_posting/applicants/{id}', [JobController::class, 'jobApplicants'])->name('job-posting-applicants');
+  Route::post('/job_posting/applicants/accept', [JobController::class, 'applicationAccepted'])->name('job-posting-applicants-accept');
+  Route::post('/job_posting/applicants/reject', [JobController::class, 'applicationRejected'])->name('job-posting-applicants-rejected');
+  Route::post('/job_posting/applicants/shortlist', [JobController::class, 'applicationShorlist'])->name('job-posting-applicants-shortlist');
+  Route::post('/job_posting/applicants/assessment', [JobController::class, 'assessment'])->name('job-posting-applicants-assessment');
+  Route::post('/job_posting/applicants/feedback', [JobController::class, 'applicantFeedback'])->name('job-posting-applicants-feedback');
   Route::post('/job_posting/open', [JobController::class, 'openJob'])->name('job-posting-open');
   Route::post('/job_posting/delete', [JobController::class, 'deteleJob'])->name('job-posting-delete');
   Route::post('/job_posting/update', [JobController::class, 'updateJob'])->name('job-posting-update');
@@ -90,6 +95,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/employee/face-registration/add', [EmployeeController::class, 'registerFaceProcess'])->name('employyee-registerFace-process');
   Route::post('/employee/face-registration/reset', [EmployeeController::class, 'resetFaceID'])->name('employyee-registerFace-reset');
 
+  Route::post('/message/applicant/sent', [MessageController::class, 'applicantMail'])->name('message-applicant-sent');
   Route::post('/message/sent', [MessageController::class, 'sendMessage'])->name('message-sent');
   Route::post('/message-broadcast/sent', [MessageController::class, 'broadcastMessage'])->name('broadcast-sent');
   Route::post('/message-broadcast-department/sent', [MessageController::class, 'broadcastMessageDepartment'])->name('broadcast-department-sent');

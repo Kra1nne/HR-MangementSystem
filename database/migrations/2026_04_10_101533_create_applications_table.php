@@ -17,6 +17,7 @@ return new class extends Migration
                 ->constrained('job_postings')
                 ->restrictOnDelete();
             $table->string('status');
+            $table->string('email');
             $table->date('applied_at');
             $table->timestamps();
         });

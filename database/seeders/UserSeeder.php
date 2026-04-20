@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id'          => 2,
-                'email'              => 'hr@empathra.com',
+                'email'              => 'hr@voxsync.com',
                 'password'           => Hash::make('password'),
                 'role'               => 'Hr',
                 'otp'                => null,
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id'          => 3,
-                'email'              => 'manager@empathra.com',
+                'email'              => 'manager@voxsync.com',
                 'password'           => Hash::make('password'),
                 'role'               => 'Employee',
                 'otp'                => null,
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id'          => 4,
-                'email'              => 'employee1@empathra.com',
+                'email'              => 'employee1@voxsync.com',
                 'password'           => Hash::make('password'),
                 'role'               => 'Employee',
                 'otp'                => null,
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id'          => 5,
-                'email'              => 'employee2@empathra.com',
+                'email'              => 'employee2@voxsync.com',
                 'password'           => Hash::make('password'),
                 'role'               => 'Employee',
                 'otp'                => null,
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id' => 6,
-                'email' => 'juan.delacruz@empathra.com',
+                'email' => 'juan.delacruz@voxsync.com',
                 'password' => Hash::make('password'),
                 'role' => 'Employee',
                 'otp' => null,
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id' => 7,
-                'email' => 'maria.lopez@empathra.com',
+                'email' => 'maria.lopez@voxsync.com',
                 'password' => Hash::make('password'),
                 'role' => 'Employee',
                 'otp' => null,
@@ -97,7 +97,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id' => 8,
-                'email' => 'carlos.reyes@empathra.com',
+                'email' => 'carlos.reyes@voxsync.com',
                 'password' => Hash::make('password'),
                 'role' => 'Admin',
                 'otp' => null,
@@ -109,7 +109,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id' => 9,
-                'email' => 'ana.fernandez@empathra.com',
+                'email' => 'ana.fernandez@voxsync.com',
                 'password' => Hash::make('password'),
                 'role' => 'Employee',
                 'otp' => null,
@@ -121,7 +121,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'person_id' => 10,
-                'email' => 'employee100@empathra.com',
+                'email' => 'employee100@voxsync.com',
                 'password' => Hash::make('password'),
                 'role' => 'Employee',
                 'otp' => null,

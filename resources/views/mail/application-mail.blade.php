@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Received – Empthra HRMS</title>
+    <title>Application Received – VoxSync HRMS</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -121,7 +121,7 @@
 
         <!-- HEADER -->
         <div class="email-header">
-            <div class="logo-text">Empthra HRMS</div>
+            <div class="logo-text">VoxSync HRMS</div>
 
             <div class="header-tagline">
                 <h1>Job Application 📢</h1>
@@ -161,7 +161,7 @@
             <p style="margin-top:20px;">
                 Sincerely,<br>
                 <strong>Human Resources Department</strong><br>
-                Empthra HRMS
+                VoxSync HRMS
             </p>
 
         </div>
@@ -172,9 +172,9 @@
             <hr class="footer-divider">
 
             <p class="footer-copy">
-                This is an automated message from <strong style="color:rgba(255,255,255,0.45);">Empthra HRMS</strong>.
+                This is an automated message from <strong style="color:rgba(255,255,255,0.45);">VoxSync HRMS</strong>.
                 Please do not reply directly to this email.<br>
-                © {{ date('Y') }} Empthra. All rights reserved.<br>
+                © {{ date('Y') }} VoxSync. All rights reserved.<br>
             </p>
 
         </div>

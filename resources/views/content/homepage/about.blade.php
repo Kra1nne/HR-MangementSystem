@@ -19,8 +19,13 @@
                         </h2>
 
                         <p class="section-sub mb-4">
-                            Empathra is built to help organizations manage their people effortlessly —
-                            from posting open roles and tracking applicants to onboarding new hires.
+                            VoxSync Workforce System is the Human Resource Information System (HRIS) developed by Voxentra
+                            Corporation to empower organizations with smarter, more efficient workforce management.
+                        </p>
+                        <p class="section-sub mb-4">
+                            We believe that people are the heart of every business. VoxSync was designed to simplify HR
+                            processes, strengthen employee engagement, and provide leaders with actionable insights for
+                            better decision-making.
                         </p>
 
                         <ul class="list-unstyled mb-4 text-start">

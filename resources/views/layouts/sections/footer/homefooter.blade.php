@@ -4,7 +4,7 @@
         <div class="row">
             <!-- About -->
             <div class="col-lg-4 col-md-6 mb-3">
-                <h6 class="text-dark mb-3">Empathra HR System</h6>
+                <h6 class="text-dark mb-3">VoxSync HR System</h6>
                 <p class="text-muted small mb-2">
                     A modern HR platform designed to simplify workforce management,
                     enhance productivity, and put people first.
@@ -59,7 +59,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-3">
             <p class="mb-0 text-muted">
-                &copy; {{ date('Y') }} Empathra HR System. All rights reserved.
+                &copy; {{ date('Y') }} VoxSync HR System. All rights reserved.
             </p>
             <ul class="list-inline mb-0">
                 <li class="list-inline-item">

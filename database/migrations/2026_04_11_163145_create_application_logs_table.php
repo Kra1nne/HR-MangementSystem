@@ -17,12 +17,12 @@ return new class extends Migration
                 ->constrained('applications')
                 ->restrictOnDelete();
             $table->string('event_type'); 
-            $table->string('stage')->nullable(); 
+            $table->timestamp('scheduled_at')->nullable();
+            $table->text('assessment_tools')->nullable();
+            $table->text('remarks')->nullable();
             $table->string('status')->nullable();
             $table->integer('score')->nullable();
-            $table->decimal('rating', 5, 2)->nullable();
-            $table->timestamp('scheduled_at')->nullable();
-            $table->text('remarks')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

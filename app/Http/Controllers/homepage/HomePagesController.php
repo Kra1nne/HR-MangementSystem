@@ -74,6 +74,7 @@ class HomePagesController extends Controller
         $application = [
             'job_id' => Crypt::decryptString($request->job_id),
             'status' => 'apply',
+            'email' => $request->email,
             'applied_at' => now()->toDateString(),
             'created_at' => now(),
         ];

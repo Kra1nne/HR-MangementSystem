@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Verification Code – Empthra HRMS</title>
+    <title>Your Verification Code – VoxSync HRMS</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -121,7 +121,7 @@
 
         <!-- HEADER -->
         <div class="email-header">
-            <div class="logo-text">Empthra HRMS</div>
+            <div class="logo-text">VoxSync HRMS</div>
 
             <div class="header-tagline">
                 <h1>Your Verification Code 🔐</h1>
@@ -137,7 +137,7 @@
             </p>
 
             <p style="margin-top:10px;">
-                We received a request to access your <strong>Empthra HRMS</strong> account.
+                We received a request to access your <strong>VoxSync HRMS</strong> account.
                 Use the verification code below to proceed:
             </p>
 
@@ -152,7 +152,7 @@
 
             <!-- Security Notice -->
             <div style="margin-top:25px; background:#fff7ed; padding:12px; border-left:4px solid #f59e0b;">
-                ⚠️ Never share this code with anyone. Empthra will never ask for your OTP.
+                ⚠️ Never share this code with anyone. VoxSync will never ask for your OTP.
             </div>
 
             <!-- Support -->
@@ -162,7 +162,7 @@
             </p>
 
             <p style="margin-top:20px;">
-                — Empthra HRMS Team
+                — VoxSync HRMS Team
             </p>
 
         </div>
@@ -173,9 +173,9 @@
             <hr class="footer-divider">
 
             <p class="footer-copy">
-                This is an automated message from <strong style="color:rgba(255,255,255,0.45);">Empthra HRMS</strong>.
+                This is an automated message from <strong style="color:rgba(255,255,255,0.45);">VoxSync HRMS</strong>.
                 Please do not reply directly to this email.<br>
-                © {{ date('Y') }} Empthra. All rights reserved.<br>
+                © {{ date('Y') }} VoxSync. All rights reserved.<br>
             </p>
 
         </div>

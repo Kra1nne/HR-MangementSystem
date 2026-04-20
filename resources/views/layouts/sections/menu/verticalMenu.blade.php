@@ -4,7 +4,7 @@
     <div class="app-brand mb-3 mt-3 d-flex align-items-center justify-content-center">
         <a href="{{ url('/') }}" class="app-brand-link">
             <span class="app-brand-logo demo me-1">
-                @include('_partials.macros', ['height' => 80])
+                @include('_partials.macros', ['height' => 100])
             </span>
         </a>
 

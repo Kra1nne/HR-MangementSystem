@@ -4,11 +4,14 @@ namespace App\Http\Controllers\job_posting;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\ApplicationLog;
 use App\Models\Department;
 use App\Models\JobPosting;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
@@ -131,9 +134,10 @@ class JobController extends Controller
             ->whereNull('deleted_at')
             ->first();
 
-        $query = Application::with('candidate.person', 'applicationDocuments', 'latestApplicationLogs')
+        $query = Application::with('candidate.person', 'applicationDocuments', 'latestApplicationLogs', 'applicationLogs')
             ->leftJoin('job_postings', 'job_postings.id', '=', 'applications.job_id')
             ->where('job_postings.id', $decrypted_id)
+            ->where('applications.status', '!=' ,'rejected')
             ->select('job_postings.*', 'applications.*', 'applications.id as application_id');
             
         if (!empty($search)) {
@@ -149,8 +153,7 @@ class JobController extends Controller
         $jobPosting = $query->paginate(4)->appends([
             'search' => $search
         ]);
-
-   
+        //dd($jobPosting);
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Job Posting', 'link' => route('job-posting')],
@@ -169,7 +172,112 @@ class JobController extends Controller
     }
     public function applicantLogs($id)
     {
-        return response()->json(['Data' => 0, 'Message' => 'Successfully open the job']);
+        return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
     }
-    
+    public function applicationAccepted(Request $request)
+    {
+        $data = [
+            'status' => 'accepted',
+            'updated_at' => now()
+        ];
+
+        $result = Application::where('id', $request->id)->update($data);
+
+        // add a send mail
+        // add employee
+
+        if(!$result){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfully accepted the applicant']);
+    }
+    public function applicationRejected(Request $request)
+    {
+        $data = [
+            'status' => 'rejected',
+            'updated_at' => now()
+        ];
+
+        $result = Application::where('id', $request->id)->update($data);
+
+        // add a send mail
+
+        if(!$result){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
+        }
+
+        return response()->json(['Error' => 0, 'Message' => 'Successfully rejected the applicant']);
+    }
+    public function applicationShorlist(Request $request)
+    {
+        $data = [
+            'status' => 'shortlist',
+            'updated_at' => now()
+        ];
+
+        $result = Application::where('id', $request->id)->update($data);
+
+        if(!$result){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to shortlist the applicant']);    
+        }
+
+        return response()->json(['Error' => 0, 'Message' => 'Successfully shorlisted the applicant']);
+    }
+    public function applicantFeedback(Request $request)
+    {
+        $data = [
+            'remarks' => $request->remarks,
+            'score' => $request->score,
+            'comment' => $request->comment,
+            'status' => 'done',
+            'updated_at' => now()
+        ];
+        $result = ApplicationLog::whereNull('status')
+            ->whereNull('remarks')
+            ->whereNull('score')
+            ->where('application_id', $request->applicant_id)
+            ->update($data);
+            
+        if(!$result){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to feedback the applicant']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfully feedback the applicant']);
+    }
+    public function assessment(Request $request)
+    {
+        try {
+            $applicants = Application::where('status', '!=', 'rejected')
+                ->where('job_id', Crypt::decryptString($request->job_id))
+                ->get();
+
+            $data = [];
+
+            foreach ($applicants as $applicant) {
+                $data[] = [
+                    'application_id' => $applicant->id,
+                    'event_type' => $request->assessmentType,
+                    'scheduled_at' => $request->schedule,
+                    'assessment_tools' => $request->platform,
+                    'created_at' => now(),
+                ];
+            }
+
+            DB::transaction(function () use ($data) {
+                ApplicationLog::insert($data);
+            });
+
+            // add a send mail
+
+            return response()->json([
+                'Error' => 0,
+                'Message' => 'Assessment successfully sent'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 1,
+                'Message' => 'Unable to send the assessment',
+            ]);
+        }
+    }
 }

@@ -33,6 +33,25 @@ class MessageController extends Controller
             return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
         }
     }
+    public function applicantMail(Request $request) 
+    {
+        if(empty($request->messageTitle) && empty($request->messageContent) && empty($request->messageRecipents))
+        {
+            return response()->json(['Error' => 1, 'Message' => 'Invalid empty message']);   
+        }
+      
+        $data = [
+            'name' => $request->messageRecipents,
+            'title' => $request->messageTitle,
+            'description' => $request->messageContent
+        ];
+        
+        $result = Mail::to($request->messageRecipents)->send(new MessageMail($data));
+
+        if($result){
+            return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
+        }
+    }
     public function broadcastMessage(Request $request){
         $emails = Employee::leftjoin('users', 'users.person_id', 'employees.person_id')
             ->whereNull('employees.deleted_at')

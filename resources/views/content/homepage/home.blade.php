@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-md-12 col-lg-6 d-flex flex-column justify-content-center">
                     <h1 class="display-4 fw-bold space-lettering-tight">
-                        Smart HR Management Made Simple
+                        VoxSync Workforce System
                     </h1>
                     <p>This HR management system simplifies employment processes, supports employee workflows, and helps
                         teams
@@ -265,71 +265,6 @@
             </div>
         </section>
     </div>
-
-    {{-- <div class="bg-white">
-        <div class="container py-5">
-            <div class="row w-100 flex-column-reverse flex-md-row">
-
-                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-                    <div>
-                        <h3 class="text-center fw-bolder mb-4">
-                            {{ config('variables.templateName') }}
-                        </h3>
-                        <p class="text-start">
-                            Empathra is a cloud-based HR management system that simplifies workforce operations.
-                            It centralizes employee records, onboarding, attendance, and performance tracking in one
-                            platform.
-                            With real-time insights and secure access, it helps organizations manage teams more efficiently.
-                        </p>
-                        <ul class="list-unstyled small">
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="ri-check-line text-success me-2"></i>
-                                Face recognition attendance
-                            </li>
-
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="ri-check-line text-success me-2"></i>
-                                Employee onboarding
-                            </li>
-
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="ri-check-line text-success me-2"></i>
-                                Attendance tracking
-                            </li>
-
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="ri-check-line text-success me-2"></i>
-                                Performance analytics
-                            </li>
-
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="ri-check-line text-success me-2"></i>
-                                Secure cloud storage
-                            </li>
-
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="ri-check-line text-success me-2"></i>
-                                24/7 platform access
-                            </li>
-                        </ul>
-
-                        <div class="mt-3 d-flex justify-content-center">
-                            <a href="#" class="btn btn-primary btn-sm px-4 rounded-pill">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-                    <div class="w-100">
-                        <img src="assets/img/elements/Web.jpg" class="img-fluid" alt="">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> --}}
     <div class="bg-white" style="padding: 50px 0;">
         <div class="container">
             <div class="row">

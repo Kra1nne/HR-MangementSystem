@@ -81,7 +81,7 @@
                                 <div
                                     class="d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start alin-items-md-center mb-2">
                                     <span class="badge bg-light text-dark">
-                                        {{ $item->created_at->diffForHumans() }}
+                                        {{ $item->updated_at == null ? $item->created_at->diffForHumans() : $item->updated_at->diffForHumans() }}
                                     </span>
                                     <span class="badge bg-success text-white">
                                         Open

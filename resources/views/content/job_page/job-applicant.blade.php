@@ -43,9 +43,7 @@
                 </form>
             </div>
             @forelse ($jobPosting as $item)
-                <div class="card mt-2" style="cursor: default; transition: all 0.3s ease;"
-                    onmouseover="this.classList.replace('shadow-sm','shadow-lg'); this.style.transform='translateY(-5px)'"
-                    onmouseout="this.classList.replace('shadow-lg','shadow-sm'); this.style.transform='translateY(0)'">
+                <div class="card mt-2">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-sm-row flex-column">
@@ -75,8 +73,8 @@
 
                                         <span><i
                                                 class="ri ri-phone-line"></i>{{ $item->candidate->person->phone_number }}</span>
-                                        <span><i class="ri-drop-fill"></i>
-                                            {{ $item->candidate->person->blood_type }}</span>
+                                        <span><i class="ri-mail-line"></i>
+                                            {{ $item->email }}</span>
                                     </div>
 
                                 </div>
@@ -85,42 +83,58 @@
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                     data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
                                 <div class="dropdown-menu p-1">
-                                    <a href="#" class="dropdown-item">
-                                        <i class="ri-draft-line"></i> Assessment
-                                    </a>
-                                    <a href="#" class="dropdown-item">
+                                    <a href="javascript:void(0)" id="AcceptBtn" data-id="{{ $item->application_id }}"
+                                        class="dropdown-item">
                                         <i class="bi ri-check-line"></i> Accept
                                     </a>
-                                    <a href="#" class="dropdown-item">
+                                    <a href="javascript:void(0)" id="ShortlistBtn" data-id="{{ $item->application_id }}"
+                                        class="dropdown-item">
+                                        <i class="ri-pass-pending-line"></i> Shortlist
+                                    </a>
+                                    <a href="javascript:void(0)" id="RejectBtn" data-id="{{ $item->application_id }}"
+                                        class="dropdown-item">
                                         <i class="ri ri-close-line"></i> Reject
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <div class="d-flex flex-wrap gap-1 small mt-3">
+                            @if ($item->status == 'accepted')
+                                <span class="badge bg-success">Accepted</span>
+                            @elseif ($item->status == 'rejected')
+                                <span class="badge bg-danger">Rejected</span>
+                            @elseif ($item->status == 'shortlist')
+                                <span class="badge bg-dark">Shortlisted</span>
+                            @else
+                                <span class="badge bg-primary">
+                                    {{ $item->latestApplicationLogs->event_type ?? 'Under Review' }}
+                                </span>
+                                <span class="{{ $item->latestApplicationLogs?->remarksBadge ?? 'badge bg-secondary' }}">
+                                    {{ ucfirst($item->latestApplicationLogs?->remarks ?? 'ongoing') }}
+                                </span>
+                            @endif
+                        </div>
                         <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-2">
                             <div class="d-flex flex-wrap gap-3 small">
                                 <div>
                                     <span>Applied: <strong>{{ $item->created_at->diffForHumans() }}</strong></span>
-                                    @if ($item->latestApplicationLogs?->status)
-                                        <span
-                                            class="badge bg-success-subtle text-success border">{{ $item->latestApplicationLogs->status }}</span>
-                                    @endif
+
                                 </div>
-                                <div>
-                                    <span
-                                        class="badge bg-success">{{ $latestApplicationLogs->status ?? 'Under Review' }}</span>
-                                </div>
+
                             </div>
                             <div class="d-flex gap-3 small">
                                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalMessage"
-                                    class="text-decoration-none">
+                                    class="text-decoration-none mailApplicant" data-email="{{ $item->email }}">
                                     <i class="ri-mail-send-line"></i> Mail
                                 </a>
-                                <a href="#" class="text-decoration-none">
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Feedback"
+                                    class="text-decoration-none feedbackApplicant" data-id="{{ $item->application_id }}"
+                                    data-firstname="{{ $item->candidate->person->firstname }}"
+                                    data-lastname="{{ $item->candidate->person->lastname }}">
                                     <i class="ri-feedback-line"></i> Feedback
                                 </a>
                                 <a href="javascript:void(0)" data-documents='@json($item->applicationDocuments)'
-                                    data-logs='@json($item->latestApplicationLogs)'
+                                    data-logs='@json($item->applicationLogs)'
                                     data-time="{{ $item->created_at->diffForHumans() }}" data-bs-toggle="offcanvas"
                                     data-bs-target="#applicantView" class="text-decoration-none view-applicant">
                                     <i class="ri ri-eye-line"></i> View
@@ -128,6 +142,7 @@
                             </div>
 
                         </div>
+
 
                     </div>
                 </div>
@@ -167,95 +182,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-success"></span>
-                        <div class="timeline-event">
-                            <div class="timeline-header mb-3">
-                                <h6 class="mb-0">Client Meeting</h6>
-                                <small class="text-body-secondary">45 min ago</small>
-                            </div>
-                            <p class="mb-2">Project meeting with john @10:15am</p>
-                            <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
-                                <div class="d-flex flex-wrap align-items-center mb-50">
-                                    <div class="avatar avatar-sm me-2">
-                                        <img src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/1.png"
-                                            alt="Avatar" class="rounded-circle" />
-                                    </div>
-                                    <div>
-                                        <p class="mb-0 small fw-medium">Lester McCarthy (Client)</p>
-                                        <small>CEO of ThemeSelection</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-info"></span>
-                        <div class="timeline-event">
-                            <div class="timeline-header mb-3">
-                                <h6 class="mb-0">Create a new project for client</h6>
-                                <small class="text-body-secondary">2 Day Ago</small>
-                            </div>
-                            <p class="mb-2">6 team members in a project</p>
-                            <ul class="list-group list-group-flush">
-                                <li
-                                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap border-top-0 p-0">
-                                    <div class="d-flex flex-wrap align-items-center">
-                                        <ul
-                                            class="list-unstyled users-list d-flex align-items-center avatar-group m-0 me-2">
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                data-bs-placement="top" title="Vinnie Mostowy" class="avatar pull-up">
-                                                <img class="rounded-circle"
-                                                    src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/5.png"
-                                                    alt="Avatar" />
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                data-bs-placement="top" title="Allen Rieske" class="avatar pull-up">
-                                                <img class="rounded-circle"
-                                                    src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/12.png"
-                                                    alt="Avatar" />
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                data-bs-placement="top" title="Julee Rossignol" class="avatar pull-up">
-                                                <img class="rounded-circle"
-                                                    src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/6.png"
-                                                    alt="Avatar" />
-                                            </li>
-                                            <li class="avatar">
-                                                <span class="avatar-initial rounded-circle pull-up"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="3 more">+3</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-success"></span>
-                        <div class="timeline-event">
-                            <div class="timeline-header mb-3">
-                                <h6 class="mb-0">Client Meeting</h6>
-                                <small class="text-body-secondary">45 min ago</small>
-                            </div>
-                            <p class="mb-2">Project meeting with john @10:15am</p>
-                            <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
-                                <div class="d-flex flex-wrap align-items-center mb-50">
-                                    <div class="avatar avatar-sm me-2">
-                                        <img src="https://demos.themeselection.com/materio-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/1.png"
-                                            alt="Avatar" class="rounded-circle" />
-                                    </div>
-                                    <div>
-                                        <p class="mb-0 small fw-medium">Lester McCarthy (Client)</p>
-                                        <small>CEO of ThemeSelection</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
+                    <div id="timelineRecords">
+                    </div>
                 </ul>
             </div>
         </div>
@@ -302,8 +230,8 @@
                             <label class="form-label">Sex</label>
                             <select name="sex" id="sex" class="form-select rounded-3">
                                 <option value="" selected disabled>Select sex</option>
-                                <option>Male</option>
-                                <option>Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
@@ -318,6 +246,7 @@
                                 <option value="AB-">AB-</option>
                                 <option value="O+">O+</option>
                                 <option value="O-">O-</option>
+                                <option value="O">O</option>
                             </select>
                         </div>
                     </div>
@@ -388,14 +317,13 @@
     </div>
 
     {{-- Modal for assessment --}}
-
     <div class="modal fade" id="AssessmentModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-primary pb-4">
                     <h5 class="modal-title text-white" id="modalCenterTitle">Applicant Assessment Form</h5>
                 </div>
-                <form class="modal-body">
+                <form class="modal-body" id="assessmentData">
                     @csrf
                     <input type="text" name="job_id" value="{{ $id }}" hidden>
                     <div class="row">
@@ -403,13 +331,13 @@
                             <label class="form-label">Assessment Type</label>
                             <select id="assessmentType" name="assessmentType" class="form-select form-select-sm">
                                 <option value="" selected disabled>Select Assessment Type</option>
-                                <option value="phone_interview">Phone Interview</option>
-                                <option value="video_interview">Video Interview</option>
-                                <option value="in_person_interview">In-Person Interview</option>
-                                <option value="aptitude_test">Aptitude Test</option>
-                                <option value="technical_test">Technical Test</option>
-                                <option value="personality_test">Personality Assessment</option>
-                                <option value="skills_test">Skills Assessment</option>
+                                <option value="Phone Interview">Phone Interview</option>
+                                <option value="Video Interview">Video Interview</option>
+                                <option value="In-Person Interview">In-Person Interview</option>
+                                <option value="Aptitude Test">Aptitude Test</option>
+                                <option value="Technical Test">Technical Test</option>
+                                <option value="Personality Assessment">Personality Assessment</option>
+                                <option value="Skills Assessment">Skills Assessment</option>
                             </select>
                         </div>
                         <div class="col-12 mb-3">
@@ -431,7 +359,7 @@
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="submitBtn">Save</button>
+                    <button type="button" class="btn btn-primary" id="assessmentApplicantBtn">Save</button>
                 </div>
             </div>
         </div>
@@ -443,15 +371,13 @@
                 <div class="modal-header bg-primary pb-4">
                     <h5 class="modal-title text-white" id="modalCenterTitle">New Message</h5>
                 </div>
-                <form class="modal-body" id="EmployeeMessageContent">
+                <form class="modal-body" id="ApplicantMessageContent">
                     @csrf
-                    <input type="hidden" name="action" id="action">
-                    <input type="hidden" name="id" id="idEmployee">
                     <div class="row">
                         <div class="col mt-2">
                             <label for="messageRecipents" class="form-label">Recipents</label>
-                            <input id="messageRecipents" name="messageRecipents[]" class="form-control form-control-sm"
-                                type="text" placeholder="Enter the Recipents" readonly />
+                            <input id="messageRecipents" name="messageRecipents" class="form-control form-control-sm"
+                                type="text" readonly />
                         </div>
                     </div>
                     <div class="row">
@@ -471,7 +397,55 @@
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="btnSaveMessage">Send Message</button>
+                    <button type="button" class="btn btn-primary" id="btnMailApplicant">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal for assessment --}}
+    <div class="modal fade" id="Feedback" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary pb-4">
+                    <h5 class="modal-title text-white" id="modalCenterTitle">Applicant Feedback</h5>
+                </div>
+                <form class="modal-body" id="EmployeeFeedback">
+                    @csrf
+                    <input type="text" name="applicant_id" id="applicant_id" hidden>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="applicantname" class="form-label">Applicant Name</label>
+                            <input id="applicantname" name="applicantname" class="form-control form-control-sm"
+                                type="text" readonly />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="score" class="form-label">Score</label>
+                            <input id="score" name="score" class="form-control form-control-sm" type="number"
+                                placeholder="Enter the message title" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <select name="remarks" id="remarks" class="form-select rounded-3">
+                                <option value="" selected disabled>Select remarks</option>
+                                <option value="pass">Pass</option>
+                                <option value="fail">Fail</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="comment" class="form-label">Comment</label>
+                            <textarea class="form-control h-px-100" id="comment" name="comment" placeholder="Enter message here..."></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnFeedbackApplicant">Submit</button>
                 </div>
             </div>
         </div>

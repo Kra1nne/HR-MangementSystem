@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Your Temporary Password – Empthra HRMS</title>
+    <title>Your Temporary Password – VoxSync HRMS</title>
 
     {{-- Bootstrap 5 CDN --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -372,7 +372,7 @@
             {{-- Logo --}}
             <div class="logo-wrap">
                 <div>
-                    <div class="logo-text">Empthra</div>
+                    <div class="logo-text">VoxSync</div>
                     <div class="logo-sub">HRMS Platform</div>
                 </div>
             </div>
@@ -394,7 +394,7 @@
                 Hello, <strong>{{ $name }}</strong> 👋
             </p>
             <p class="greeting" style="margin-top: 12px;">
-                Welcome to <strong>Empthra HRMS</strong>! Your account has been created by
+                Welcome to <strong>VoxSync HRMS</strong>! Your account has been created by
                 your HR administrator. Below is your temporary password to get started.
             </p>
 
@@ -412,7 +412,7 @@
             {{-- CTA --}}
             <div style="text-align:center;">
                 <a href="{{ $loginUrl ?? config('app.url') . '/login' }}" class="btn-login">
-                    Login to Empthra →
+                    Login to VoxSync →
                 </a>
                 <p style="font-size:12px; color:#94a3b8; margin-top:6px;">
                     or paste this URL in your browser:<br>
@@ -431,7 +431,7 @@
             <ol class="steps">
                 <li>
                     <span>1. </span>
-                    <span>Click <strong>Login to Empthra</strong> above and enter your
+                    <span>Click <strong>Login to VoxSync</strong> above and enter your
                         email address: <strong>{{ $email }}</strong></span>
                 </li>
                 <li>
@@ -452,7 +452,7 @@
             {{-- Security notice --}}
             <div class="security-notice">
                 ⚠️ <strong>Security Reminder:</strong> Never share your password with anyone,
-                including HR personnel or system administrators. Empthra will never ask for your
+                including HR personnel or system administrators. VoxSync will never ask for your
                 password via email, phone, or chat.
             </div>
 
@@ -466,7 +466,7 @@
 
             <p style="margin-top:24px; font-size:14px; color:#374151; line-height:1.7;">
                 Warm regards,<br>
-                <strong style="color:#0f1623;">The Empthra HRMS Team</strong>
+                <strong style="color:#0f1623;">The VoxSync HRMS Team</strong>
             </p>
 
         </div>
@@ -479,9 +479,9 @@
             <hr class="footer-divider">
 
             <p class="footer-copy">
-                This is an automated message from <strong style="color:rgba(255,255,255,0.45);">Empthra HRMS</strong>.
+                This is an automated message from <strong style="color:rgba(255,255,255,0.45);">VoxSync HRMS</strong>.
                 Please do not reply directly to this email.<br>
-                © {{ date('Y') }} Empthra. All rights reserved.<br>
+                © {{ date('Y') }} VoxSync. All rights reserved.<br>
             </p>
 
         </div>
