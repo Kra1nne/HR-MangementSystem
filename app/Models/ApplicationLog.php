@@ -29,7 +29,7 @@ class ApplicationLog extends Model
         return Attribute::make(
         get: fn () => match($this->remarks) {
             'pass' => 'badge bg-success',
-            'fail' => 'badge bg-warning',
+            'fail' => 'badge bg-danger',
             default => 'badge bg-primary',
             null => 'badge bg-primary'
         }

@@ -138,6 +138,7 @@ class JobController extends Controller
             ->leftJoin('job_postings', 'job_postings.id', '=', 'applications.job_id')
             ->where('job_postings.id', $decrypted_id)
             ->where('applications.status', '!=' ,'rejected')
+            ->orderBy('applications.applied_at', 'DESC')
             ->select('job_postings.*', 'applications.*', 'applications.id as application_id');
             
         if (!empty($search)) {
@@ -153,7 +154,7 @@ class JobController extends Controller
         $jobPosting = $query->paginate(4)->appends([
             'search' => $search
         ]);
-        //dd($jobPosting);
+
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Job Posting', 'link' => route('job-posting')],
@@ -245,6 +246,20 @@ class JobController extends Controller
     }
     public function assessment(Request $request)
     {
+        $applicantCount = Application::where('job_id', Crypt::decryptString($request->job_id))->count();
+
+        $assessmentProcess = Application::rightjoin('application_logs', 'application_logs.application_id', '=', 'applications.id')
+            ->where('applications.job_id', Crypt::decryptString($request->job_id))
+            ->whereNull('application_logs.status') 
+            ->count();
+
+        if ($applicantCount < 1 || $assessmentProcess > 0) {
+            return response()->json([
+                'Error' => 1,
+                'Message' => 'Unable to set the assessment',
+            ]);
+        }
+
         try {
             $applicants = Application::where('status', '!=', 'rejected')
                 ->where('job_id', Crypt::decryptString($request->job_id))
@@ -276,7 +291,7 @@ class JobController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'Error' => 1,
-                'Message' => 'Unable to send the assessment',
+                'Message' => 'Unable to set the assessment',
             ]);
         }
     }

@@ -144,7 +144,7 @@ $(function () {
 
     logs.forEach(function (log) {
       const remarksBadge = log.remarks
-        ? `<span class="badge bg-success">${log.remarks.toLowerCase().replace(/^./, c => c.toUpperCase())}</span>`
+        ? `<span class="${log.remarks == 'pass' ? 'badge bg-success' : 'badge bg-danger'}">${log.remarks.toLowerCase().replace(/^./, c => c.toUpperCase())}</span>`
         : '';
 
       timelineRecords.append(`
@@ -173,7 +173,7 @@ $(function () {
                   </p>
                   <div class="d-flex gap-2">
                       <span class="badge bg-light text-dark border">
-                          Score: <strong>${log.score ?? 0}/100</strong>
+                          Score: <strong>${log.score ?? 0}</strong>
                       </span>
                       <span class="badge bg-primary-subtle text-primary border">
                         ${(log.status ?? 'Ongoing').toLowerCase().replace(/^./, c => c.toUpperCase())}

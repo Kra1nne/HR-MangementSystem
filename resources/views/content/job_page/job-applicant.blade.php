@@ -123,15 +123,18 @@
 
                             </div>
                             <div class="d-flex gap-3 small">
+                                @if ($item->latestApplicationLogs?->remarks === null && $item->applicationLogs->count() > 0)
+                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Feedback"
+                                        class="text-decoration-none feedbackApplicant"
+                                        data-id="{{ $item->application_id }}"
+                                        data-firstname="{{ $item->candidate->person->firstname }}"
+                                        data-lastname="{{ $item->candidate->person->lastname }}">
+                                        <i class="ri-feedback-line"></i> Feedback
+                                    </a>
+                                @endif
                                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ModalMessage"
                                     class="text-decoration-none mailApplicant" data-email="{{ $item->email }}">
                                     <i class="ri-mail-send-line"></i> Mail
-                                </a>
-                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#Feedback"
-                                    class="text-decoration-none feedbackApplicant" data-id="{{ $item->application_id }}"
-                                    data-firstname="{{ $item->candidate->person->firstname }}"
-                                    data-lastname="{{ $item->candidate->person->lastname }}">
-                                    <i class="ri-feedback-line"></i> Feedback
                                 </a>
                                 <a href="javascript:void(0)" data-documents='@json($item->applicationDocuments)'
                                     data-logs='@json($item->applicationLogs)'
