@@ -43,17 +43,19 @@
                                 </h3>
                             </div>
                             <div>
-                                <a href="javascript::void(0)" data-id="{{ $departmentDetails->dept_no }}"
-                                    id="deleteDepartment" class="text-danger">
-                                    <i class="ri-delete-bin-5-line"></i>
-                                </a>
-                                <a href="javascript::void(0)" id="updateDepartment" data-bs-toggle="modal"
-                                    data-bs-target="#ModalEdit" data-id="{{ $departmentDetails->dept_no }}"
-                                    data-name="{{ $departmentDetails->dept_name }}"
-                                    data-details="{{ $departmentDetails->details }}"
-                                    data-icon="{{ $departmentDetails->icon }}" class="text-primary">
-                                    <i class="ri-edit-2-line"></i>
-                                </a>
+                                @if (Auth::user()->role === 'Admin' || Auth::user()->role === 'Hr')
+                                    <a href="javascript::void(0)" data-id="{{ $departmentDetails->dept_no }}"
+                                        id="deleteDepartment" class="text-danger">
+                                        <i class="ri-delete-bin-5-line"></i>
+                                    </a>
+                                    <a href="javascript::void(0)" id="updateDepartment" data-bs-toggle="modal"
+                                        data-bs-target="#ModalEdit" data-id="{{ $departmentDetails->dept_no }}"
+                                        data-name="{{ $departmentDetails->dept_name }}"
+                                        data-details="{{ $departmentDetails->details }}"
+                                        data-icon="{{ $departmentDetails->icon }}" class="text-primary">
+                                        <i class="ri-edit-2-line"></i>
+                                    </a>
+                                @endif
                             </div>
                         </div>
                         <!-- Description -->
@@ -115,9 +117,11 @@
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#ModalAddEmployee">
                                     <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Employee</button>
-                                <button type="button" class="btn btn-outline-primary mt-1" data-bs-toggle="modal"
-                                    data-bs-target="#ModalAddManeger">
-                                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Manager</button>
+                                @if (Auth::user()->role === 'Admin' || Auth::user()->role === 'Hr')
+                                    <button type="button" class="btn btn-outline-primary mt-1" data-bs-toggle="modal"
+                                        data-bs-target="#ModalAddManeger">
+                                        <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>Manager</button>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -185,8 +189,6 @@
                                                     data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
                                                     data-bs-toggle="modal"><i
                                                         class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
-                                                <a class="text-primary" href="javascript::void(0)"><i
-                                                        class="icon-base ri ri-information-line icon-18px me-1"></i></a>
                                                 <a class="text-danger" href="javascript::void(0)" id="employeeDelete"
                                                     data-id="{{ $item->emp_no }}"><i
                                                         class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>

@@ -8,7 +8,10 @@ use App\Mail\ApplicationResponse;
 use App\Models\Application;
 use App\Models\ApplicationLog;
 use App\Models\Department;
+use App\Models\Employee;
 use App\Models\JobPosting;
+use App\Models\Salary;
+use App\Models\Title;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -185,31 +188,51 @@ class JobController extends Controller
             'search'
         ));
     }
-    public function applicantLogs($id)
-    {
-        return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
-    }
     public function applicationAccepted(Request $request)
     {
+        $applicant = Application::with('candidate.person')
+            ->leftjoin('job_postings', 'job_postings.id', '=', 'applications.job_id')
+            ->where('applications.id', $request->id)
+            ->first();
+
         $data = [
             'status' => 'accepted',
             'updated_at' => now()
         ];
 
         $result = Application::where('id', $request->id)->update($data);
-
         $mailContent = [
-            'name' => $request->firstname . " " . $request->lastname,
+            'name' => $applicant->candidate->person->full_name,
             'email' => $request->email,
             'position' => $request->position,
             'response' => 'accepted',
         ];
-
         $mail = Mail::to($request->email)->send(new ApplicationResponse($mailContent));
 
-        // add employee
+        $dataEmployee = [
+            'person_id' => $applicant->candidate->person->id,
+            'emp_id' => 'EMP-'.now()->year.'-'.$applicant->candidate->person->id,
+            'hire_date' => now()->toDateString(),
+            'status' => $applicant->employment_type,
+            'created_at' => now(),
+        ];
+        $employee = Employee::create($dataEmployee);
+        $dataSalary = [
+            'emp_no' => $employee->id, 
+            'salary' => $applicant->salary,
+            'from_date' => now(),
+            'created_at' => now()
+        ];
+        $dataTitle = [
+            'emp_no' => $employee->id, 
+            'title' => $applicant->position,
+            'from_date' => now()
+        ];
 
-        if(!$result && !$mail){
+        $title = Title::insert($dataTitle);
+        $salary = Salary::insert($dataSalary);
+
+        if(!$result && !$mail && !$title && !$salary){
             return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
         }
         return response()->json(['Error' => 0, 'Message' => 'Successfully accepted the applicant']);

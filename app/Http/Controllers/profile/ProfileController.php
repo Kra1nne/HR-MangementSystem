@@ -11,12 +11,10 @@ class ProfileController extends Controller
     public function index($id)
     {
         $data = Employee::with(['person', 'latestSalary', 'latestTitle', 'latestDepartment.department'])
-            ->leftjoin('users', 'employees.person_id', '=', 'users.person_id')
             ->where('emp_no', Crypt::decryptString($id))
             ->first();
 
         $employee_id = $id;
-
 
         return view('content.accounts.profile', compact('data', 'employee_id'));
     }

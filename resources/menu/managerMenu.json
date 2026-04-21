@@ -16,16 +16,10 @@
             "slug": "department-list"
         },
         {
-            "url": "/employee",
-            "name": "Employee",
-            "icon": "menu-icon tf-icons ri-team-line",
-            "slug": "employee"
-        },
-        {
             "url": "/attendance/user",
             "name": "DTR",
             "icon": "menu-icon tf-icons ri-list-radio",
-            "slug": "attendance"
+            "slug": "attendance-user"
         },
         {
             "menuHeader": "System Reports"
@@ -34,7 +28,7 @@
             "url": "/dtr-report",
             "name": "Print DTR",
             "icon": "menu-icon tf-icons ri-printer-line",
-            "slug": "logs"
+            "slug": "dtr-report"
         }
     ]
 }

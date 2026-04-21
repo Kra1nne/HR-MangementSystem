@@ -38,48 +38,6 @@ class SalarySeeder extends Seeder
                 'to_date'    => null,
                 'created_at' => now(),
             ],
-            [
-                'emp_no'     => 5,
-                'salary'     => 38000.00,
-                'from_date'  => '2024-04-05',
-                'to_date'    => null,
-                'created_at' => now(),
-            ],
-             [
-                'emp_no'     => 6,
-                'salary'     => 38000.00,
-                'from_date'  => '2024-04-05',
-                'to_date'    => null,
-                'created_at' => now(),
-            ],
-             [
-                'emp_no'     => 7,
-                'salary'     => 38000.00,
-                'from_date'  => '2024-04-05',
-                'to_date'    => null,
-                'created_at' => now(),
-            ],
-             [
-                'emp_no'     => 8,
-                'salary'     => 38000.00,
-                'from_date'  => '2024-04-05',
-                'to_date'    => null,
-                'created_at' => now(),
-            ],
-            [
-                'emp_no'     => 9,
-                'salary'     => 38000.00,
-                'from_date'  => '2024-04-05',
-                'to_date'    => null,
-                'created_at' => now(),
-            ],
-             [
-                'emp_no'     => 10,
-                'salary'     => 38000.00,
-                'from_date'  => '2024-04-05',
-                'to_date'    => null,
-                'created_at' => now(),
-            ],
         ];
 
         DB::table('salaries')->insert($salaries);

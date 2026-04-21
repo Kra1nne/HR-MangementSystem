@@ -45,23 +45,25 @@
             </div>
 
             <div class="pb-2 d-flex gap-2 align-items-center">
-                <a href="javascript::void(0)" id="EditEmployee" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                    <i class="ri-file-edit-line text-white"></i>
-                </a>
+                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Hr')
+                    <a href="javascript::void(0)" id="EditEmployee" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                        <i class="ri-file-edit-line text-white"></i>
+                    </a>
+                    @if ($data->face_descriptor == null)
+                        <a href="{{ route('employee-faceRegistration', $employee_id) }}"
+                            class="btn btn-primary border-white btn-sm p-1 w-100 rounded-3" id="btnRegisterFace">
+                            Register Face
+                        </a>
+                    @else
+                        <a href="javascript::void(0)" data-id="{{ $employee_id }}"
+                            class="btn btn-danger p-1 btn-sm w-100 rounded-3" id="btnResetRegisterFace">
+                            Reset
+                        </a>
+                    @endif
+                @endif
                 <span class="badge rounded-pill bg-success text-white">
                     {{ $data->emp_id }}
                 </span>
-                @if ($data->face_descriptor == null)
-                    <a href="{{ route('employee-faceRegistration', $employee_id) }}"
-                        class="btn btn-primary border-white btn-sm p-1 w-100 rounded-3" id="btnRegisterFace">
-                        Register Face
-                    </a>
-                @else
-                    <a href="javascript::void(0)" data-id="{{ $employee_id }}"
-                        class="btn btn-danger p-1 btn-sm w-100 rounded-3" id="btnResetRegisterFace">
-                        Reset
-                    </a>
-                @endif
 
             </div>
         </div>
@@ -174,7 +176,7 @@
                             <div>
                                 <p class="text-muted small mb-1">Department</p>
                                 <p class="fw-semibold small mb-0" id="employeeSalary">
-                                    {{ $data->latestDepartment->department->dept_name }}
+                                    {{ $data->latestDepartment->department->dept_name ?? 'N\A' }}
                                 </p>
                             </div>
 

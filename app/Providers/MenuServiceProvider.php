@@ -28,6 +28,12 @@ class MenuServiceProvider extends ServiceProvider
             if (Auth::check() && Auth::user()->role === 'Employee') {
                 $menuFile = 'employeeMenu.json';
             }
+            if (Auth::check() && Auth::user()->role === 'Hr') {
+                $menuFile = 'hrMenu.json';
+            }
+            if (Auth::check() && Auth::user()->role === 'Manager') {
+                $menuFile = 'managerMenu.json';
+            }
             $menuJson = file_get_contents(base_path("resources/menu/{$menuFile}"));
             $menuData = json_decode($menuJson);
             $view->with('menuData', [$menuData]);

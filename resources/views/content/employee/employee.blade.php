@@ -243,6 +243,7 @@
                                 <option value="Contractual">Contractual</option>
                                 <option value="Regular">Regular</option>
                                 <option value="Probationary">Probationary</option>
+                                <option value="Full-time">Full-time</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>

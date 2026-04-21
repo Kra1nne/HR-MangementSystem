@@ -174,6 +174,18 @@ class DepartmentController extends Controller
          if(Auth::user()->role != "Admin" && Auth::user()->role != "Hr"){
             return response()->json(['Error' => 1, 'Message' => 'You are not authorized']);
         }
+        $employeeData = Employee::leftjoin('persons', 'persons.id', '=', 'employees.person_id')
+            ->leftjoin('users', 'users.person_id', '=', 'persons.id')
+            ->where('employees.emp_no', '=', $request->employee)
+            ->first();
+
+        if (!$employeeData || $employeeData->role !== 'Manager') {
+            return response()->json([
+                'Error' => 1,
+                'Message' => 'Manager status requires a Manager role.'
+            ]);
+        }
+
         $manager = DepartmentManager::where('dept_no', $request->id)
             ->whereNull('to_date')
             ->where('status', '!=', 'remove')

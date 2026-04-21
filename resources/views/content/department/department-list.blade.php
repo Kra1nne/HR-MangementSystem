@@ -8,10 +8,12 @@
 @section('content')
     <main>
         <section class="mt-2">
-            <div class="d-flex justify-content-end mb-3 gap-2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
-                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span> Department</button>
-            </div>
+            @if (Auth::user()->role == 'Hr' || Auth::user()->role == 'Admin')
+                <div class="d-flex justify-content-end mb-3 gap-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+                        <span class="icon-base ri ri-add-line icon-16px me-1_5"></span> Department</button>
+                </div>
+            @endif
             <div class="row g-4">
 
                 <!-- Card 1 -->

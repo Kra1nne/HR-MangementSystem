@@ -6,12 +6,6 @@
 @endsection
 @section('content')
     <main>
-        <div class="mt-2 mb-4">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" id="ModalClickAdd" data-bs-toggle="modal" data-bs-target="#Modal">
-                    <span class="icon-base ri ri-add-line icon-16px me-1_5"></span>New Employee</button>
-            </div>
-        </div>
         <section class="card">
             <div class="d-flex flex-column flex-md-row align-items-start justify-content-between m-2">
 

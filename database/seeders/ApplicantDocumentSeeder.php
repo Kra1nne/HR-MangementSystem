@@ -73,30 +73,6 @@ class ApplicantDocumentSeeder extends Seeder
                 'file_path' => 'uploads/PSlJvBlSSPT8bM7sAphKq3bVaJTo5uMe2hQcXekj.docx',
                 'created_at' => now(),
             ],
-            [
-                'application_id' => 6,
-                'type' => 'Resume',
-                'file_path' => 'uploads/rf0hma0NGHDEBQVJO6EqLdah7KmLgpqOcSurVDRC.docx',
-                'created_at' => now(),
-            ],
-            [
-                'application_id' => 6,
-                'type' => 'Certificate',
-                'file_path' => 'uploads/PSlJvBlSSPT8bM7sAphKq3bVaJTo5uMe2hQcXekj.docx',
-                'created_at' => now(),
-            ],
-            [
-                'application_id' => 7,
-                'type' => 'Resume',
-                'file_path' => 'uploads/rf0hma0NGHDEBQVJO6EqLdah7KmLgpqOcSurVDRC.docx',
-                'created_at' => now(),
-            ],
-            [
-                'application_id' => 7,
-                'type' => 'Certificate',
-                'file_path' => 'uploads/PSlJvBlSSPT8bM7sAphKq3bVaJTo5uMe2hQcXekj.docx',
-                'created_at' => now(),
-            ],
         ];
 
         DB::table('application_documents')->insert($applicant_documents);

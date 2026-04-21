@@ -73,6 +73,7 @@
                                     <option value="Admin">Admin</option>
                                     <option value="Employee">Employee</option>
                                     <option value="Hr">Hr</option>
+                                    <option value="Manager">Manager</option>
                                 </select>
                                 <label for="exampleFormControlSelect1">Role</label>
                             </div>
@@ -118,7 +119,8 @@
                         </form>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary d-grid w-100 mb-5" id="AddAcountBtn">Submit</button>
+                        <button type="button" class="btn btn-primary d-grid w-100 mb-5"
+                            id="AddAcountBtn">Submit</button>
                     </div>
                 </div>
             </div>
