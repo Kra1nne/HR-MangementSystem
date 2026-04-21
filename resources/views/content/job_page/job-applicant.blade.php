@@ -109,9 +109,10 @@
                                 <span class="badge bg-success">Accepted</span>
                             @elseif ($item->status == 'rejected')
                                 <span class="badge bg-danger">Rejected</span>
-                            @elseif ($item->status == 'shortlist')
-                                <span class="badge bg-dark">Shortlisted</span>
                             @else
+                                @if ($item->status == 'shortlist')
+                                    <span class="badge bg-dark">Shortlisted</span>
+                                @endif
                                 <span class="badge bg-primary">
                                     {{ $item->latestApplicationLogs->event_type ?? 'Under Review' }}
                                 </span>

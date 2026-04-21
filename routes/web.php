@@ -88,6 +88,7 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr', 'throttle:web'])->group(fun
   Route::post('/job_posting/applicants/assessment', [JobController::class, 'assessment'])->name('job-posting-applicants-assessment');
   Route::post('/job_posting/applicants/feedback', [JobController::class, 'applicantFeedback'])->name('job-posting-applicants-feedback');
   Route::post('/job_posting/open', [JobController::class, 'openJob'])->name('job-posting-open');
+  Route::post('/job_posting/close', [JobController::class, 'closeJob'])->name('job-posting-close');
   Route::post('/job_posting/delete', [JobController::class, 'deteleJob'])->name('job-posting-delete');
   Route::post('/job_posting/update', [JobController::class, 'updateJob'])->name('job-posting-update');
 

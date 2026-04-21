@@ -88,7 +88,7 @@
                                     <span class="badge {{ $item->jobStatus() }}">
                                         {{ ucfirst($item->status) }}
                                     </span>
-                                    @if ($item->status != 'draft')
+                                    @if ($item->status == 'open')
                                         <span>
                                             <span class="badge bg-primary">{{ $item->applicants->count() ?? 0 }}</span>
                                         </span>

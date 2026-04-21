@@ -10,9 +10,9 @@
             class="d-flex flex-column flex-md-row align-items-md-center align-items-start justify-content-start justify-content-md-between">
             <h3 class="fw-bold">Job Description</h3>
             <div class="d-flex align-items-end gap-4">
-                <a title="Delete Job Posting" id="deleteJob" data-id="{{ $details->id }}" href="javascript::void(0)"><i
-                        class="ri-delete-bin-6-line text-danger"></i></a>
                 @if ($details->status == 'open')
+                    <a title="close job posting" id="closeJob" data-id="{{ $details->id }}" href="javascript:void(0)"><i
+                            class="ri-close-circle-line"></i></a>
                     <a href="javascript:void(0)" data-id="{{ $id }}" id="urlLinks" title="Copy link">
                         <i class="ri-links-line"></i>
                     </a>
@@ -22,9 +22,11 @@
                         <span class="badge bg-primary">{{ $details->applicants->count() ?? 0 }}</span>
                     </a>
                 @else
-                    <a title="Update Job Posting" href="javascript::void(0)" data-bs-toggle="modal"
+                    <a title="Delete Job Posting" id="deleteJob" data-id="{{ $details->id }}" href="javascript:void(0)"><i
+                            class="ri-delete-bin-6-line text-danger"></i></a>
+                    <a title="Update Job Posting" href="javascript:void(0)" data-bs-toggle="modal"
                         data-bs-target="#Modal"><i class="ri-edit-2-line"></i></a>
-                    <a title="Open Job Posting" href="javascript::void(0)" data-id="{{ $details->id }}" id="OpenJob"><i
+                    <a title="Open Job Posting" href="javascript:void(0)" data-id="{{ $details->id }}" id="OpenJob"><i
                             class="ri-briefcase-line"></i></a>
                 @endif
             </div>
@@ -151,7 +153,8 @@
                         <div class="col-12 col-md-6">
                             <label for="jobLocation" class="form-label">Location</label>
                             <input id="jobLocation" name="jobLocation" value="{{ $details->location }}"
-                                class="form-control form-control-sm" type="text" placeholder="Enter the job location" />
+                                class="form-control form-control-sm" type="text"
+                                placeholder="Enter the job location" />
                         </div>
 
                         <div class="col-12 col-md-6">

@@ -35,6 +35,6 @@ class Application extends Model
     }
     public function jobposting()
     {
-        return $this->belonsTo(JobPosting::class, 'job_id', 'id');
+        return $this->belongsTo(JobPosting::class, 'job_id', 'id');
     }
 }

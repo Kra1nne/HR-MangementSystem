@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\job_posting;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApplicationAssessment;
 use App\Mail\ApplicationResponse;
 use App\Models\Application;
 use App\Models\ApplicationLog;
@@ -124,6 +125,17 @@ class JobController extends Controller
             return response()->json(['Error' => 0, 'Message' => 'Unable to open the job']);
         }
         return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
+    }
+    public function closeJob(Request $request){
+        $jobPosting = JobPosting::where('id', $request->id)->update([
+            'status' => 'closed',
+            'updated_at' => now()
+        ]);
+
+        if(!$jobPosting){
+            return response()->json(['Error' => 0, 'Message' => 'Unable to close the job']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Successfully close the job']);
     }
     public function jobApplicants($id, Request $request)
     {
@@ -269,7 +281,7 @@ class JobController extends Controller
             ->where('applications.job_id', Crypt::decryptString($request->job_id))
             ->whereNull('application_logs.status') 
             ->count();
-
+   
         if ($applicantCount < 1 || $assessmentProcess > 0) {
             return response()->json([
                 'Error' => 1,
@@ -278,8 +290,10 @@ class JobController extends Controller
         }
 
         try {
-            $applicants = Application::where('status', '!=', 'rejected')
+            $applicants = Application::with('jobposting', 'candidate.person')
+                ->where('status', '!=', 'rejected')
                 ->where('job_id', Crypt::decryptString($request->job_id))
+                ->where('status', '=', 'shortlist')
                 ->get();
 
             $data = [];
@@ -292,13 +306,21 @@ class JobController extends Controller
                     'assessment_tools' => $request->platform,
                     'created_at' => now(),
                 ];
+                $mailContent = [
+                    'name' => $applicant->candidate->person->firstname . ' ' . $applicant->candidate->person->lastname,
+                    'position' => $applicant->jobposting->position,
+                    'assessmentType' => $request->assessmentType,
+                    'schedule' => date('M. d, Y  h:i A', strtotime($request->schedule)),
+                    'locationOrPlatform' => $request->platform,
+                    'instructions' => $request->instruction
+                ];
+
+                Mail::to($applicant->email)->send(new ApplicationAssessment($mailContent));
             }
 
             DB::transaction(function () use ($data) {
                 ApplicationLog::insert($data);
             });
-
-            // add a send mail
 
             return response()->json([
                 'Error' => 0,
