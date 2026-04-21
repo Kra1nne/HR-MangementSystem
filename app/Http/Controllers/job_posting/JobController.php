@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\job_posting;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApplicationResponse;
 use App\Models\Application;
 use App\Models\ApplicationLog;
 use App\Models\Department;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -154,7 +156,7 @@ class JobController extends Controller
         $jobPosting = $query->paginate(4)->appends([
             'search' => $search
         ]);
-
+        
         $breadcrumbs = [
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Job Posting', 'link' => route('job-posting')],
@@ -184,10 +186,18 @@ class JobController extends Controller
 
         $result = Application::where('id', $request->id)->update($data);
 
-        // add a send mail
+        $mailContent = [
+            'name' => $request->firstname . " " . $request->lastname,
+            'email' => $request->email,
+            'position' => $request->position,
+            'response' => 'accepted',
+        ];
+
+        $mail = Mail::to($request->email)->send(new ApplicationResponse($mailContent));
+
         // add employee
 
-        if(!$result){
+        if(!$result && !$mail){
             return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
         }
         return response()->json(['Error' => 0, 'Message' => 'Successfully accepted the applicant']);
@@ -201,9 +211,16 @@ class JobController extends Controller
 
         $result = Application::where('id', $request->id)->update($data);
 
-        // add a send mail
+        $mailContent = [
+            'name' => $request->firstname . " " . $request->lastname,
+            'email' => $request->email,
+            'position' => $request->position,
+            'response' => 'rejected',
+        ];
 
-        if(!$result){
+        $mail = Mail::to($request->email)->send(new ApplicationResponse($mailContent));
+
+        if(!$result && !$mail){
             return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
         }
 

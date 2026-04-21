@@ -83,8 +83,11 @@
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                     data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
                                 <div class="dropdown-menu p-1">
-                                    <a href="javascript:void(0)" id="AcceptBtn" data-id="{{ $item->application_id }}"
-                                        class="dropdown-item">
+                                    <a href="javascript:void(0)" id="AcceptBtn"
+                                        data-firstname="{{ $item->candidate->person->firstname }}"
+                                        data-lastname="{{ $item->candidate->person->lastname }}"
+                                        data-email="{{ $item->email }}" data-position="{{ $item->position }}"
+                                        data-id="{{ $item->application_id }}" class="dropdown-item">
                                         <i class="bi ri-check-line"></i> Accept
                                     </a>
                                     <a href="javascript:void(0)" id="ShortlistBtn" data-id="{{ $item->application_id }}"
@@ -92,6 +95,9 @@
                                         <i class="ri-pass-pending-line"></i> Shortlist
                                     </a>
                                     <a href="javascript:void(0)" id="RejectBtn" data-id="{{ $item->application_id }}"
+                                        data-firstname="{{ $item->candidate->person->firstname }}"
+                                        data-lastname="{{ $item->candidate->person->lastname }}"
+                                        data-email="{{ $item->email }}" data-position="{{ $item->position }}"
                                         class="dropdown-item">
                                         <i class="ri ri-close-line"></i> Reject
                                     </a>

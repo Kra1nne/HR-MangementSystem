@@ -192,6 +192,11 @@ $(function () {
 $(function () {
   $(document).on('click', '#AcceptBtn', function () {
     const id = $(this).data('id');
+    const firstname = $(this).data('firstname');
+    const lastname = $(this).data('lastname');
+    const position = $(this).data('position');
+    const email = $(this).data('email');
+
     Swal.fire({
       title: 'Accept Applicant?',
       text: 'This action cannot be undone. Do you want to accept this applicant?',
@@ -208,7 +213,11 @@ $(function () {
           cache: false,
           data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
-            id: id
+            id: id,
+            firstname: firstname,
+            lastname: lastname,
+            position: position,
+            email: email
           },
           dataType: 'json',
           beforeSend: function () {
@@ -243,6 +252,11 @@ $(function () {
 $(function () {
   $(document).on('click', '#RejectBtn', function () {
     const id = $(this).data('id');
+    const firstname = $(this).data('firstname');
+    const lastname = $(this).data('lastname');
+    const position = $(this).data('position');
+    const email = $(this).data('email');
+
     Swal.fire({
       title: 'Reject Applicant?',
       text: 'This action cannot be undone. Do you want to reject this applicant?',
@@ -260,7 +274,11 @@ $(function () {
           cache: false,
           data: {
             _token: $('meta[name="csrf-token"]').attr('content'),
-            id: id
+            id: id,
+            firstname: firstname,
+            lastname: lastname,
+            position: position,
+            email: email
           },
           dataType: 'json',
           beforeSend: function () {
