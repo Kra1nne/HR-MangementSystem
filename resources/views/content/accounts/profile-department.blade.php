@@ -8,12 +8,7 @@
 @endsection
 
 @section('content')
-    <div class="px-4">
-        <a href="{{ route('department-list') }}" class="btn btn-outline-secondary btn-sm rounded-3">
-            Back
-        </a>
-    </div>
-    <section id="employeeDetailsSection" class="container-fluid py-4">
+    <section id="employeeDetailsSection" class=" py-4">
         <!-- Header -->
         <div class="bg-primary px-4 pt-4 pb-3 d-flex flex-wrap align-items-end gap-3 position-relative rounded-3">
 
@@ -175,11 +170,6 @@
                             <p class="text-dark small text-uppercase fw-bold mb-0">
                                 Employee Experience
                             </p>
-
-                            <!-- Add New -->
-                            <button class="btn btn-sm btn-primary rounded-pill px-3">
-                                <i class="ri-add-line"></i> Add Experience
-                            </button>
                         </div>
 
                         <!-- Content -->
@@ -193,52 +183,34 @@
                                 </div>
 
                                 <!-- Experience Item -->
-                                <div class="mb-4 position-relative ps-4">
+                                @forelse ($data->histories as $item)
+                                    <div class="mb-4 position-relative ps-4">
 
-                                    <!-- Dot -->
-                                    <div
-                                        style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
-                                    </div>
-
-                                    <div class=" p-3 bg-white">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1 fw-bold">Junior Developer</h6>
-                                            <small class="text-muted">Jan 2020 - Dec 2021</small>
+                                        <!-- Dot -->
+                                        <div
+                                            style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
                                         </div>
 
-                                        <p class="mb-1 small text-muted">IT Department</p>
-                                        <p class="mb-1 small text-muted">$30,000</p>
-                                        <p class="mb-2 small">Worked on internal systems and bug fixes.</p>
+                                        <div class=" p-3 bg-white">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="mb-1 fw-bold">{{ $item->company }}</h6>
+                                                <small class="text-muted">{{ date('Y M', strtotime($item->start_date)) }}
+                                                    -
+                                                    {{ date('Y M', strtotime($item->to_date)) }}</small>
+                                            </div>
 
-                                        <div class="d-flex gap-2">
-                                            <a href="#" class="text-primary"><i class="ri-edit-2-line"></i></a>
-                                            <a href="#" class="text-danger"><i class="ri-delete-bin-line"></i></a>
+                                            <p class="mb-1 small text-muted">{{ $item->position }}</p>
+                                            <p class="mb-1 small text-muted">₱{{ number_format($item->salary, 2) }}</p>
+                                            <p class="mb-2 small">{{ $item->description }}</p>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Experience Item -->
-                                <div class="mb-4 position-relative ps-4">
-
-                                    <div
-                                        style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
+                                @empty
+                                    <div>
+                                        <h3 class="text-center p-5">No Experience</h3>
                                     </div>
+                                @endforelse
 
-                                    <div class="p-3 bg-white">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1 fw-bold">Software Developer</h6>
-                                            <small class="text-muted">Jan 2022 - Jun 2023</small>
-                                        </div>
 
-                                        <p class="mb-1 small text-muted">Product Development</p>
-                                        <p class="mb-2 small">Built APIs and handled backend services.</p>
-
-                                        <div class="d-flex gap-2">
-                                            <a href="#" class="text-primary"><i class="ri-edit-2-line"></i></a>
-                                            <a href="#" class="text-danger"><i class="ri-delete-bin-line"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
 

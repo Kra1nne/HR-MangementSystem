@@ -58,6 +58,9 @@ class Employee extends Model
             ->whereNull('to_date')
             ->orderByDesc('from_date');
     }
+    public function histories(){
+        return $this->hasMany(EmployeeHistory::class, 'emp_no', 'emp_no');
+    }
     public function EmployeeBadge(): string
     {
         return match($this->status){

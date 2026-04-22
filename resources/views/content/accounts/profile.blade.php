@@ -8,12 +8,7 @@
 @endsection
 
 @section('content')
-    <div class="px-4">
-        <a href="{{ route('employee') }}" class="btn btn-outline-secondary btn-sm rounded-3">
-            Back
-        </a>
-    </div>
-    <section id="employeeDetailsSection" class="container-fluid py-4">
+    <section id="employeeDetailsSection" class="py-4">
         <!-- Header -->
         <div class="bg-primary px-4 pt-4 pb-3 d-flex flex-wrap align-items-end gap-3 position-relative rounded-3">
 
@@ -74,12 +69,14 @@
 
                 <!-- Personal Info -->
                 <div class="col-12 col-lg-8">
-                    <div class="border rounded-3 p-3 h-100">
-                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
-                            Personal Information
-                        </p>
+                    <div class="border rounded-3 h-100">
+                        <div class="border-bottom p-3 mb-3">
+                            <p class="text-dark small text-uppercase fw-bold mb-0">
+                                Personal Information
+                            </p>
+                        </div>
 
-                        <div class="row g-3">
+                        <div class="row g-3 p-3">
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Full Name</p>
@@ -145,12 +142,14 @@
 
                 <!-- Work Details -->
                 <div class="col-12 col-lg-4">
-                    <div class="border rounded-3 p-3 h-100">
-                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
-                            Current Work Details
-                        </p>
+                    <div class="border rounded-3 h-100">
+                        <div class="border-bottom p-3 mb-">
+                            <p class="text-dark small text-uppercase fw-bold mb-0">
+                                Current Work Details
+                            </p>
+                        </div>
 
-                        <div class="d-flex flex-column gap-3">
+                        <div class="d-flex flex-column gap-3 p-3">
 
                             <div>
                                 <p class="text-muted small mb-1">Employment Type</p>
@@ -193,7 +192,9 @@
 
                             <!-- Add New -->
                             @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Hr' || Auth::user()->role == 'Manager')
-                                <button class="btn btn-sm btn-primary rounded-pill px-3">
+                                <button class="btn btn-sm btn-primary rounded-pill px-3"
+                                    data-bs-target="#ModalAddExperience" data-id={{ $employee_id }} data-bs-toggle="modal"
+                                    id="ExperienceBtn">
                                     <i class="ri-add-line"></i> Add Experience
                                 </button>
                             @endif
@@ -210,52 +211,38 @@
                                 </div>
 
                                 <!-- Experience Item -->
-                                <div class="mb-4 position-relative ps-4">
+                                @forelse ($data->histories as $item)
+                                    <div class="mb-4 position-relative ps-4">
 
-                                    <!-- Dot -->
-                                    <div
-                                        style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
-                                    </div>
-
-                                    <div class=" p-3 bg-white">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1 fw-bold">Junior Developer</h6>
-                                            <small class="text-muted">Jan 2020 - Dec 2021</small>
+                                        <!-- Dot -->
+                                        <div
+                                            style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
                                         </div>
 
-                                        <p class="mb-1 small text-muted">IT Department</p>
-                                        <p class="mb-1 small text-muted">$30,000</p>
-                                        <p class="mb-2 small">Worked on internal systems and bug fixes.</p>
+                                        <div class=" p-3 bg-white">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="mb-1 fw-bold">{{ $item->company }}</h6>
+                                                <small class="text-muted">{{ date('Y M', strtotime($item->start_date)) }}
+                                                    -
+                                                    {{ date('Y M', strtotime($item->to_date)) }}</small>
+                                            </div>
 
-                                        <div class="d-flex gap-2">
-                                            <a href="#" class="text-primary"><i class="ri-edit-2-line"></i></a>
-                                            <a href="#" class="text-danger"><i class="ri-delete-bin-line"></i></a>
+                                            <p class="mb-1 small text-muted">{{ $item->position }}</p>
+                                            <p class="mb-1 small text-muted">₱{{ number_format($item->salary, 2) }}</p>
+                                            <p class="mb-2 small">{{ $item->description }}</p>
+
+                                            <div class="d-flex gap-2">
+                                                <a href="#" class="text-primary"><i class="ri-edit-2-line"></i></a>
+                                                <a href="#" class="text-danger"><i
+                                                        class="ri-delete-bin-line"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <!-- Experience Item -->
-                                <div class="mb-4 position-relative ps-4">
-
-                                    <div
-                                        style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
+                                @empty
+                                    <div>
+                                        <h3 class="text-center p-5">No Experience</h3>
                                     </div>
-
-                                    <div class="p-3 bg-white">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1 fw-bold">Software Developer</h6>
-                                            <small class="text-muted">Jan 2022 - Jun 2023</small>
-                                        </div>
-
-                                        <p class="mb-1 small text-muted">Product Development</p>
-                                        <p class="mb-2 small">Built APIs and handled backend services.</p>
-
-                                        <div class="d-flex gap-2">
-                                            <a href="#" class="text-primary"><i class="ri-edit-2-line"></i></a>
-                                            <a href="#" class="text-danger"><i class="ri-delete-bin-line"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforelse
 
                             </div>
 
@@ -295,6 +282,64 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="btnDetailsUpdate">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalAddExperience" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary pb-4">
+                    <h5 class="modal-title text-white" id="modalCenterTitle">Add Experience</h5>
+                </div>
+                <form class="modal-body" id="EmployeeExperienceData">
+                    @csrf
+                    <input type="text" name="emp_no" id="emp_no" hidden>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="company" class="form-label">Company</label>
+                            <input id="company" name="company" class="form-control form-control-sm" type="text"
+                                placeholder="Enter the Company" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="position" class="form-label">Position</label>
+                            <input id="position" name="position" class="form-control form-control-sm" type="text"
+                                placeholder="Enter the employee position" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="salary" class="form-label">Salary</label>
+                            <input id="salary" name="salary" class="form-control form-control-sm" type="number"
+                                placeholder="Enter the employee monthly salary" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="start" class="form-label">Start Date</label>
+                            <input id="start" name="start" class="form-control form-control-sm" type="date"
+                                placeholder="Enter the employment date start" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="end" class="form-label">End Date</label>
+                            <input id="end" name="end" class="form-control form-control-sm" type="date"
+                                placeholder="Enter the employee employment date end" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control h-px-100" id="description" name="description" placeholder="Enter job description..."></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnExperience">Submit</button>
                 </div>
             </div>
         </div>
