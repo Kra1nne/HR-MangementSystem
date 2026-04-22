@@ -39,7 +39,14 @@ class AttendanceController extends Controller
             ->leftjoin('persons', 'persons.id', '=', 'employees.person_id')
             ->leftjoin('departments','departments.dept_no', '=', 'department_employees.dept_no')
             ->paginate(8, ['*'], 'absent_page');
-       
+        
+        $Unregister = Employee::with('person')
+            ->leftjoin('department_employees', 'department_employees.emp_no', '=','employees.emp_no')
+            ->leftjoin('departments', 'departments.dept_no', '=', 'department_employees.dept_no')
+            ->whereNull('department_employees.to_date')
+            ->whereNull('employees.face_descriptor')
+            ->get();
+        
         $presentCount = $Present->total();
         $totalEmployee = Employee::whereNull('deleted_at')->count();
         $totalAbsent = $Absent->total();
@@ -47,7 +54,7 @@ class AttendanceController extends Controller
             ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
             ['name' => 'Attendance Dashboard'],
         ];
-        return view('content.attendance.attendance', compact('breadcrumbs', 'presentCount', 'totalEmployee', 'totalAbsent', 'Present', 'Absent'));
+        return view('content.attendance.attendance', compact('breadcrumbs', 'presentCount', 'totalEmployee', 'totalAbsent', 'Present', 'Absent', 'Unregister'));
     }
     public function userAttendance(){
         $breadcrumbs = [

@@ -411,7 +411,7 @@ $(function () {
                 showConfirmButton: true,
                 confirmButtonText: 'OK'
               }).then(result => {
-                location.reload();
+                window.location.href = data.Redirect;
               });
             }
           },

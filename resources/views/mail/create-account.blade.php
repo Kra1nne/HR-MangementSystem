@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
     <title>Your Temporary Password – VoxSync HRMS</title>
 
     {{-- Bootstrap 5 CDN --}}
@@ -89,7 +91,7 @@
             justify-content: center;
             font-size: 22px;
             font-weight: 700;
-            color: #fff;
+            color: #ffffff !important;
             letter-spacing: -1px;
             flex-shrink: 0;
         }
@@ -97,7 +99,7 @@
         .logo-text {
             font-size: 22px;
             font-weight: 700;
-            color: #ffffff;
+            color: #ffffff !important;
             letter-spacing: -0.5px;
         }
 
@@ -120,7 +122,7 @@
         .header-tagline h1 {
             font-size: 26px;
             font-weight: 700;
-            color: #ffffff;
+            color: #ffffff !important;
             line-height: 1.25;
             letter-spacing: -0.4px;
         }
@@ -248,7 +250,7 @@
             width: 26px;
             height: 26px;
             background: #1d4ed8;
-            color: #fff;
+            color: #fff !important;
             border-radius: 50%;
             font-size: 12px;
             font-weight: 700;
@@ -281,7 +283,7 @@
         .footer-logo {
             font-size: 16px;
             font-weight: 700;
-            color: #ffffff;
+            color: #ffffff !important;
             letter-spacing: -0.3px;
             margin-bottom: 6px;
         }

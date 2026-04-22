@@ -32,11 +32,11 @@
                                     <div class="flex-grow-1">
                                         <h5 class="fw-bolder mb-1">{{ $item->dept_name }}</h5>
 
-                                        <span class="badge bg-primary text-white border">
+                                        {{-- <span class="badge bg-primary text-white border">
                                             Manager:
                                             <strong>{{ $item->latestManager->employee->person->firstname ?? ' ' }}
                                                 {{ $item->latestManager->employee->person->lastname ?? ' ' }}</strong>
-                                        </span>
+                                        </span> --}}
                                     </div>
                                 </div>
                                 <p class="text-muted small mb-0">
@@ -121,8 +121,7 @@
                     <div class="row">
                         <div class="col mt-2">
                             <label for="details" class="form-label">Details</label>
-                            <textarea class="form-control h-px-100" id="details" name="details"
-                                placeholder="Enter department details here..."></textarea>
+                            <textarea class="form-control h-px-100" id="details" name="details" placeholder="Enter department details here..."></textarea>
                         </div>
                     </div>
                 </form>

@@ -35,7 +35,7 @@ class JobController extends Controller
             })
             ->when($request->filled('work_setup'), fn($q) => $q->where('job_postings.work_setup', $request->work_setup))
             ->when($request->filled('employment_type'), fn($q) => $q->where('job_postings.employment_type', $request->employment_type))
-            ->when($request->filled('dept_no'), fn($q) => $q->where('departments.dept_name', $request->dept_name))
+            ->when($request->filled('dept_name'), fn($q) => $q->where('departments.dept_name', $request->dept_name))
             ->orderBy('job_postings.id', 'Desc')
             ->select('job_postings.*', 'departments.dept_name')
             ->paginate(8);

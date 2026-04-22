@@ -33,7 +33,7 @@ $(function () {
   // ── Shift Builder ───────────────────────────────────
 
   function buildShifts(logs, date) {
-    const names = ['Morning', 'Afternoon', 'Evening'];
+    const names = ['Shift 1', 'Shift 1', 'Shift 3'];
     let shifts = [],
       open = null;
 

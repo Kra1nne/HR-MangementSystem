@@ -11,7 +11,7 @@
                     class="btn btn-primary btn-sm">Back</a>
             </div>
             <div
-                class="card p-2 d-flex flex-column flex-lg-row 
+                class=" p-2 d-flex flex-column flex-lg-row 
             justify-content-between align-items-start align-items-center gap-3">
                 <div class="col">
                     <div class="w-100 h-100">
@@ -24,10 +24,10 @@
 
                 <div class="col w-100">
 
-                    <div class="card shadow border-0 rounded-4">
+                    <div class="">
 
-                        <div class="card-header bg-primary text-white text-center rounded-top-4">
-                            <h4 class="mb-0 fw-bold text-white">Today's Attendance</h4>
+                        <div class="card-header text-dark text-center rounded-top-4">
+                            <h4 class="mb-0 fw-bold text-dark">Today's Attendance</h4>
                         </div>
 
                         <div class="card-body">
@@ -41,7 +41,7 @@
                             </div>
 
                             <!-- Morning -->
-                            <h6 class="text-uppercase text-muted mb-3">Morning</h6>
+                            <h6 class="text-uppercase text-muted mb-3">Shift 1</h6>
 
                             <div class="row g-3 mb-4">
                                 <div class="col-6">
@@ -60,7 +60,7 @@
                             </div>
 
                             <!-- Afternoon -->
-                            <h6 class="text-uppercase text-muted mb-3">Afternoon</h6>
+                            <h6 class="text-uppercase text-muted mb-3">Shift 2</h6>
 
                             <div class="row g-3">
                                 <div class="col-6">

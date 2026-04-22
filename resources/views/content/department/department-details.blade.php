@@ -44,11 +44,11 @@
                             </div>
                             <div>
                                 @if (Auth::user()->role === 'Admin' || Auth::user()->role === 'Hr')
-                                    <a href="javascript::void(0)" data-id="{{ $departmentDetails->dept_no }}"
+                                    <a href="javascript:void(0)" data-id="{{ $departmentDetails->dept_no }}"
                                         id="deleteDepartment" class="text-danger">
                                         <i class="ri-delete-bin-5-line"></i>
                                     </a>
-                                    <a href="javascript::void(0)" id="updateDepartment" data-bs-toggle="modal"
+                                    <a href="javascript:void(0)" id="updateDepartment" data-bs-toggle="modal"
                                         data-bs-target="#ModalEdit" data-id="{{ $departmentDetails->dept_no }}"
                                         data-name="{{ $departmentDetails->dept_name }}"
                                         data-details="{{ $departmentDetails->details }}"
@@ -89,7 +89,7 @@
                                 <div class="border-end h-100">
                                     <div class="text-muted small">Employees</div>
                                     <div class="fw-semibold fs-5 mt-1 text-dark">
-                                        18
+                                        {{ $departmentDetails->department_employees->count() ?? 0 }}
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <div>
                                     <div class="text-muted small">Created</div>
                                     <div class="fw-semibold fs-5 mt-1 text-dark">
-                                        Jan 15, 2022
+                                        {{ date('M d, Y', strtotime($departmentDetails->created_at)) }}
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                             </form>
 
                             <div class="d-flex justify-content-center align-items-center px-5" id="options">
-                                <a class="text-success" href="javascript::void(0)" data-bs-target="#Modal"
+                                <a class="text-success" href="javascript:void(0)" data-bs-target="#Modal"
                                     data-department="{{ $departmentDetails->dept_name }}" id="MessageAll"
                                     data-bs-toggle="modal">
                                     <i class="icon-base ri ri-megaphone-line icon-18px me-1"></i>
@@ -183,13 +183,16 @@
                                                 {{ date('F m Y', strtotime($item->hire_date)) }}
                                             </td>
                                             <td>
-                                                <a class="text-success" href="javascript::void(0)"
+                                                <a class="text-primary" href="javascript:void(0)"
                                                     id="ModalPersonalMessage" data-bs-target="#Modal"
                                                     data-id="{{ $item->id_no }}"
                                                     data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
                                                     data-bs-toggle="modal"><i
                                                         class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
-                                                <a class="text-danger" href="javascript::void(0)" id="employeeDelete"
+                                                <a class="text-primary"
+                                                    href="{{ route('department-profile-index', Crypt::encryptString($item->emp_no)) }}"><i
+                                                        class="icon-base ri ri-information-line icon-18px me-1"></i></a>
+                                                <a class="text-danger" href="javascript:void(0)" id="employeeDelete"
                                                     data-id="{{ $item->emp_no }}"><i
                                                         class="icon-base ri ri-delete-bin-6-line icon-18px me-1"></i></a>
                                             </td>

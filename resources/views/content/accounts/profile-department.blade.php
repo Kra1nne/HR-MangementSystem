@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="px-4">
-        <a href="{{ route('employee') }}" class="btn btn-outline-secondary btn-sm rounded-3">
+        <a href="{{ route('department-list') }}" class="btn btn-outline-secondary btn-sm rounded-3">
             Back
         </a>
     </div>
@@ -48,38 +48,21 @@
                 <span class="badge rounded-pill bg-success text-white">
                     {{ $data->emp_id }}
                 </span>
-                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Hr')
-                    <a href="javascript::void(0)" id="EditEmployee" data-bs-toggle="modal" data-bs-target="#modalEdit">
-                        <i class="ri-file-edit-line text-white"></i>
-                    </a>
-                    @if ($data->face_descriptor == null)
-                        <a href="{{ route('employee-faceRegistration', $employee_id) }}"
-                            class="btn btn-primary border-white btn-sm p-1 w-100 rounded-3" id="btnRegisterFace">
-                            Register Face
-                        </a>
-                    @else
-                        <a href="javascript::void(0)" data-id="{{ $employee_id }}" class="text-white"
-                            id="btnResetRegisterFace">
-                            <i class="ri-user-forbid-line"></i>
-                        </a>
-                    @endif
-                @endif
             </div>
         </div>
 
-
-        <!-- Content -->
         <div class="mt-4 px-md-4">
             <div class="row g-4">
 
                 <!-- Personal Info -->
                 <div class="col-12 col-lg-8">
-                    <div class="border rounded-3 p-3 h-100">
-                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
-                            Personal Information
-                        </p>
-
-                        <div class="row g-3">
+                    <div class="border rounded-3 h-100">
+                        <div class="border-bottom p-3 mb-3">
+                            <p class="text-dark small text-uppercase fw-bold mb-0">
+                                Personal Information
+                            </p>
+                        </div>
+                        <div class="row g-3 p-3">
 
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Full Name</p>
@@ -111,7 +94,7 @@
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <p class="text-muted small mb-1">Birth of Date</p>
+                                <p class="text-muted small mb-1">Birthday</p>
                                 <p class="fw-semibold small mb-0" id="employeeBirthday">
                                     {{ date('F d Y', strtotime($data->hire_date)) }}
                                 </p>
@@ -145,12 +128,14 @@
 
                 <!-- Work Details -->
                 <div class="col-12 col-lg-4">
-                    <div class="border rounded-3 p-3 h-100">
-                        <p class="text-dark small text-uppercase fw-bold mb-3" style="letter-spacing:.07em;font-size:11px;">
-                            Current Work Details
-                        </p>
+                    <div class="border rounded-3 h-100">
+                        <div class="border-bottom p-3 mb-">
+                            <p class="text-dark small text-uppercase fw-bold mb-0">
+                                Current Work Details
+                            </p>
+                        </div>
 
-                        <div class="d-flex flex-column gap-3">
+                        <div class="d-flex flex-column gap-3 p-3">
 
                             <div>
                                 <p class="text-muted small mb-1">Employment Type</p>
@@ -192,11 +177,9 @@
                             </p>
 
                             <!-- Add New -->
-                            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Hr' || Auth::user()->role == 'Manager')
-                                <button class="btn btn-sm btn-primary rounded-pill px-3">
-                                    <i class="ri-add-line"></i> Add Experience
-                                </button>
-                            @endif
+                            <button class="btn btn-sm btn-primary rounded-pill px-3">
+                                <i class="ri-add-line"></i> Add Experience
+                            </button>
                         </div>
 
                         <!-- Content -->

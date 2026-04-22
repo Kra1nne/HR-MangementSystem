@@ -79,30 +79,34 @@
 
                                 </div>
                             </div>
-                            <div class="d-flex flex-column align-items-end justify-content-between">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                    data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
-                                <div class="dropdown-menu p-1">
-                                    <a href="javascript:void(0)" id="AcceptBtn"
-                                        data-firstname="{{ $item->candidate->person->firstname }}"
-                                        data-lastname="{{ $item->candidate->person->lastname }}"
-                                        data-email="{{ $item->email }}" data-position="{{ $item->position }}"
-                                        data-id="{{ $item->application_id }}" class="dropdown-item">
-                                        <i class="bi ri-check-line"></i> Accept
-                                    </a>
-                                    <a href="javascript:void(0)" id="ShortlistBtn" data-id="{{ $item->application_id }}"
-                                        class="dropdown-item">
-                                        <i class="ri-pass-pending-line"></i> Shortlist
-                                    </a>
-                                    <a href="javascript:void(0)" id="RejectBtn" data-id="{{ $item->application_id }}"
-                                        data-firstname="{{ $item->candidate->person->firstname }}"
-                                        data-lastname="{{ $item->candidate->person->lastname }}"
-                                        data-email="{{ $item->email }}" data-position="{{ $item->position }}"
-                                        class="dropdown-item">
-                                        <i class="ri ri-close-line"></i> Reject
-                                    </a>
+                            @if ($item->status == 'shortlist' || $item->status == 'apply')
+                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
+                                    <div class="dropdown-menu p-1">
+                                        <a href="javascript:void(0)" id="AcceptBtn"
+                                            data-firstname="{{ $item->candidate->person->firstname }}"
+                                            data-lastname="{{ $item->candidate->person->lastname }}"
+                                            data-email="{{ $item->email }}" data-position="{{ $item->position }}"
+                                            data-id="{{ $item->application_id }}" class="dropdown-item">
+                                            <i class="bi ri-check-line"></i> Accept
+                                        </a>
+                                        @if ($item->status != 'shortlist')
+                                            <a href="javascript:void(0)" id="ShortlistBtn"
+                                                data-id="{{ $item->application_id }}" class="dropdown-item">
+                                                <i class="ri-pass-pending-line"></i> Shortlist
+                                            </a>
+                                        @endif
+                                        <a href="javascript:void(0)" id="RejectBtn" data-id="{{ $item->application_id }}"
+                                            data-firstname="{{ $item->candidate->person->firstname }}"
+                                            data-lastname="{{ $item->candidate->person->lastname }}"
+                                            data-email="{{ $item->email }}" data-position="{{ $item->position }}"
+                                            class="dropdown-item">
+                                            <i class="ri ri-close-line"></i> Reject
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                         <div class="d-flex flex-wrap gap-1 small mt-3">
                             @if ($item->status == 'accepted')

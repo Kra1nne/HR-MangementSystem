@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Department extends Model
 {
     protected $table = "departments";
+    use SoftDeletes;
 
     protected $fillable = [
         'dept_no',

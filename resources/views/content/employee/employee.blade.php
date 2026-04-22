@@ -79,13 +79,13 @@
                                 </td>
                                 <td><span class="{{ $item->EmployeeBadge() }}">{{ $item->status }}</span></td>
                                 <td>
-                                    <a class="text-success" href="javascript::void(0)" id="messageEmployee"
+                                    <a class="text-primary" href="javascript::void(0)" id="messageEmployee"
                                         data-id="{{ $item->emp_no }}"
                                         data-fullname="{{ $item->person->firstname }} {{ $item->person->middlename }} {{ $item->person->lastname }}"
                                         data-bs-target="#ModalMessage" data-bs-toggle="modal"><i
                                             class="icon-base ri ri-mail-send-line icon-18px me-1"></i></a>
 
-                                    <a class="text-success" id="ModalClickEdit" href="javascript::void(0)"
+                                    <a class="text-primary" id="ModalClickEdit" href="javascript::void(0)"
                                         data-bs-target="#Modal" data-bs-toggle="modal" data-id="{{ $item->emp_no }}"
                                         data-firstname="{{ $item->person->firstname }}"
                                         data-middlename="{{ $item->person->middlename }}"

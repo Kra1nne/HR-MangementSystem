@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('otp', 6)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('status_request', 50);
-            $table->timestamp('otp_validity');
+            $table->timestamp('otp_validity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

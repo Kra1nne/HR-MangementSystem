@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Verification Code – VoxSync HRMS</title>
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -29,7 +31,7 @@
         .email-header {
             background: linear-gradient(135deg, #0f1623, #1e3a5f);
             padding: 36px 48px;
-            color: #fff;
+            color: #ffffff !important;
         }
 
         .logo-text {
@@ -100,7 +102,7 @@
         /* Footer */
         .email-footer {
             background: #0f172a;
-            color: rgba(255, 255, 255, 0.6);
+            color: #ffffff !important;
             text-align: center;
             padding: 30px;
             font-size: 12px;

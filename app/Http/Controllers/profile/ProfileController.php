@@ -10,13 +10,23 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $data = Employee::with(['person', 'latestSalary', 'latestTitle', 'latestDepartment.department'])
+        $data = Employee::with(['person.user', 'latestSalary', 'latestTitle', 'latestDepartment.department'])
+            ->where('emp_no', Crypt::decryptString($id))
+            ->first();
+
+        $employee_id = $id;
+        //dd($data);
+        return view('content.accounts.profile', compact('data', 'employee_id'));
+    }
+    public function profileDepartment($id)
+    {
+        $data = Employee::with(['person.user', 'latestSalary', 'latestTitle', 'latestDepartment.department'])
             ->where('emp_no', Crypt::decryptString($id))
             ->first();
 
         $employee_id = $id;
 
-        return view('content.accounts.profile', compact('data', 'employee_id'));
+        return view('content.accounts.profile-department', compact('data', 'employee_id'));
     }
     public function updateEmployee()
     {

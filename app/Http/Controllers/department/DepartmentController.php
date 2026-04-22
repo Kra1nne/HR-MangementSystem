@@ -40,7 +40,7 @@ class DepartmentController extends Controller
             ['name' => 'Department List', 'link' => route('department-list')],
             ['name' => 'Department Details'],
         ];
-        $departmentDetails = Department::with('latestManager.employee.person')
+        $departmentDetails = Department::with('latestManager.employee.person', 'department_employees')
             ->whereNull('deleted_at')
             ->where('dept_no', Crypt::decryptString($id))
             ->orderBy('created_at', 'desc')
@@ -253,7 +253,20 @@ class DepartmentController extends Controller
 
         return response()->json(['Error' => 0, 'Message' => 'Department successfully updated']);
     }
-    public function deleteDepartment(){
-        return response()->json(['Error' => 0, 'Message' => 'Department successfully deleted']);
+    public function deleteDepartment(Request $request){
+        $departmentCheck = DepartmentEmployee::where('dept_no', $request->id)
+            ->whereNull('to_date')
+            ->count();
+        
+        if($departmentCheck > 0){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to delete, remove the employee first']);
+        }
+
+        $department = Department::where('dept_no', $request->id)->delete();
+
+        if(!$department){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to delete the department']);
+        }
+        return response()->json(['Error' => 0, 'Message' => 'Department successfully deleted', 'Redirect' => route('department-list')]);
     }
 }

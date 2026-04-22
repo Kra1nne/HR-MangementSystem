@@ -158,7 +158,7 @@ $(function () {
 
                       </h6>
                   </div>
-                  <p class="mb-2">Applicant assessment record</p>
+                  <p class="text-muted mb-2 small"><i class="ri-tools-fill me-1"></i>${log.assessment_tools}</p>
                   <p class="text-muted mb-2 small">
                     <i class="ri ri-calendar-line me-1"></i>
                     ${new Date(log.scheduled_at).toLocaleDateString(undefined, {

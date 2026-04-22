@@ -68,7 +68,7 @@
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
                             <h6 class="text-muted mb-2">Unregister</h6>
-                            <h3 class="fw-bold mb-0">0</h3>
+                            <h3 class="fw-bold mb-0">{{ $Unregister->count() }}</h3>
                         </div>
                         <div class="bg-warning bg-opacity-10 p-3 rounded-circle">
                             <i class="ri-calendar-event-line fs-4 text-warning"></i>
@@ -179,8 +179,19 @@
                                     <tbody class="table-border-bottom-0">
                                         @forelse ($Absent as $item)
                                             <tr>
-                                                <td>{{ $item->firstname }} {{ $item->middlename ?? '' }}
-                                                    {{ $item->lastname }}</td>
+                                                <td class="ps-3">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
+                                                            style="width:42px;height:42px;flex-shrink:0;">
+                                                            {{ strtoupper(substr($item->firstname, 0, 1)) }}
+                                                            {{ strtoupper(substr($item->lastname, 0, 1)) }}
+                                                        </div>
+                                                        <div class="fw-semibold text-dark">
+                                                            {{ $item->firstname }} {{ $item->middlename }}
+                                                            {{ $item->lastname }}
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>{{ $item->emp_id }}</td>
                                                 <td>{{ $item->dept_name }}</td>
                                                 <td>{{ $item->sex }} </td>
@@ -218,9 +229,37 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        <tr class="text-center">
-                                            <td colspan="6">No employee</td>
-                                        </tr>
+                                        @forelse ($Unregister as $item)
+                                            <tr>
+                                                <td class="ps-3">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
+                                                            style="width:42px;height:42px;flex-shrink:0;">
+                                                            {{ strtoupper(substr($item->person->firstname, 0, 1)) }}
+                                                            {{ strtoupper(substr($item->person->lastname, 0, 1)) }}
+                                                        </div>
+                                                        <div class="fw-semibold text-dark">
+                                                            {{ $item->person->firstname }} {{ $item->person->middlename }}
+                                                            {{ $item->person->lastname }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $item->emp_id }}</td>
+                                                <td>{{ $item->dept_name }}</td>
+                                                <td>{{ $item->person->sex }}</td>
+                                                <td>{{ $item->person->phone_number }}</td>
+                                                <td>
+                                                    <span class="badge bg-danger text-white">
+                                                        Unregister
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr class="text-center">
+                                                <td colspan="6">No employee</td>
+                                            </tr>
+                                        @endforelse
+
                                     </tbody>
                                 </table>
                             </div>
