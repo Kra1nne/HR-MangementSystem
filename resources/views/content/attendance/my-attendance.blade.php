@@ -6,7 +6,7 @@
     @vite('resources/assets/js/attendance.js')
 @endsection
 @section('content')
-    <main class="container mt-5">
+    <main class=" mt-5">
         <section class="row g-4">
 
             <!-- Total Hours Worked -->

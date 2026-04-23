@@ -23,7 +23,7 @@ class ProfileController extends Controller
             ['name' => 'Employee Details'],
         ];
         $employee_id = $id;
-        
+        //dd($data);
         return view('content.accounts.profile', compact('data', 'employee_id', 'breadcrumbs'));
     }
     public function profileDepartment($id)

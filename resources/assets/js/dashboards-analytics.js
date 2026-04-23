@@ -1,446 +1,285 @@
 /**
  * Dashboard Analytics
  */
+$(function () {
+  function formatDate(date, includeDate = true) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = months[date.getMonth()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
 
-'use strict';
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
 
-(function () {
-  let cardColor, labelColor, borderColor, chartBgColor, bodyColor;
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    if (hours === 0) hours = 12; // handle midnight & noon
+    hours = String(hours).padStart(2, '0');
 
-  cardColor = config.colors.cardColor;
-  labelColor = config.colors.textMuted;
-  borderColor = config.colors.borderColor;
-  chartBgColor = config.colors.chartBgColor;
-  bodyColor = config.colors.bodyColor;
+    if (includeDate) {
+      return `${month} ${day}, ${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+    } else {
+      return `${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+  }
 
-  // Weekly Overview Line Chart
-  // --------------------------------------------------------------------
-  const weeklyOverviewChartEl = document.querySelector('#weeklyOverviewChart'),
-    weeklyOverviewChartConfig = {
-      chart: {
-        type: 'bar',
-        height: 200,
-        offsetY: -9,
-        offsetX: -16,
-        parentHeightOffset: 0,
-        toolbar: {
-          show: false
-        }
-      },
-      series: [
-        {
-          name: 'Sales',
-          data: [32, 55, 45, 75, 55, 35, 70]
-        }
-      ],
-      colors: [chartBgColor],
-      plotOptions: {
-        bar: {
-          borderRadius: 8,
-          columnWidth: '30%',
-          endingShape: 'rounded',
-          startingShape: 'rounded',
-          colors: {
-            ranges: [
-              {
-                from: 75,
-                to: 80,
-                color: config.colors.primary
-              },
-              {
-                from: 0,
-                to: 73,
-                color: chartBgColor
-              }
-            ]
-          }
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      legend: {
-        show: false
-      },
-      grid: {
-        strokeDashArray: 8,
-        borderColor,
-        padding: {
-          bottom: -10
-        }
-      },
-      xaxis: {
-        axisTicks: { show: false },
-        crosshairs: { opacity: 0 },
-        axisBorder: { show: false },
-        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        tickPlacement: 'on',
-        labels: {
-          show: false
-        },
-        axisBorder: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        }
-      },
-      yaxis: {
-        min: 0,
-        max: 90,
+  // Update both elements
+  function updateTime() {
+    const now = new Date();
+    $('#runningTime').text(formatDate(now, false));
+  }
+
+  // Run immediately and then every second
+  updateTime();
+  setInterval(updateTime, 1000);
+});
+
+('use strict');
+
+$(document).ready(function () {
+  const dates = applicantsData.map(function (item) {
+    return item.applied_at;
+  });
+
+  const totals = applicantsData.map(function (item) {
+    return parseInt(item.total);
+  });
+
+  const options = {
+    series: [
+      {
+        name: 'Applicants',
+        data: totals
+      }
+    ],
+    chart: {
+      type: 'line',
+      height: 380,
+      toolbar: {
         show: true,
-        tickAmount: 3,
-        labels: {
-          formatter: function (val) {
-            return parseInt(val) + 'K';
+        tools: {
+          download: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true
+        }
+      },
+      zoom: {
+        enabled: true
+      },
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 600
+      }
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 3
+    },
+    markers: {
+      size: 5,
+      hover: {
+        size: 7
+      }
+    },
+    xaxis: {
+      categories: dates,
+      labels: {
+        rotate: -45,
+        rotateAlways: false,
+        hideOverlappingLabels: true,
+        style: {
+          fontSize: '12px'
+        }
+      },
+      title: {
+        text: 'Date Applied',
+        style: {
+          fontSize: '13px',
+          fontWeight: 500
+        }
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Number of Applicants',
+        style: {
+          fontSize: '13px',
+          fontWeight: 500
+        }
+      },
+      min: 0,
+      forceNiceScale: true,
+      labels: {
+        formatter: function (val) {
+          return Math.floor(val);
+        }
+      }
+    },
+    tooltip: {
+      x: {
+        formatter: function (val, opts) {
+          return 'Date: ' + opts.w.globals.categoryLabels[opts.dataPointIndex];
+        }
+      },
+      y: {
+        formatter: function (val) {
+          return val + ' applicant(s)';
+        }
+      }
+    },
+    grid: {
+      borderColor: '#e9ecef',
+      strokeDashArray: 4
+    },
+    colors: ['#0d6efd'],
+    dataLabels: {
+      enabled: false
+    },
+    responsive: [
+      {
+        breakpoint: 576,
+        options: {
+          chart: {
+            height: 280
           },
-          style: {
-            fontSize: '13px',
-            fontFamily: 'Inter',
-            colors: labelColor
-          }
-        }
-      },
-      states: {
-        hover: {
-          filter: {
-            type: 'none'
-          }
-        },
-        active: {
-          filter: {
-            type: 'none'
-          }
-        }
-      },
-      responsive: [
-        {
-          breakpoint: 1500,
-          options: {
-            plotOptions: {
-              bar: {
-                columnWidth: '40%'
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 1200,
-          options: {
-            plotOptions: {
-              bar: {
-                columnWidth: '30%'
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 815,
-          options: {
-            plotOptions: {
-              bar: {
-                borderRadius: 5
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 768,
-          options: {
-            plotOptions: {
-              bar: {
-                borderRadius: 10,
-                columnWidth: '20%'
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 568,
-          options: {
-            plotOptions: {
-              bar: {
-                borderRadius: 8,
-                columnWidth: '30%'
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 410,
-          options: {
-            plotOptions: {
-              bar: {
-                columnWidth: '50%'
-              }
+          xaxis: {
+            labels: {
+              rotate: -60
             }
           }
         }
-      ]
-    };
-  if (typeof weeklyOverviewChartEl !== undefined && weeklyOverviewChartEl !== null) {
-    const weeklyOverviewChart = new ApexCharts(weeklyOverviewChartEl, weeklyOverviewChartConfig);
-    weeklyOverviewChart.render();
-  }
+      }
+    ]
+  };
 
-  // Total Profit line chart
-  // --------------------------------------------------------------------
-  const totalProfitLineChartEl = document.querySelector('#totalProfitLineChart'),
-    totalProfitLineChartConfig = {
-      chart: {
-        height: 90,
-        type: 'line',
-        parentHeightOffset: 0,
-        toolbar: {
-          show: false
-        }
-      },
-      grid: {
-        borderColor: labelColor,
-        strokeDashArray: 6,
-        xaxis: {
-          lines: {
-            show: true
-          }
-        },
-        yaxis: {
-          lines: {
-            show: false
-          }
-        },
-        padding: {
-          top: -15,
-          left: -7,
-          right: 9,
-          bottom: -15
-        }
-      },
-      colors: [config.colors.primary],
-      stroke: {
-        width: 3
-      },
-      series: [
-        {
-          data: [0, 20, 5, 30, 15, 45]
-        }
-      ],
-      tooltip: {
-        shared: false,
-        intersect: true,
-        x: {
-          show: false
-        }
-      },
-      xaxis: {
-        labels: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        axisBorder: {
-          show: false
-        }
-      },
-      yaxis: {
-        labels: {
-          show: false
-        }
-      },
-      tooltip: {
-        enabled: false
-      },
-      markers: {
-        size: 6,
-        strokeWidth: 3,
-        strokeColors: 'transparent',
-        strokeWidth: 3,
-        colors: ['transparent'],
-        discrete: [
-          {
-            seriesIndex: 0,
-            dataPointIndex: 5,
-            fillColor: cardColor,
-            strokeColor: config.colors.primary,
-            size: 6,
-            shape: 'circle'
-          }
-        ],
-        hover: {
-          size: 7
-        }
-      },
-      responsive: [
-        {
-          breakpoint: 1350,
-          options: {
-            chart: {
-              height: 80
-            }
-          }
-        },
-        {
-          breakpoint: 1200,
-          options: {
-            chart: {
-              height: 100
-            }
-          }
-        },
-        {
-          breakpoint: 768,
-          options: {
-            chart: {
-              height: 110
-            }
-          }
-        }
-      ]
-    };
-  if (typeof totalProfitLineChartEl !== undefined && totalProfitLineChartEl !== null) {
-    const totalProfitLineChart = new ApexCharts(totalProfitLineChartEl, totalProfitLineChartConfig);
-    totalProfitLineChart.render();
-  }
+  const chart = new ApexCharts(document.querySelector('#applicants-chart'), options);
+  chart.render();
+});
 
-  // Sessions Column Chart
-  // --------------------------------------------------------------------
-  const sessionsColumnChartEl = document.querySelector('#sessionsColumnChart'),
-    sessionsColumnChartConfig = {
-      chart: {
-        height: 90,
-        parentHeightOffset: 0,
-        type: 'bar',
-        toolbar: {
-          show: false
-        }
-      },
-      tooltip: {
-        enabled: false
-      },
-      plotOptions: {
-        bar: {
-          barHeight: '100%',
-          columnWidth: '20px',
-          startingShape: 'rounded',
-          endingShape: 'rounded',
-          borderRadius: 4,
-          colors: {
-            ranges: [
-              {
-                from: 25,
-                to: 32,
-                color: config.colors.danger
-              },
-              {
-                from: 60,
-                to: 75,
-                color: config.colors.primary
-              },
-              {
-                from: 45,
-                to: 50,
-                color: config.colors.danger
-              },
-              {
-                from: 35,
-                to: 42,
-                color: config.colors.primary
-              }
-            ],
-            backgroundBarColors: [chartBgColor, chartBgColor, chartBgColor, chartBgColor, chartBgColor],
-            backgroundBarRadius: 4
-          }
-        }
-      },
-      grid: {
-        show: false,
-        padding: {
-          top: -10,
-          left: -10,
-          bottom: -15
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      legend: {
-        show: false
-      },
-      xaxis: {
-        labels: {
-          show: false
-        },
-        axisTicks: {
-          show: false
-        },
-        axisBorder: {
-          show: false
-        }
-      },
-      yaxis: {
-        labels: {
-          show: false
-        }
-      },
-      series: [
-        {
-          data: [30, 70, 50, 40, 60]
-        }
-      ],
-      responsive: [
-        {
-          breakpoint: 1350,
-          options: {
-            chart: {
-              height: 80
+$(document).ready(function () {
+  const STATUS_CONFIG = {
+    apply: { label: 'Applied', color: '#0d6efd', countEl: '#count-applied' },
+    shortlist: { label: 'Shortlisted', color: '#ffc107', countEl: '#count-shortlisted' },
+    accepted: { label: 'Accepted', color: '#198754', countEl: '#count-accepted' },
+    rejected: { label: 'Rejected', color: '#dc3545', countEl: '#count-rejected' }
+  };
+
+  const ORDER = ['apply', 'shortlist', 'accepted', 'rejected'];
+
+  // Build a keyed map from the Laravel data
+  const dataMap = {};
+  $.each(statusData, function (_, item) {
+    dataMap[item.status] = parseInt(item.total);
+  });
+
+  // Populate stat cards
+  $.each(ORDER, function (_, key) {
+    const count = dataMap[key] || 0;
+    $(STATUS_CONFIG[key].countEl).text(count);
+  });
+
+  const series = ORDER.map(function (key) {
+    return dataMap[key] || 0;
+  });
+  const labels = ORDER.map(function (key) {
+    return STATUS_CONFIG[key].label;
+  });
+  const colors = ORDER.map(function (key) {
+    return STATUS_CONFIG[key].color;
+  });
+  const total = series.reduce(function (a, b) {
+    return a + b;
+  }, 0);
+
+  const options = {
+    series: series,
+    labels: labels,
+    colors: colors,
+    chart: {
+      type: 'donut',
+      height: 380,
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 700
+      }
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '68%',
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontSize: '15px',
+              fontWeight: 600,
+              offsetY: -6
             },
-            plotOptions: {
-              bar: {
-                columnWidth: '40%'
+            value: {
+              show: true,
+              fontSize: '28px',
+              fontWeight: 700,
+              offsetY: 6,
+              formatter: function (val) {
+                return val;
               }
-            }
-          }
-        },
-        {
-          breakpoint: 1200,
-          options: {
-            chart: {
-              height: 100
             },
-            plotOptions: {
-              bar: {
-                columnWidth: '20%'
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 768,
-          options: {
-            chart: {
-              height: 110
-            },
-            plotOptions: {
-              bar: {
-                columnWidth: '10%'
-              }
-            }
-          }
-        },
-        {
-          breakpoint: 480,
-          options: {
-            plotOptions: {
-              bar: {
-                columnWidth: '20%'
+            total: {
+              show: true,
+              label: 'Total',
+              fontSize: '14px',
+              fontWeight: 500,
+              color: '#6c757d',
+              formatter: function () {
+                return total;
               }
             }
           }
         }
-      ]
-    };
-  if (typeof sessionsColumnChartEl !== undefined && sessionsColumnChartEl !== null) {
-    const sessionsColumnChart = new ApexCharts(sessionsColumnChartEl, sessionsColumnChartConfig);
-    sessionsColumnChart.render();
-  }
-})();
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function (val) {
+        return val.toFixed(1) + '%';
+      },
+      dropShadow: { enabled: false }
+    },
+    legend: {
+      position: 'bottom',
+      horizontalAlign: 'center',
+      fontSize: '13px',
+      markers: { width: 10, height: 10, radius: 2 },
+      itemMargin: { horizontal: 12, vertical: 6 }
+    },
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+          return val + ' applicant(s) (' + pct + '%)';
+        }
+      }
+    },
+    stroke: {
+      width: 2
+    },
+    responsive: [
+      {
+        breakpoint: 576,
+        options: {
+          chart: { height: 320 },
+          legend: { position: 'bottom' }
+        }
+      }
+    ]
+  };
+
+  const chart = new ApexCharts(document.querySelector('#status-chart'), options);
+  chart.render();
+});

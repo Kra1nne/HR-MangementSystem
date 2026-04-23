@@ -1,15 +1,6 @@
 {
   "menu": [
     {
-      "url": "/dashboard",
-      "name": "Dashboards",
-      "icon": "menu-icon tf-icons ri-home-smile-line",
-      "slug": "dashboard-analytics"
-    },
-    {
-      "menuHeader": "Components"
-    },
-    {
       "url": "/attendance/user",
       "name": "DTR",
       "icon": "menu-icon tf-icons ri-list-radio",

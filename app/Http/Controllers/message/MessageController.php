@@ -4,6 +4,7 @@ namespace App\Http\Controllers\message;
 
 use App\Http\Controllers\Controller;
 use App\Mail\MessageMail;
+use App\Models\DepartmentEmployee;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -58,7 +59,7 @@ class MessageController extends Controller
             ->pluck('users.email') 
             ->toArray();
 
-         $data = [
+        $data = [
             'name' => 'Employee',
             'title' => $request->messageTitle,
             'description' => $request->messageContent
@@ -82,6 +83,35 @@ class MessageController extends Controller
     }
     public function broadcastMessageDepartment(Request $request)
     {
-        return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
+        $emails = DepartmentEmployee::leftjoin('employees', 'employees.emp_no', '=', 'department_employees.emp_no')
+            ->leftjoin('persons', 'persons.id', '=', 'employees.person_id')
+            ->leftjoin('users', 'users.person_id', '=', 'persons.id')
+            ->where('department_employees.dept_no', $request->id)
+            ->whereNull('department_employees.to_date')
+            ->pluck('users.email')
+            ->toArray();
+            
+        $data = [
+            'name' => 'Employee',
+            'title' => $request->messageTitle,
+            'description' => $request->messageContent
+        ];
+        
+        try {
+            Mail::bcc($emails)->send(new MessageMail($data));
+
+            return response()->json([
+                'Error' => 0,
+                'Message' => 'Message successfully sent'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'Error' => 1,
+                'Message' => 'Failed to send message',
+                'Details' => $e->getMessage()
+            ]);
+        }
+            
+        return response()->json(['Error' => 0, 'Message' => $emmail]);
     }
 }

@@ -5,7 +5,7 @@
     @vite('resources/assets/js/face.js')
 @endsection
 @section('content')
-    <main class="container">
+    <main class="">
         <div class="mt-5 text-center top-0">
             <div class="d-flex justify-content-start mb-2"><a href="{{ route('attendance-user') }}"
                     class="btn btn-primary btn-sm">Back</a>

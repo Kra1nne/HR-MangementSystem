@@ -89,7 +89,7 @@
                             <div class="col-12 col-md-6">
                                 <p class="text-muted small mb-1">Email</p>
                                 <p class="fw-semibold small mb-0 text-primary" id="employeeEmail">
-                                    {{ $data->person->user->email }}
+                                    {{ $data->person->user->email ?? ' ' }}
                                 </p>
                             </div>
 

@@ -223,8 +223,10 @@ $(function () {
   let action;
   $('body').on('click', '#MessageAll', function () {
     const department = $(this).data('department');
+    const dept_no = $(this).data('dept_no');
+
     $('#action').val('everyone');
-    $('#idEmployee').val(0);
+    $('#idEmployee').val(dept_no);
     $('#messageRecipents').val(department + ' Employees');
     action = 'everyone';
   });
@@ -284,12 +286,40 @@ $(function () {
         }
       });
     } else {
-      console.log('Ongoing');
+      $.ajax({
+        url: '/message-broadcast-department/sent',
+        method: 'POST',
+        data: $('#EmployeeMessageData').serialize(),
+        cache: false,
+        beforeSend: function () {
+          $('#Modal').modal('hide');
+          $('.preloader').show();
+        },
+        success: function (data) {
+          $('.preloader').hide();
+          if (data.Error == 1) {
+            Swal.fire('Error!', data.Message, 'error');
+          } else if (data.Error == 0) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Saved!',
+              text: data.Message,
+              showConfirmButton: true,
+              confirmButtonText: 'OK'
+            }).then(result => {
+              location.reload();
+            });
+          }
+        },
+        error: function () {
+          $('.preloader').hide();
+          Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+        }
+      });
     }
   });
 });
-
-// adding a manager in department
 
 $(function () {
   $(document).on('click', '#btnAddManager', function () {

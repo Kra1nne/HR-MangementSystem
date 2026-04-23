@@ -3,7 +3,7 @@
 @section('title', 'DTR')
 
 @section('content')
-    <main class="container mt-5">
+    <main class="mt-5">
         <section class="row g-4">
             <!-- Total Employees -->
             <div class="col-12 col-lg-3 col-md-6">
@@ -59,7 +59,6 @@
                 </div>
             </div>
 
-            <!-- On Leave -->
             <div class="col-12 col-lg-3 col-md-6">
                 <div class="card border-0 border-start border-primary border-4 shadow-sm h-100"
                     style="transition: all 0.3s ease;"

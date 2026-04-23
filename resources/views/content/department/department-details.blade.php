@@ -146,7 +146,8 @@
 
                             <div class="d-flex justify-content-center align-items-center px-5" id="options">
                                 <a class="text-success" href="javascript:void(0)" data-bs-target="#Modal"
-                                    data-department="{{ $departmentDetails->dept_name }}" id="MessageAll"
+                                    data-department="{{ $departmentDetails->dept_name }}"
+                                    data-dept_no="{{ $departmentDetails->dept_no }}" id="MessageAll"
                                     data-bs-toggle="modal">
                                     <i class="icon-base ri ri-megaphone-line icon-18px me-1"></i>
                                 </a>

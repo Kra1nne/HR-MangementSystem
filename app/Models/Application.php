@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
@@ -36,5 +37,14 @@ class Application extends Model
     public function jobposting()
     {
         return $this->belongsTo(JobPosting::class, 'job_id', 'id');
+    }
+    public function statusBadge(): string
+    {
+        return match($this->status) {
+            'accepted' => 'badge bg-label-success',
+            'apply' => 'badge bg-label-primary',
+            'shortlist' => 'badge bg-label-info',
+            default => 'badge bg-label-danger'
+        };
     }
 }

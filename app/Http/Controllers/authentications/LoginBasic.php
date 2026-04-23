@@ -49,6 +49,9 @@ class LoginBasic extends Controller
       Log::insert($logData);
       Auth::login($account);      
 
+      if(Auth::user()->role == 'Employee'){
+        return redirect()->route('attendance-user')->with('success', 'Successfully login');
+      }
       return redirect()->route('dashboard-analytics')->with('success', 'Successfully login');
   }
   public function logoutAccount(Request $request) : RedirectResponse
