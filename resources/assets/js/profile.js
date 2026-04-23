@@ -202,3 +202,125 @@ $(function () {
     });
   });
 });
+
+$(function () {
+  $('body').on('click', '#deleteExperience', function () {
+    const id = $(this).data('id');
+    Swal.fire({
+      title: 'Delete Experience?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed)
+        $.ajax({
+          type: 'POST',
+          url: '/profile/experience/delete',
+          cache: false,
+          data: {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            id: id
+          },
+          dataType: 'json',
+          beforeSend: function () {
+            $('.preloader').show();
+          },
+          success: function (data) {
+            $('.preloader').hide();
+            if (data.Error == 1) {
+              Swal.fire('Error!', data.Message, 'error');
+            } else if (data.Error == 0) {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Saved!',
+                text: data.Message,
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+              }).then(result => {
+                location.reload();
+              });
+            }
+          },
+          error: function () {
+            $('.preloader').hide();
+            Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+          }
+        });
+    });
+  });
+});
+
+$(function () {
+  $('body').on('click', '#editExperience', function () {
+    const emp_no = $(this).data('emp_no');
+    const id = $(this).data('id');
+    const company = $(this).data('company');
+    const position = $(this).data('position');
+    const salary = $(this).data('salary');
+    const start = $(this).data('start');
+    const end = $(this).data('end');
+    const description = $(this).data('description');
+
+    $('#Edit_emp_no').val(emp_no);
+    $('#Edit_id').val(id);
+    $('#Edit_company').val(company);
+    $('#Edit_position').val(position);
+    $('#Edit_salary').val(salary);
+    $('#Edit_start').val(start);
+    $('#Edit_end').val(end);
+    $('#Edit_description').val(description);
+  });
+
+  $('body').on('click', '#btnExperienceEdit', function () {
+    const fields = [
+      { id: 'Edit_company', label: 'Company' },
+      { id: 'Edit_position', label: 'Position' },
+      { id: 'Edit_salary', label: 'Salary' },
+      { id: 'Edit_start', label: 'Start employment date' },
+      { id: 'Edit_end', label: 'End employment date' },
+      { id: 'Edit_description', label: 'Description' }
+    ];
+    const isValid = validateForm(fields);
+
+    if (!isValid) {
+      return;
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: '/profile/experience/update',
+      cache: false,
+      data: $('#EmployeeExperienceDataEdit').serialize(),
+      dataType: 'json',
+      beforeSend: function () {
+        $('#ModalEditExperience').modal('hide');
+        $('.preloader').show();
+      },
+      success: function (data) {
+        $('.preloader').hide();
+        if (data.Error == 1) {
+          Swal.fire('Error!', data.Message, 'error');
+        } else if (data.Error == 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Saved!',
+            text: data.Message,
+            showConfirmButton: true,
+            confirmButtonText: 'OK'
+          }).then(result => {
+            location.reload();
+          });
+        }
+      },
+      error: function () {
+        $('.preloader').hide();
+        Swal.fire('Error!', 'Something went wrong, please try again.', 'error');
+      }
+    });
+  });
+});

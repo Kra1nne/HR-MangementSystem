@@ -219,22 +219,47 @@
                                             style="position:absolute; left:0; top:1px; width:12px; height:12px; background:#0d6efd; border-radius:50%;">
                                         </div>
 
-                                        <div class=" p-3 bg-white">
-                                            <div class="d-flex justify-content-between">
-                                                <h6 class="mb-1 fw-bold">{{ $item->company }}</h6>
-                                                <small class="text-muted">{{ date('Y M', strtotime($item->start_date)) }}
-                                                    -
-                                                    {{ date('Y M', strtotime($item->to_date)) }}</small>
+                                        <div class="p-3"
+                                            style="background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-right: 3px solid #378ADD; border-radius: 0.5rem;">
+
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <h6 class="mb-0 fw-bold">{{ $item->company }}</h6>
+                                                <small class="text-muted">
+                                                    {{ date('Y M', strtotime($item->start_date)) }} –
+                                                    {{ date('Y M', strtotime($item->to_date)) }}
+                                                </small>
                                             </div>
 
                                             <p class="mb-1 small text-muted">{{ $item->position }}</p>
-                                            <p class="mb-1 small text-muted">₱{{ number_format($item->salary, 2) }}</p>
-                                            <p class="mb-2 small">{{ $item->description }}</p>
 
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="text-primary"><i class="ri-edit-2-line"></i></a>
-                                                <a href="#" class="text-danger"><i
-                                                        class="ri-delete-bin-line"></i></a>
+                                            <div class="mb-2">
+                                                <span class="badge rounded-pill"
+                                                    style="background: #e6f1fb; color: #185fa5; font-size: 12px; font-weight: 500;">
+                                                    ₱{{ number_format($item->salary, 2) }} / mo
+                                                </span>
+                                            </div>
+
+                                            <p class="mb-2 small" style="line-height: 1.6;">{{ $item->description }}</p>
+
+                                            <div class="d-flex gap-2"
+                                                style="border-top: 0.5px solid rgba(0,0,0,0.08); padding-top: 8px;">
+                                                <a id="editExperience" data-bs-toggle="modal"
+                                                    data-bs-target="#ModalEditExperience" data-id="{{ $item->id }}"
+                                                    data-emp_no={{ $employee_id }} data-company="{{ $item->company }}"
+                                                    data-salary="{{ $item->salary }}"
+                                                    data-position="{{ $item->position }}"
+                                                    data-end="{{ $item->to_date }}" data-start="{{ $item->start_date }}"
+                                                    data-description="{{ $item->description }}" href="javascript:void(0)"
+                                                    class="text-primary d-flex align-items-center gap-1"
+                                                    style="font-size: 13px;">
+                                                    <i class="ri-edit-2-line"></i> Edit
+                                                </a>
+                                                <a href="javascript:void(0)" id="deleteExperience"
+                                                    data-id="{{ $item->id }}"
+                                                    class="text-danger d-flex align-items-center gap-1"
+                                                    style="font-size: 13px;">
+                                                    <i class="ri-delete-bin-line"></i> Delete
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -340,6 +365,66 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="btnExperience">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalEditExperience" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary pb-4">
+                    <h5 class="modal-title text-white" id="modalCenterTitle">Add Experience</h5>
+                </div>
+                <form class="modal-body" id="EmployeeExperienceDataEdit">
+                    @csrf
+                    <input type="text" name="emp_no" id="Edit_emp_no" hidden>
+                    <input type="text" name="id" id="Edit_id" hidden>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="company" class="form-label">Company</label>
+                            <input id="Edit_company" name="company" class="form-control form-control-sm" type="text"
+                                placeholder="Enter the Company" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="position" class="form-label">Position</label>
+                            <input id="Edit_position" name="position" class="form-control form-control-sm"
+                                type="text" placeholder="Enter the employee position" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="salary" class="form-label">Salary</label>
+                            <input id="Edit_salary" name="salary" class="form-control form-control-sm" type="number"
+                                placeholder="Enter the employee monthly salary" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="start" class="form-label">Start Date</label>
+                            <input id="Edit_start" name="start" class="form-control form-control-sm" type="date"
+                                placeholder="Enter the employment date start" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="end" class="form-label">End Date</label>
+                            <input id="Edit_end" name="end" class="form-control form-control-sm" type="date"
+                                placeholder="Enter the employee employment date end" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-2">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control h-px-100" id="Edit_description" name="description"
+                                placeholder="Enter job description..."></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnExperienceEdit">Submit</button>
                 </div>
             </div>
         </div>

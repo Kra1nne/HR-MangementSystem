@@ -66,4 +66,36 @@ class ProfileController extends Controller
 
         return response()->json(['Error' => 0, 'Message' => 'Successfully add the experience']);
     }
+    public function deleteExperience(Request $request){
+        $result = EmployeeHistory::where('id', $request->id)->delete();
+
+        if(!$result){
+            return response()->json(['Error' => 0, 'Message' => 'Unabale to delete a experience']);
+        }
+
+        return response()->json(['Error' => 0, 'Message' => 'Successfully deleted the experience']);
+    }
+    public function updateExperience(Request $request){
+
+        if($request->start > $request->end || $request->start > now()->toDateString() || $request->end > now()->toDateString()){
+            return response()->json(['Error' => 1, 'Message' => 'Unable to add, error date']);
+        }
+        $data = [
+            'emp_no' => Crypt::decryptString($request->emp_no),
+            'company' => $request->company,
+            'position' => $request->position,
+            'salary' => $request->salary,
+            'description' => $request->description,
+            'start_date' => $request->start, 
+            'to_date' => $request->end
+        ];
+
+         $result = EmployeeHistory::where('id', $request->id)->update($data);
+
+        if(!$result){
+            return response()->json(['Error' => 0, 'Message' => 'Unabale to add a experience']);
+        }
+
+        return response()->json(['Error' => 0, 'Message' => 'Successfully add the experience']);
+    }
 }
