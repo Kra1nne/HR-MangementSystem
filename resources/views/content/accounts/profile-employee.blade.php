@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Department Employee')
+@section('title', 'Employee Profile')
 
 
 @section('page-script')

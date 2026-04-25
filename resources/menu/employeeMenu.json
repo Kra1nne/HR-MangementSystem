@@ -5,6 +5,12 @@
       "name": "DTR",
       "icon": "menu-icon tf-icons ri-list-radio",
       "slug": "attendance-user"
+    },
+    {
+      "url": "/profile",
+      "name": "Profile",
+      "icon": "menu-icon tf-icons ri-profile-line",
+      "slug": "profile-employee"
     }
   ]
 }

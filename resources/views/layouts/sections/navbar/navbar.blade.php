@@ -78,7 +78,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
                 <li>
-                    <a class="dropdown-item" href="{{ route('pages-account-settings-account') }}">
+                    <a class="dropdown-item" href="#">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0 me-2">
                                 <div class="avatar avatar-online">

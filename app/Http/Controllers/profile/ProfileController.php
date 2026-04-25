@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 
@@ -23,7 +24,6 @@ class ProfileController extends Controller
             ['name' => 'Employee Details'],
         ];
         $employee_id = $id;
-        //dd($data);
         return view('content.accounts.profile', compact('data', 'employee_id', 'breadcrumbs'));
     }
     public function profileDepartment($id)
@@ -42,6 +42,22 @@ class ProfileController extends Controller
         $employee_id = $id;
 
         return view('content.accounts.profile-department', compact('data', 'employee_id', 'breadcrumbs'));
+    }
+    public function EmployeeProfile()
+    {
+        $user = Auth::user();
+        $id = $user->person->employee->emp_no;
+
+        $data = Employee::with(['person.user', 'latestSalary', 'latestTitle', 'latestDepartment.department', 'histories'])
+            ->where('emp_no', $id)
+            ->first();
+
+        $breadcrumbs = [
+            ['name' => 'Profile']
+        ];
+        $employee_id = $id;
+        
+        return view('content.accounts.profile-employee', compact('data', 'employee_id', 'breadcrumbs'));
     }
     public function addExperience(Request $request)
     {

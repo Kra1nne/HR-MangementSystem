@@ -149,84 +149,222 @@
                         HR solutions for your organization.
                     </p>
                 </div>
+                <div class="swiper teamSwiper py-3">
+                    <div class="swiper-wrapper">
 
-                <div class="row g-4">
-
-                    {{-- Team Member 1 --}}
-                    <div class="col-md-4">
-                        <div class="team-card">
-                            <div class="team-img-area" style="background:linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
-                                <img src="{{ asset('assets/img/teams/Ryan.png') }}" class="img-fluid cover mx-auto mx-lg-0">
-                            </div>
-                            <button class="arrow-btn" aria-label="View profile">&#8599;</button>
-                            <div class="team-info">
-                                <div class="team-name">Andrea M.</div>
-                                <div class="team-role">Founder &amp; CEO</div>
-                                <div class="team-desc">
-                                    Visionary leader with 12 years in HR tech and enterprise systems management.
+                        {{-- Team Member 1 --}}
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end" style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person7.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
                                 </div>
-                                <div>
-                                    <span class="social-btn">f</span>
-                                    <span class="social-btn">in</span>
-                                    <span class="social-btn">@</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Team Member 2 --}}
-                    <div class="col-md-4">
-                        <div class="team-card">
-                            <div class="team-img-area" style="background:linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
-                                <img src="{{ asset('assets/img/teams/Ryan.png') }}" class="img-fluid cover mx-auto mx-lg-0">
-                            </div>
-                            <button class="arrow-btn" aria-label="View profile">&#8599;</button>
-                            <div class="team-info">
-                                <div class="team-name">Carlo D.</div>
-                                <div class="team-role">Head of Engineering</div>
-                                <div class="team-desc">
-                                    Full-stack engineer architecting scalable, secure HR platforms since 2016.
-                                </div>
-                                <div>
-                                    <span class="social-btn">f</span>
-                                    <span class="social-btn">in</span>
-                                    <span class="social-btn">@</span>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Judy Cabarrubias</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {{-- Team Member 3 --}}
-                    <div class="col-md-4">
-                        <div class="team-card">
-                            <div class="team-img-area" style="background:linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
-                                <img src="{{ asset('assets/img/teams/Ryan.png') }}" class="img-fluid cover mx-auto mx-lg-0">
-                            </div>
-                            <button class="arrow-btn" aria-label="View profile">&#8599;</button>
-                            <div class="team-info">
-                                <div class="team-name">Sofia B.</div>
-                                <div class="team-role">HR Product Lead</div>
-                                <div class="team-desc">
-                                    Bridging HR expertise and product design to create tools people actually use.
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end" style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person1.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
                                 </div>
-                                <div>
-                                    <span class="social-btn">f</span>
-                                    <span class="social-btn">in</span>
-                                    <span class="social-btn">@</span>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Roiemartin Jauod</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Team Member 2 --}}
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end"
+                                    style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person2.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
+                                </div>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#185fa5 0%,#0d2d56 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Jennifer Lagua</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Team Member 3 --}}
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end"
+                                    style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person3.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
+                                </div>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Susan Garde</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Team Member 4 --}}
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end"
+                                    style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person4.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
+                                </div>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Lalaine Goma</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Team Member 5 --}}
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end"
+                                    style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person5.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
+                                </div>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Loujelyn Esaga</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Team Member 6 --}}
+                        <div class="swiper-slide">
+                            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="bg-white d-flex justify-content-center align-items-end"
+                                    style="height: 220px;">
+                                    <img src="{{ asset('assets/img/teams/Person6.png') }}" class="img-fluid"
+                                        style="max-height: 210px; object-fit: cover;">
+                                </div>
+                                <div class="card-body text-center py-4"
+                                    style="background: linear-gradient(135deg,#042c53 0%,#185fa5 100%);">
+                                    <h5 class="card-title fw-bold mb-1 text-white">Marlyn Cello</h5>
+                                    <p class="small fw-semibold mb-3 text-white-50">HR Management</p>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">f</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">in</a>
+                                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle fw-bold"
+                                            style="width:36px;height:36px;">@</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>{{-- /.row --}}
+                    <!-- Pagination -->
+                    <div class="swiper-pagination mt-4"></div>
 
-                <div class="text-center mt-5 d-flex gap-3 justify-content-center flex-wrap">
-                    <button class="btn-primary-c">Join Our Team</button>
+                    <!-- Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
+
 
             </div>
         </section>
 
     </main>
+    <script>
+        const swiper = new Swiper('.teamSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            grabCursor: true,
 
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            breakpoints: {
+                576: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                992: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+    </script>
 @endsection

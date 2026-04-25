@@ -48,6 +48,7 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
 
 Route::middleware(['auth', 'role:Admin,Employee,Hr,Manager', 'throttle:web'])->group(function () {
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
+  Route::get('/profile', [ProfileController::class, 'EmployeeProfile'])->name('profile-employee');
   Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile-index');
   Route::post('/profile/experience/add', [ProfileController::class, 'addExperience'])->name('profile-experience-add');
   Route::post('/profile/experience/delete', [ProfileController::class, 'deleteExperience'])->name('profile-experience-delete');

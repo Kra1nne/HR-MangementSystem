@@ -57,10 +57,17 @@ class AttendanceController extends Controller
         return view('content.attendance.attendance', compact('breadcrumbs', 'presentCount', 'totalEmployee', 'totalAbsent', 'Present', 'Absent', 'Unregister'));
     }
     public function userAttendance(){
-        $breadcrumbs = [
-            ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
-            ['name' => 'My Attendance'],
-        ];
+        if(Auth::user()->role == "Employee"){
+            $breadcrumbs = [
+                ['name' => 'My Attendance'],
+            ];
+        }else{
+            $breadcrumbs = [
+                ['name' => 'Dashboard', 'link' => route('dashboard-analytics')],
+                ['name' => 'My Attendance'],
+            ];
+        }
+       
         return view('content.attendance.my-attendance', compact('breadcrumbs'));
     }
     public function employeeAttendanceView($id){
