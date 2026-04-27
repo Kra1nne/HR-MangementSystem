@@ -45,6 +45,7 @@ class AttendanceController extends Controller
             ->leftjoin('departments', 'departments.dept_no', '=', 'department_employees.dept_no')
             ->whereNull('department_employees.to_date')
             ->whereNull('employees.face_descriptor')
+            ->whereNull('departments.dept_name')
             ->get();
         
         $presentCount = $Present->total();

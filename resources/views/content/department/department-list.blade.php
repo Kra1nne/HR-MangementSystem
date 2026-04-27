@@ -59,10 +59,10 @@
                 </div>
                 <form id="dataDepartment" class="modal-body">
                     @csrf
-                    <div class="row">
-                        <div class="col">
+                    <div class="row ">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
                             <label for="departmentIcon" class="form-label">Icon</label>
-                            <select name="departmentIcon" id="departmentIcon" class="form-select">
+                            <select name="departmentIcon" id="departmentIcon" class="form-select-sm">
                                 <option value="" selected disabled>Select Icon</option>
                                 <option value="ri-building-line">🏢</option>
                                 <option value="ri-home-office-line">🏠</option>
@@ -110,9 +110,7 @@
                                 <option value="ri-calendar-line">📅</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col mt-2">
+                        <div class="col-lg-9 col-md-6 col-sm-6">
                             <label for="name" class="form-label">Department Name</label>
                             <input id="name" name="name" class="form-control form-control-sm" type="text"
                                 placeholder="Enter the department name" />

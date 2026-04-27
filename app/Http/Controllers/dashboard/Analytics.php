@@ -17,8 +17,7 @@ class Analytics extends Controller
       ->groupBy('applied_at')
       ->orderBy('applied_at')
       ->get();
-    $listOfApplicant = Application::where('status', '=', 'apply')
-      ->get();
+    $listOfApplicant = Application::all();
 
     $statusData = Application::selectRaw('status, count(*) as total')
         ->groupBy('status')

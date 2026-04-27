@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
     public function index(){
+      $isSearch = false;
       $employees = Employee::leftJoin('persons', 'persons.id', '=', 'employees.person_id')
         ->whereNull('employees.deleted_at')
         ->whereNotIn('employees.person_id', function ($query) {
@@ -36,7 +37,7 @@ class UserController extends Controller
         ->select('persons.*', 'users.*','users.id as user_id')
         ->get();
        
-      return view('content.accounts.users', compact('users', 'employees', 'breadcrumbs'));
+      return view('content.accounts.users', compact('users', 'employees', 'breadcrumbs', 'isSearch'));
     }
     public function store(Request $request){
 

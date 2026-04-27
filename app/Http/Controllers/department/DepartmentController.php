@@ -267,6 +267,15 @@ class DepartmentController extends Controller
         if(!$department){
             return response()->json(['Error' => 1, 'Message' => 'Unable to delete the department']);
         }
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Delete',
+            'table_name' => 'Departments',
+            'description' => 'Delete Department',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Department successfully deleted', 'Redirect' => route('department-list')]);
     }
 }

@@ -133,8 +133,8 @@
                                 method="get" class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
                                 <div class="input-group input-group-merge">
                                     <input type="text" name="search"
-                                        class="form-control-sm border-0 border-bottom w-100" placeholder="Search"
-                                        style="outline: none; box-shadow: none;"
+                                        class="form-control-sm border-0 border-bottom w-100"
+                                        placeholder="Search Employee ID" style="outline: none; box-shadow: none;"
                                         onmouseover="this.style.boxShadow='none'; this.style.outline='none';"
                                         onfocus="this.style.boxShadow='none'; this.style.outline='none';"
                                         aria-label="Search..." aria-describedby="basic-addon-search31" />
@@ -158,8 +158,8 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Employee ID</th>
                                         <th>Name</th>
+                                        <th>Employee ID</th>
                                         <th>Salary</th>
                                         <th>Position</th>
                                         <th>Hire Date</th>
@@ -169,11 +169,23 @@
                                 <tbody class="table-border-bottom-0">
                                     @forelse ($departmentEmployee as $item)
                                         <tr>
+                                            <td class="ps-3">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="rounded-circle bg-primary bg-opacity-25 text-white d-flex align-items-center justify-content-center fw-bold"
+                                                        style="width:42px;height:42px;flex-shrink:0;">
+                                                        {{ strtoupper(substr($item->person->firstname, 0, 1)) }}
+                                                        {{ strtoupper(substr($item->person->lastname, 0, 1)) }}
+                                                    </div>
+                                                    <div class="fw-semibold text-dark">
+                                                        {{ $item->person->firstname }}
+                                                        {{ $item->person->middlename }}
+                                                        {{ $item->person->lastname }}
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <span>{{ $item->emp_id }}</span>
                                             </td>
-                                            <td>{{ $item->person->firstname }} {{ $item->person->middlename[0] ?? '' }}
-                                                {{ $item->person->lastname }}</td>
                                             <td>
                                                 ₱ {{ number_format($item->latestSalary->salary, 2) }}
                                             </td>

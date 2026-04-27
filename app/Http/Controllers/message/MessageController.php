@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Mail\MessageMail;
 use App\Models\DepartmentEmployee;
 use App\Models\Employee;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
@@ -30,6 +32,16 @@ class MessageController extends Controller
         
         $result = Mail::to($userData->email)->send(new MessageMail($data));
 
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Mail',
+            'table_name' => 'None',
+            'description' => 'Message a employee/applicant',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
+
         if($result){
             return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
         }
@@ -49,6 +61,15 @@ class MessageController extends Controller
         
         $result = Mail::to($request->messageRecipents)->send(new MessageMail($data));
 
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Mail',
+            'table_name' => 'None',
+            'description' => 'Message a employee/applicant',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         if($result){
             return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
         }
@@ -79,6 +100,15 @@ class MessageController extends Controller
                 'Details' => $e->getMessage()
             ]);
         }
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Mail',
+            'table_name' => 'None',
+            'description' => 'Message a employee',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Message successfully sent']);
     }
     public function broadcastMessageDepartment(Request $request)
@@ -111,7 +141,15 @@ class MessageController extends Controller
                 'Details' => $e->getMessage()
             ]);
         }
-            
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Mail',
+            'table_name' => 'None',
+            'description' => 'Message a employee',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => $emmail]);
     }
 }

@@ -13,9 +13,11 @@
             <header class="mb-3 navbar-nav-right d-flex align-items-center px-3 mt-3">
                 <div class="navbar-nav align-items-start">
                     <div class="nav-item d-flex align-items-center">
-                        <i class="ri-search-line ri-22px me-1_5"></i>
-                        <input type="search" id="search" class="form-control border-0 shadow-none ps-1 ps-sm-2 ms-50"
-                            placeholder="Search..." aria-label="Search...">
+                        <input type="search" id="search" class="form-control-sm border-0 border-bottom w-100"
+                            placeholder="Search" style="outline: none; box-shadow: none;"
+                            onmouseover="this.style.boxShadow='none'; this.style.outline='none';"
+                            onfocus="this.style.boxShadow='none'; this.style.outline='none';" aria-label="Search..."
+                            aria-describedby="basic-addon-search31">
                     </div>
                 </div>
                 <div class="navbar-nav flex-row align-items-center ms-auto gap-5">
@@ -158,6 +160,7 @@
                                     <option value="Admin">Admin</option>
                                     <option value="Employee">Employee</option>
                                     <option value="Hr">Hr</option>
+                                    <option value="Manager">Manager</option>
                                 </select>
                                 <label for="exampleFormControlSelect1">Role</label>
                             </div>

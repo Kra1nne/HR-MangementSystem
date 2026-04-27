@@ -88,11 +88,6 @@
                                     <span class="badge {{ $item->jobStatus() }}">
                                         {{ ucfirst($item->status) }}
                                     </span>
-                                    @if ($item->status == 'open')
-                                        <span>
-                                            <span class="badge bg-primary">{{ $item->applicants->count() ?? 0 }}</span>
-                                        </span>
-                                    @endif
                                 </div>
                                 <h5 class="fw-bold">{{ $item->job_title }}</h5>
                                 <p class="text-muted small">
@@ -105,6 +100,14 @@
                                     <span class="badge bg-success-subtle text-success">{{ $item->dept_name }}</span>
                                     <span class="badge bg-light text-dark border">{{ $item->work_setup }}</span>
                                     <span class="badge bg-light text-dark border">{{ $item->employment_type }}</span>
+                                </div>
+                                <hr class="mt-4">
+                                <div class="d-flex flex-wrap gap-3">
+                                    <span class="text-muted small d-flex align-items-center gap-1"><i
+                                            class='ri ri-time-line'></i> {{ $item->created_at->diffForHumans() }}</span>
+                                    <span class="text-muted small d-flex align-items-center gap-1"><i
+                                            class='ri ri-user-line'></i> {{ $item->applicants->count() ?? 0 }}
+                                        applicants</span>
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,7 @@
                     class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
                     <div class="input-group input-group-merge">
                         <input type="text" name="search" class="form-control-sm border-0 border-bottom w-100"
-                            placeholder="Search" style="outline: none; box-shadow: none;"
+                            placeholder="Search Employee ID" style="outline: none; box-shadow: none;"
                             onmouseover="this.style.boxShadow='none'; this.style.outline='none';"
                             onfocus="this.style.boxShadow='none'; this.style.outline='none';" aria-label="Search..."
                             aria-describedby="basic-addon-search31" />

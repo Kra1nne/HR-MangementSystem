@@ -8,8 +8,10 @@ use App\Mail\ApplicationResponse;
 use App\Models\Application;
 use App\Models\ApplicationLog;
 use App\Models\Department;
+use App\Models\DepartmentEmployee;
 use App\Models\Employee;
 use App\Models\JobPosting;
+use App\Models\Log;
 use App\Models\Salary;
 use App\Models\Title;
 use Exception;
@@ -70,6 +72,16 @@ class JobController extends Controller
         if(!$result){
             return response()->json(['Error' => 0, 'Message' => 'Job failed to save']);
         }
+         $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Add',
+            'table_name' => 'JobPosting',
+            'description' => 'Add a job posting',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
+
         return response()->json(['Error' => 0, 'Message' => 'Successfully added the job']);
     }
     public function viewJob($id)
@@ -108,6 +120,17 @@ class JobController extends Controller
         if(!$result){
             return response()->json(['Error' => 1, 'Message' => 'Unable to updated the job']);
         }
+
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'JobPosting',
+            'description' => 'Update a job posting',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
+
         return response()->json(['Error' => 0, 'Message' => 'Successfully updated the job']);
     }
     public function deteleJob(Request $request){
@@ -116,6 +139,16 @@ class JobController extends Controller
         if(!$jobPosting){
             return response()->json(['Error' => 1, 'Message' => 'Unable to delete the job']);
         }
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Delete',
+            'table_name' => 'JobPosting',
+            'description' => 'Delete a job posting',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
+
         return response()->json(['Error' => 0, 'Message' => 'Successfully deleted the job draft', 'Redirect' => route('job-posting')]);
     }
     public function openJob(Request $request){
@@ -127,6 +160,16 @@ class JobController extends Controller
         if(!$jobPosting){
             return response()->json(['Error' => 0, 'Message' => 'Unable to open the job']);
         }
+
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'JobPosting',
+            'description' => 'Open a job posting',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Successfully open the job']);
     }
     public function closeJob(Request $request){
@@ -138,6 +181,16 @@ class JobController extends Controller
         if(!$jobPosting){
             return response()->json(['Error' => 0, 'Message' => 'Unable to close the job']);
         }
+
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'JobPosting',
+            'description' => 'Close a job posting',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Successfully close the job']);
     }
     public function jobApplicants($id, Request $request)
@@ -190,11 +243,13 @@ class JobController extends Controller
     }
     public function applicationAccepted(Request $request)
     {
-        $applicant = Application::with('candidate.person')
-            ->leftjoin('job_postings', 'job_postings.id', '=', 'applications.job_id')
+            
+        $applicant = Application::leftjoin('job_postings', 'job_postings.id', '=', 'applications.job_id')
+            ->leftjoin('candidates', 'candidates.application_id', '=' ,'applications.id')
+            ->leftjoin('persons', 'persons.id', '=', 'candidates.person_id')
             ->where('applications.id', $request->id)
             ->first();
-
+        
         $data = [
             'status' => 'accepted',
             'updated_at' => now()
@@ -202,7 +257,7 @@ class JobController extends Controller
 
         $result = Application::where('id', $request->id)->update($data);
         $mailContent = [
-            'name' => $applicant->candidate->person->full_name,
+            'name' => $applicant->firstname . ' '. $applicant->lastname,
             'email' => $request->email,
             'position' => $request->position,
             'response' => 'accepted',
@@ -210,8 +265,8 @@ class JobController extends Controller
         $mail = Mail::to($request->email)->send(new ApplicationResponse($mailContent));
 
         $dataEmployee = [
-            'person_id' => $applicant->candidate->person->id,
-            'emp_id' => 'EMP-'.now()->year.'-'.$applicant->candidate->person->id,
+            'person_id' => $applicant->person_id,
+            'emp_id' => 'EMP-'.now()->year.'-'. $applicant->person_id,
             'hire_date' => now()->toDateString(),
             'status' => $applicant->employment_type,
             'created_at' => now(),
@@ -228,13 +283,30 @@ class JobController extends Controller
             'title' => $applicant->position,
             'from_date' => now()
         ];
-
+        $dataDepartmentEmp = [
+            'emp_no' => $employee->id,
+            'dept_no' => $applicant->dept_no,
+            'status' => 'active',
+            'from_date' => now(),
+            'created_at' => now()
+        ];
+        $dept = DepartmentEmployee::insert($dataDepartmentEmp); 
         $title = Title::insert($dataTitle);
         $salary = Salary::insert($dataSalary);
 
-        if(!$result && !$mail && !$title && !$salary){
+        if(!$result && !$title && !$salary && !$dept){
             return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
         }
+
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'Applicants',
+            'description' => 'Accept a applicant',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Successfully accepted the applicant']);
     }
     public function applicationRejected(Request $request)
@@ -259,6 +331,15 @@ class JobController extends Controller
             return response()->json(['Error' => 1, 'Message' => 'Unable to accepted the applicant']);    
         }
 
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'Applicants',
+            'description' => 'Rejected a applicant',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Successfully rejected the applicant']);
     }
     public function applicationShorlist(Request $request)
@@ -274,6 +355,15 @@ class JobController extends Controller
             return response()->json(['Error' => 1, 'Message' => 'Unable to shortlist the applicant']);    
         }
 
+        $log = [
+            'user_id' => Auth::id(),
+            'action' => 'Update',
+            'table_name' => 'Applicants',
+            'description' => 'Shotlist a applicant',
+            'ip_address' => request()->ip(),
+            'created_at' => now(),
+        ];
+        Log::insert($log);
         return response()->json(['Error' => 0, 'Message' => 'Successfully shorlisted the applicant']);
     }
     public function applicantFeedback(Request $request)
@@ -344,6 +434,16 @@ class JobController extends Controller
             DB::transaction(function () use ($data) {
                 ApplicationLog::insert($data);
             });
+            
+            $log = [
+                'user_id' => Auth::id(),
+                'action' => 'Update',
+                'table_name' => 'Applicants',
+                'description' => 'Send the applicant a assessment',
+                'ip_address' => request()->ip(),
+                'created_at' => now(),
+            ];
+            Log::insert($log);
 
             return response()->json([
                 'Error' => 0,
