@@ -4,13 +4,14 @@ body {
   overflow: hidden;
 }
 
-/* ── RIGHT PANEL chess grid ── */
+/* RIGHT PANEL */
 .chess-panel {
   background-color: #0d1b2e;
   position: relative;
   overflow: hidden;
 }
 
+/* GRID */
 .chess-grid {
   position: absolute;
   inset: 0;
@@ -28,6 +29,7 @@ body {
   background: #1e3a5f;
 }
 
+/* OVERLAY */
 .chess-overlay {
   position: absolute;
   inset: 0;
@@ -35,35 +37,40 @@ body {
   z-index: 1;
 }
 
+/* LOGO CENTER */
 .chess-content {
+  position: absolute;
+  inset: 0;
   z-index: 5;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Stat cards */
-.stat-card {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-}
-
-.stat-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #93c5fd;
-  margin: 0 auto 8px;
+  padding: 40px;
+  text-align: center;
 }
 
-/* Form tweaks */
+/* GLASS BOX */
+.logo-box {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 28px 32px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+}
+
+/* LOGO */
+.chess-logo {
+  width: 400px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.chess-logo:hover {
+  transform: scale(1.05);
+}
+
+/* FORM */
 .form-control {
   border-radius: 8px;
   padding: 12px 14px;
@@ -76,6 +83,7 @@ body {
   box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.08);
 }
 
+/* BUTTONS */
 .btn-primary {
   background: #1a56db;
   border-color: #1a56db;
@@ -86,21 +94,15 @@ body {
 
 .btn-primary:hover {
   background: #1648c0;
-  border-color: #1648c0;
 }
 
 .btn-outline-secondary {
   border-radius: 8px;
   font-size: 13px;
   padding: 10px;
-  color: #374151;
-  border-color: #e5e7eb;
 }
 
-.btn-outline-secondary:hover {
-  background: #f9fafb;
-}
-
+/* DIVIDER */
 .divider-text {
   display: flex;
   align-items: center;
@@ -117,25 +119,7 @@ body {
   background: #e5e7eb;
 }
 
-.brand-icon {
-  width: 32px;
-  height: 32px;
-  background: #1a56db;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toggle-password {
-  background: none;
-  border: none;
-  color: #9ca3af;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
+/* MOBILE */
 @media (max-width: 768px) {
   .chess-panel {
     display: none !important;

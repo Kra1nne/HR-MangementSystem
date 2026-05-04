@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Laravel\Socialite\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Throwable;
 
 class LoginBasic extends Controller
 {
@@ -72,5 +73,33 @@ class LoginBasic extends Controller
     $request->session()->regenerateToken();
 
     return redirect()->route('login');
+  }
+
+  public function redirect()
+  {
+      return Socialite::driver('google')->redirect();
+  }
+  public function callback()
+  {
+      try {
+          $user = Socialite::driver('google')->user();
+      } catch (Throwable $e) {
+          return redirect('/')->with('error', 'Google authentication failed.');
+      }
+
+      $existingUser = User::where('email', $user->email)->first();
+
+      if ($existingUser) {
+          Auth::login($existingUser);
+      }else{
+        return back()->withErrors([
+            'login' => 'This Email is not register'
+        ])->withInput();
+      }
+
+      if(Auth::user()->role == 'Employee'){
+        return redirect()->route('attendance-user')->with('success', 'Successfully login');
+      }
+      return redirect()->route('dashboard-analytics')->with('success', 'Successfully login');
   }
 }

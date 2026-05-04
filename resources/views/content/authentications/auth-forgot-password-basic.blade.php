@@ -69,6 +69,14 @@
                 </div>
 
                 <div class="chess-overlay"></div>
+
+                <div class="chess-content">
+                    <div class="">
+                        <img src="{{ asset('assets/img/favicon/Logo_noBG.png') }}" class="chess-logo" alt="Logo">
+                        <h2 class="text-white fw-semibold mt-3 mb-1">VoxSync Workforce System</h2>
+                        <p class="text-light small mb-0">Simple. Secure. Fast.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

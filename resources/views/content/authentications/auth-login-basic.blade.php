@@ -5,6 +5,7 @@
 @section('page-style')
     @vite(['resources/assets/css/auth.css'])
 @endsection
+
 @section('content')
     <div class="container-fluid p-0 vh-100">
         <div class="row g-0 h-100">
@@ -16,6 +17,7 @@
                         <i class="ri-arrow-left-s-line"></i>Back
                     </a>
                 </div>
+
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center py-4">
                     <div class="my-auto w-100" style="max-width: 380px;">
                         <h1 class="fw-bold fs-3 mb-1">Welcome back.</h1>
@@ -29,18 +31,20 @@
                                     placeholder="Enter your email" value="{{ old('email_username') }}">
                                 <label for="email">Email</label>
                             </div>
+
+                            {{-- Password --}}
                             <div class="mb-5 form-password-toggle">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input type="password" id="password" value="{{ old('password') }}"
-                                            class="form-control" name="password"
-                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                            aria-describedby="password" />
+                                        <input type="password" id="password" class="form-control" name="password"
+                                            placeholder="••••••••••" value="{{ old('password') }}">
                                         <label for="password">Password</label>
                                     </div>
-                                    <span class="input-group-text cursor-pointer"><i
-                                            class="ri-eye-off-line ri-20px"></i></span>
+                                    <span class="input-group-text cursor-pointer">
+                                        <i class="ri-eye-off-line ri-20px"></i>
+                                    </span>
                                 </div>
+
                                 @if ($errors->any())
                                     <div class="text-danger mt-1 mb-2">
                                         {{ $errors->first() }}
@@ -48,7 +52,7 @@
                                 @endif
                             </div>
 
-                            {{-- Remember me & Forgot --}}
+                            {{-- Remember + Forgot --}}
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check mb-0">
                                     <input class="form-check-input" type="checkbox" id="remember-me" name="remember">
@@ -56,6 +60,7 @@
                                         Remember Me
                                     </label>
                                 </div>
+
                                 <a href="{{ url('forgot-password') }}" class="text-primary text-decoration-none fw-medium"
                                     style="font-size:13px;">
                                     Forgot Password?
@@ -65,7 +70,7 @@
                             {{-- Submit --}}
                             <div class="d-grid mb-4">
                                 <button class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                                    type="submit" id="loginBtn">
+                                    type="submit">
                                     Login
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2.5">
@@ -79,37 +84,24 @@
                         {{-- Divider --}}
                         <div class="divider-text mb-4">or</div>
 
-                        {{-- Social --}}
+                        {{-- Google --}}
                         <div class="row g-2 mb-4">
                             <div class="col-12">
-                                <a href="#"
+                                <a href="{{ route('auth.google.redirect') }}"
                                     class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2">
-                                    <svg width="16" height="16" viewBox="0 0 24 24">
-                                        <path
-                                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                                            fill="#4285F4" />
-                                        <path
-                                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                                            fill="#34A853" />
-                                        <path
-                                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                                            fill="#FBBC05" />
-                                        <path
-                                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                                            fill="#EA4335" />
-                                    </svg>
                                     Google
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
 
-            {{-- ── RIGHT: Decorative Panel ── --}}
-            <div class="col-md-6 chess-panel d-flex align-items-end p-5">
+            {{-- ── RIGHT: Chess Panel with Logo ── --}}
+            <div class="col-md-6 chess-panel">
 
-                {{-- Checkerboard --}}
+                {{-- Chess Grid --}}
                 <div class="chess-grid">
                     @php
                         $pattern = [[0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0]];
@@ -121,7 +113,17 @@
                     @endforeach
                 </div>
 
+                {{-- Overlay --}}
                 <div class="chess-overlay"></div>
+
+                {{-- LOGO CONTENT --}}
+                <div class="chess-content">
+                    <div class="">
+                        <img src="{{ asset('assets/img/favicon/Logo_noBG.png') }}" class="chess-logo" alt="Logo">
+                        <h2 class="text-white fw-semibold mt-3 mb-1">VoxSync Workforce System</h2>
+                        <p class="text-light small mb-0">Simple. Secure. Fast.</p>
+                    </div>
+                </div>
 
             </div>
         </div>

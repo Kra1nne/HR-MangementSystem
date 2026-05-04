@@ -44,6 +44,9 @@ Route::middleware(['guest', 'throttle:web'])->group(function () {
   Route::get('/new-password/{id}', [NewPasswordController::class, 'index'])->name('new-password');
   Route::post('/new-password/process', [NewPasswordController::class, 'newAccount'])->name('new-password-process');
 
+  Route::get('/auth/google/redirect', [LoginBasic::class, 'redirect'])->name('auth.google.redirect');
+  Route::get('/auth/google/callback', [LoginBasic::class, 'callback'])->name('auth.google.callback');
+
 });
 
 Route::middleware(['auth', 'role:Admin,Employee,Hr,Manager', 'throttle:web'])->group(function () {
