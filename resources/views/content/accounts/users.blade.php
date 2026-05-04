@@ -11,7 +11,7 @@
     <main class="mt-5">
         <div class="card">
             <header class="mb-3 navbar-nav-right d-flex align-items-center px-3 mt-3">
-                <div class="navbar-nav align-items-start">
+                <div class="d-flex nav-item align-items-start">
                     <div class="nav-item d-flex align-items-center">
                         <input type="search" id="search" class="form-control-sm border-0 border-bottom w-100"
                             placeholder="Search" style="outline: none; box-shadow: none;"
@@ -19,6 +19,7 @@
                             onfocus="this.style.boxShadow='none'; this.style.outline='none';" aria-label="Search..."
                             aria-describedby="basic-addon-search31">
                     </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Search</button>
                 </div>
                 <div class="navbar-nav flex-row align-items-center ms-auto gap-5">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAccount">

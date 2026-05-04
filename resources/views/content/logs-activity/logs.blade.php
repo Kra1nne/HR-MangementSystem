@@ -9,7 +9,7 @@
 
                 <!-- Search -->
                 <form action="{{ route('logs') }}" method="get"
-                    class="nav-item d-flex align-items-center gap-1 mb-2 mt-5 mb-md-0">
+                    class="nav-item d-flex align-items-center gap-1 mb-2 mb-md-0">
                     <div class="input-group input-group-merge">
                         <input type="text" name="search" class="form-control-sm border-0 border-bottom w-100"
                             placeholder="Search" style="outline: none; box-shadow: none;"
@@ -39,7 +39,8 @@
                         @forelse ($logsData as $item)
                             <tr>
                                 <td>
-                                    {{ $item->user->email }}
+                                    {{ $item->user->person->firstname }} {{ $item->user->person->middlename[0] ?? ' ' }}
+                                    {{ $item->user->person->lastname }}
                                 </td>
                                 <td>
                                     {{ $item->action }}

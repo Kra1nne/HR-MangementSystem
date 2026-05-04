@@ -62,7 +62,7 @@
                     <div class="row ">
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <label for="departmentIcon" class="form-label">Icon</label>
-                            <select name="departmentIcon" id="departmentIcon" class="form-select-sm">
+                            <select name="departmentIcon" id="departmentIcon" class="form-control form-control-sm">
                                 <option value="" selected disabled>Select Icon</option>
                                 <option value="ri-building-line">🏢</option>
                                 <option value="ri-home-office-line">🏠</option>

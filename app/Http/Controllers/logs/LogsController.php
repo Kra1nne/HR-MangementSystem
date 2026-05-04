@@ -17,7 +17,7 @@ class LogsController extends Controller
             ['name' => 'Accounts'],
         ];
 
-        $data = Log::with('user')->orderBy('id', 'desc');
+        $data = Log::with('user.person')->orderBy('id', 'desc');
 
         if($request->search){
             $isSearch = true;

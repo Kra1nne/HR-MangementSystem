@@ -26,8 +26,8 @@
                     <p class="mb-2" id="runningTime">00:00:00</p>
                     <a href="{{ route('attendance-check') }}" class="btn btn-sm btn-primary">Attendance</a>
                 </div>
-                <img src="{{ asset('assets/img/favicon/logo-removebg.png') }}"
-                    class="position-absolute bottom-0 end-0 me-5 mb-5" width="150" alt="view sales">
+                <img src="{{ asset('assets/img/favicon/clock.png') }}" class="position-absolute bottom-0 end-0 me-5 mb-5"
+                    width="150" alt="view sales">
             </div>
         </div>
         <!--/ Congratulations card -->
