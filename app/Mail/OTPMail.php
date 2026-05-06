@@ -19,7 +19,7 @@ class OTPMail extends Mailable
     public $mailData;
     public function __construct($mailData)
     {
-        return $this->mailData = $mailData;
+        $this->mailData = $mailData;
     }
 
     /**

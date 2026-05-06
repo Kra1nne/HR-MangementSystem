@@ -33,7 +33,7 @@ class JobPostingSeeder extends Seeder
                 'work_setup' => 'On-site',
                 'location' => 'Cebu, Philippines',
                 'status' => 'open',
-                'closing_date' => '2026-06-30',
+                'closing_date' => '2026-08-30',
                 'created_at' => now()
             ],
 
@@ -58,7 +58,7 @@ class JobPostingSeeder extends Seeder
                 'work_setup' => 'Hybrid',
                 'location' => 'Quezon City, Philippines',
                 'status' => 'draft',
-                'closing_date' => '2026-07-15',
+                'closing_date' => '2026-08-15',
                 'created_at' => now()
             ],
 
