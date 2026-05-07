@@ -223,6 +223,44 @@
                                 placeholder="Enter job requirements here..."></textarea>
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Post to Platforms</label>
+                            <div class="border rounded p-3">
+
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="postLinkedIn"
+                                        name="postLinkedIn">
+                                    <label class="form-check-label" for="postLinkedIn">
+                                        LinkedIn
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="postJobstreet"
+                                        name="postJobstreet">
+                                    <label class="form-check-label" for="postJobstreet">
+                                        JobStreet
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" id="postIndeed" name="postIndeed">
+                                    <label class="form-check-label" for="postIndeed">
+                                        Indeed
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="postKalibrr" name="postKalibrr">
+                                    <label class="form-check-label" for="postKalibrr">
+                                        Kalibrr
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
