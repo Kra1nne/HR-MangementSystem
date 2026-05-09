@@ -30,7 +30,7 @@ class ApplicantSeeder extends Seeder
             [
                 'job_id' => 1,
                 'status' => 'apply',
-                'email' => 'susangarde5@gmail.com',
+                'email' => 'ryancabarrubias10@gmail.com',
                 'applied_at' => '2026-04-26',
                 'created_at' => now(),
             ],

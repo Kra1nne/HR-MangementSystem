@@ -40,6 +40,12 @@ class UserController extends Controller
       return view('content.accounts.users', compact('users', 'employees', 'breadcrumbs', 'isSearch'));
     }
     public function store(Request $request){
+    
+    $duplicate = User::where('email', $request->email)->whereNull('deleted_at');
+
+    if($duplicate){
+      return response()->json(['Error' => 1, 'Message' => 'This email already been used.']);
+    }
 
     $user = [
       'email' => $request->email,
