@@ -152,16 +152,17 @@ class EmployeeController extends Controller
     {
         // employeeData->person_id
         // employeeData->emp_no
+        
         $employeeData = Employee::where('emp_no', $request->id)
             ->whereNull('to_date')
             ->whereNull('deleted_at')
             ->first();
-
+          
         // userData->id
         $userData = User::where('person_id', $employeeData->person_id)
             ->whereNull('deleted_at')
             ->first();
-
+ 
         // titleData->id
         $titleData = Title::where('emp_no', $request->id)
             ->whereNull('to_date')
@@ -200,13 +201,15 @@ class EmployeeController extends Controller
         ];
 
         $resultPerson = Person::where('id', $employeeData->person_id)->update($data);
-        $resultUser = User::where('id', $userData->id)->update($dataUser);
+        if($userData != null){
+            User::where('id', $userData->id)->update($dataUser);
+        }
         $resultEmployee = Employee::where('emp_no',$employeeData->emp_no )->update($dataEmployee);
         $resultSalary = Salary::where('id', $salaryData->id)->update($dataSalaryAndTitle);
         $resultTitle = Title::where('id',$titleData->id)->update($dataSalaryAndTitle);
         $resultDepartmentEmployee = DepartmentEmployee::where('id_no', $employeeDepartmentData->id_no)->update($dataDeptEmployee);
 
-        if($resultPerson && $resultEmployee && $resultUser && $resultDepartmentEmployee){
+        if($resultPerson && $resultEmployee && $resultDepartmentEmployee){
             return response()->json(['Error' => 0, 'Message' => 'Employee Successfully Deleted']);   
         }
     }
