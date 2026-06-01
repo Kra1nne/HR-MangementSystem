@@ -50,6 +50,18 @@
       ]
     },
     {
+      "url": "/payroll",
+      "name": "Payroll",
+      "icon": "menu-icon tf-icons ri-cash-line",
+      "slug": "payroll-employee"
+    },
+    {
+      "url": "/leave",
+      "name": "Leave",
+      "icon": "menu-icon tf-icons ri-file-info-line",
+      "slug": "leave-employee"
+    },
+    {
       "url": "/profile",
       "name": "Profile",
       "icon": "menu-icon tf-icons ri-profile-line",

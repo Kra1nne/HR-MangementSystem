@@ -58,6 +58,9 @@ Route::middleware(['auth', 'role:Admin,Employee,Hr,Manager', 'throttle:web'])->g
   Route::post('/profile/experience/update', [ProfileController::class, 'updateExperience'])->name('profile-experience-update');
   Route::get('/department/profile/{id}', [ProfileController::class, 'profileDepartment'])->name('department-profile-index');
 
+  Route::get('/payroll', [PayrollController::class, 'index'])->name('payroll-employee');
+  Route::get('/leave', [LeaveController::class, 'index'])->name('leave-employee');
+
   Route::get('/attendance/user', [AttendanceController::class, 'userAttendance'])->name('attendance-user');
   Route::get('/attendance/face-recognation', [AttendanceController::class, 'faceRecognation'])->name('attendance-check');
   Route::get('/employee-data', [AttendanceController::class, 'employeeData'])->name('employee-data-fetch');
